@@ -44,11 +44,18 @@ just the Plone Default skin::
     >>> context.getCurrentSkinName()
     'Plone Default'
 
+You can specify a different edit skin in the config.py file::
+
+    >>> from collective.editskinswitcher.config import EDIT_SKIN
+    >>> EDIT_SKIN == 'Plone Default'
+    True
+
+
 In these tests we need to manually switch the skin back to our
 default, which normally happens automatically when your browser makes
 a new request.
 
-    >>> context.changeSkin('Monty Python Skin')
+    >>> context.changeSkin('Monty Python Skin', TestRequest())
 
 Visitors on localhost still see our fabulous Monty Python Skin::
 

@@ -1,4 +1,5 @@
 from collective.editskinswitcher.utils import is_edit_url
+from collective.editskinswitcher.config import EDIT_SKIN
 
 
 def switch_skin(context, REQUEST=None):
@@ -6,5 +7,5 @@ def switch_skin(context, REQUEST=None):
     """
     url = REQUEST.getURL()
     if is_edit_url(url):
-        context.changeSkin('Plone Default', REQUEST)
+        context.changeSkin(EDIT_SKIN, REQUEST)
     return None
