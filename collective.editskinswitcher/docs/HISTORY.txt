@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 
 collective.editskinswitcher - 0.2 (Unreleased)
 
+    - Add a more readable README.txt and move the old one into the
+      tests directory as it contains most of our tests.
+      [maurits]
+
 
 collective.editskinswitcher - 0.1 (Released 25 January 2008)
 
