@@ -64,6 +64,10 @@ def is_edit_url(url):
     True
     >>> is_edit_url(u'http://google.com/')
     False
+    >>> is_edit_url(u'http://...////')
+    False
+    >>> is_edit_url(u'http://www.nothing.com//edit.nothing.com/')
+    False
 
     """
     if not isinstance(url, basestring):
