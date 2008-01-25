@@ -44,13 +44,6 @@ just the Plone Default skin::
     >>> context.getCurrentSkinName()
     'Plone Default'
 
-You can specify a different edit skin in the config.py file::
-
-    >>> from collective.editskinswitcher.config import EDIT_SKIN
-    >>> EDIT_SKIN == 'Plone Default'
-    True
-
-
 In these tests we need to manually switch the skin back to our
 default, which normally happens automatically when your browser makes
 a new request.
@@ -69,3 +62,16 @@ Any content editors that arrive via a url beginning with 'edit' (or
     >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
     >>> context.getCurrentSkinName()
     'Plone Default'
+
+You can specify a different edit skin in the portal properties::
+
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> portal_props = getToolByName(context, 'portal_properties')
+    >>> editskin_props = portal_props.get('editskin_switcher')
+    >>> edit_skin = editskin_props.getProperty('edit_skin')
+    >>> edit_skin
+    'Plone Default'
+    >>> editskin_props.edit_skin = 'Holy Grail'
+    >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
+    >>> context.getCurrentSkinName()
+    'Holy Grail'
