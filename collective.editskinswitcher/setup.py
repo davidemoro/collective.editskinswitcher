@@ -5,11 +5,14 @@ versionfile = open(os.path.join('collective', 'editskinswitcher', 'version.txt')
 version = versionfile.read().strip()
 versionfile.close()
 
+readmefile = open(os.path.join('collective', 'editskinswitcher', 'README.txt'))
+readme = readmefile.read().strip()
+readmefile.close()
+
 setup(name='collective.editskinswitcher',
       version=version,
-      description="Switch skins",
-      long_description="""\
-Switch skins based on e.g. urls or a cookie.""",
+      description="Switch to the edit skin for certain domains.""",
+      long_description=readme,
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
@@ -20,7 +23,7 @@ Switch skins based on e.g. urls or a cookie.""",
       keywords='',
       author='Maurits van Rees',
       author_email='m.van.rees@zestsoftware.nl',
-      url="''",
+      url="http://svn.plone.org/svn/collective/collective.editskinswitcher",
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['collective'],
