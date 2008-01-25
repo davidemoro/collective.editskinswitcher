@@ -2,7 +2,7 @@ Changelog for collective.editskinswitcher
 
     (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.1 Unreleased
+collective.editskinswitcher - 0.1 (Released 25 January 2008)
 
     - Add a property sheet editskin_switcher with property edit_skin.
       Default value: Plone Default.  Use that for determining which
