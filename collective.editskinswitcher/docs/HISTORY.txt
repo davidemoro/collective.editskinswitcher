@@ -4,6 +4,11 @@ Changelog for collective.editskinswitcher
 
 collective.editskinswitcher - 0.1 Unreleased
 
+    - Add a property sheet editskin_switcher with property edit_skin.
+      Default value: Plone Default.  Use that for determining which
+      skin to give to editors.
+      [maurits]
+
     - Initial package structure.
       [zopeskel]
 
