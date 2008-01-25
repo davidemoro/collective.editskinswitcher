@@ -1,13 +1,6 @@
 Skin Switcher
 =============
 
-Switches the skin to "Plone Default" when we are editing.  We are
-editing when our url is something like http://edit.domain.org/
-
-
-Testing
--------
-
 We rely on the getURL() method.  So we check that we can fool the test
 instance into believing it is on a different url::
 
