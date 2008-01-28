@@ -1,0 +1,23 @@
+Skin Switching based on URL
+===========================
+
+For testing purposes we have made a new default skin.  This
+entertaining skin is meant for visitors::
+
+    >>> context = portal
+    >>> context.getCurrentSkinName()
+    'Monty Python Skin'
+
+You can specify a different edit skin in the portal properties::
+
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> portal_props = getToolByName(context, 'portal_properties')
+    >>> editskin_props = portal_props.get('editskin_switcher')
+    >>> edit_skin = editskin_props.getProperty('edit_skin')
+    >>> edit_skin
+    'Plone Default'
+    >>> editskin_props.edit_skin = 'Holy Grail'
+    >>> from collective.editskinswitcher.tests.utils import TestRequest
+    >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
+    >>> context.getCurrentSkinName()
+    'Holy Grail'

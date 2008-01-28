@@ -1,21 +1,30 @@
 Changelog for collective.editskinswitcher
+=========================================
 
-    (name of developer listed in brackets)
+  (name of developer listed in brackets)
 
 collective.editskinswitcher - 0.2 (Unreleased)
+----------------------------------------------
 
-    - Add a more readable README.txt and move the old one into the
-      tests directory as it contains most of our tests.
-      [maurits]
+- In the base test cases, create the new default skin.
+  [maurits]
+
+- Split tests/setup.txt in two files for separating some unrelated
+  tests.
+  [maurits]
+
+- Add a more readable README.txt and move the old one into the
+  tests directory as it contains most of our tests.
+  [maurits]
 
 
 collective.editskinswitcher - 0.1 (Released 25 January 2008)
+------------------------------------------------------------
 
-    - Add a property sheet editskin_switcher with property edit_skin.
-      Default value: Plone Default.  Use that for determining which
-      skin to give to editors.
-      [maurits]
+- Add a property sheet editskin_switcher with property edit_skin.
+  Default value: Plone Default.  Use that for determining which
+  skin to give to editors.
+  [maurits]
 
-    - Initial package structure.
-      [zopeskel]
-
+- Initial package structure.
+  [zopeskel]

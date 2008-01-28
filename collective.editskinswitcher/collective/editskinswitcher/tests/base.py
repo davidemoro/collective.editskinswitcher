@@ -5,6 +5,8 @@ from Products.Five import zcml
 from Products.Five import fiveconfigure
 
 import collective.editskinswitcher
+from collective.editskinswitcher.tests.utils import new_default_skin
+
 
 @onsetup
 def setup_product():
@@ -17,13 +19,28 @@ def setup_product():
     # available in our test instance.
     ztc.installProduct('SiteAccess')
 
+
 class BaseTestCase(ptc.PloneTestCase):
     """Base class for test cases.
     """
 
+    def setUp(self):
+        super(BaseTestCase, self).setUp()
+        # Create new skin based on Plone Default and make this the
+        # default skin.
+        new_default_skin(self.portal)
+
+
 class BaseFunctionalTestCase(ptc.FunctionalTestCase):
     """Base class for test cases.
     """
+
+    def setUp(self):
+        super(BaseFunctionalTestCase, self).setUp()
+        # Create new skin based on Plone Default and make this the
+        # default skin.
+        new_default_skin(self.portal)
+
 
 setup_product()
 ptc.setupPloneSite(products=['collective.editskinswitcher'])

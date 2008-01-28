@@ -10,20 +10,9 @@ instance into believing it is on a different url::
     >>> TestRequest(SERVER_URL='http://edit.domain.org').getURL()
     'http://edit.domain.org'
 
-For testing purposes we make a new default skin.  We want to entertain
-the visitors of this site, so we make a Monty Python Skin.  We use a
-helper function here as the details are not interesting.
-
-    >>> from collective.editskinswitcher.tests.utils import new_default_skin
-    >>> context = portal
-    >>> context.getCurrentSkinName()
-    'Plone Default'
-    >>> new_default_skin(portal)
-    >>> context.getCurrentSkinName()
-    'Monty Python Skin'
-
 On localhost we show visitors the normal skin::
 
+    >>> context = portal
     >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
