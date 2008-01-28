@@ -1,8 +1,8 @@
-Skin Switching based on URL
-===========================
+Setup of Skin Switching
+=======================
 
 For testing purposes we have made a new default skin.  This
-entertaining skin is meant for visitors::
+entertaining skin is the default for visitors::
 
     >>> context = portal
     >>> context.getCurrentSkinName()
@@ -21,3 +21,27 @@ You can specify a different edit skin in the portal properties::
     >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
     >>> context.getCurrentSkinName()
     'Holy Grail'
+
+By default we check for urls to see if we should switch to the edit
+skin, but we can also check if a person is logged in::
+
+    >>> need_authentication = editskin_props.getProperty('need_authentication')
+    >>> need_authentication
+    False
+    >>> editskin_props.need_authentication = True
+    >>> need_authentication = editskin_props.getProperty('need_authentication')
+    >>> need_authentication
+    True
+
+At this moment a user only gets the edit skin when he visits an edit
+url and is authenticated.  We can also only check if they are
+authenticated, regardless of the url::
+
+    >>> based_on_url = editskin_props.getProperty('based_on_url')
+    >>> based_on_url
+    True
+    >>> editskin_props.based_on_url = False
+    >>> based_on_url = editskin_props.getProperty('based_on_url')
+    >>> based_on_url
+    False
+
