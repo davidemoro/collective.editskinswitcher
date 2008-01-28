@@ -16,10 +16,16 @@ def switch_skin(context, REQUEST=None):
     based_on_url = editskin_props.getProperty('based_on_url', True)
     need_authentication = editskin_props.getProperty('need_authentication',
                                                      False)
-    if based_on_url:
-        url = REQUEST.getURL()
-        if is_edit_url(url):
-            # If the edit_skin does not exist, the next call is
-            # intelligent enough to use the default skin instead.
-            context.changeSkin(edit_skin, REQUEST)
+    if not based_on_url and not need_authentication:
+        # This makes no sense.  Just uninstall this product and use
+        # the default skin.
+        return None
+    if based_on_url and not is_edit_url(REQUEST.getURL()):
+        return None
+    if need_authentication and getToolByName(
+        context, 'portal_membership').isAnonymousUser():
+        return None
+    # If the edit_skin does not exist, the next call is
+    # intelligent enough to use the default skin instead.
+    context.changeSkin(edit_skin, REQUEST)
     return None
