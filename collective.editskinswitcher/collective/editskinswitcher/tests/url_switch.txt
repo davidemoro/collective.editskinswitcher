@@ -1,6 +1,16 @@
 Skin Switching based on URL
 ===========================
 
+Skin switching is by done when the based_on_url property is True.
+This is the default::
+
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> context = portal
+    >>> portal_props = getToolByName(context, 'portal_properties')
+    >>> editskin_props = portal_props.get('editskin_switcher')
+    >>> editskin_props.getProperty('based_on_url')
+    True
+
 We rely on the getURL() method.  So we check that we can fool the test
 instance into believing it is on a different url::
 
@@ -12,7 +22,6 @@ instance into believing it is on a different url::
 
 On localhost we show visitors the default skin::
 
-    >>> context = portal
     >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
@@ -44,3 +53,16 @@ Any content editors that arrive via a url beginning with 'edit' (or
     >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
     >>> context.getCurrentSkinName()
     'Plone Default'
+
+When we set the based_on_url property to False, no switching is done,
+so everyone gets the default skin::
+
+    >>> context.changeSkin('Monty Python Skin', TestRequest())
+    >>> editskin_props.based_on_url = False
+    >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
+    >>> context.getCurrentSkinName()
+    'Monty Python Skin'
+    >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
+    >>> context.getCurrentSkinName()
+    'Monty Python Skin'
+
