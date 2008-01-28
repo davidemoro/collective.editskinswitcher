@@ -22,8 +22,11 @@ def switch_skin(context, REQUEST=None):
         return None
     if based_on_url and not is_edit_url(REQUEST.getURL()):
         return None
-    if need_authentication and getToolByName(
-        context, 'portal_membership').isAnonymousUser():
+    # Note: we need to check for cookies as a call like to
+    # portal_membership.isAnonymousUser() works fine in our tests, but
+    # not in real life.  Probably because our switch_skin method is
+    # used as an AccessRule.
+    if need_authentication and not REQUEST.cookies.get('__ac'):
         return None
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.

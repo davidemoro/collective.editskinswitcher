@@ -11,10 +11,19 @@ on the need_authentication property::
     >>> editskin_props.getProperty('need_authentication')
     False
 
-On an edit url we normally get the edit skin::
+We would want to check if we are authenticated by calling
+portal_membership.isAnonymousUser().  This works fine in our tests,
+but fails in real life.  So we check for the ``__ac`` cookie instead.
+
+We prepare a request to an edit url for someone who is logged in::
 
     >>> from collective.editskinswitcher.tests.utils import TestRequest
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://127.0.0.1'))
+    >>> request = TestRequest(SERVER_URL='http://127.0.0.1')
+    >>> request._cookies['__ac'] = "We are the Knights Who Say Ni!"
+
+On an edit url we normally get the edit skin::
+
+    >>> context.switchskin(context, request)
     >>> context.getCurrentSkinName()
     'Plone Default'
 
@@ -27,7 +36,7 @@ automatically when your browser makes a new request.
 Now we change the settings so the url has no influence anymore::
 
     >>> editskin_props.based_on_url = False
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://127.0.0.1'))
+    >>> context.switchskin(context, request)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
 
@@ -35,7 +44,7 @@ Now we set need_authentication to True.  Since we are logged in, we
 should get the edit skin::
 
     >>> editskin_props.need_authentication = True
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://127.0.0.1'))
+    >>> context.switchskin(context, request)
     >>> context.getCurrentSkinName()
     'Plone Default'
     >>> context.changeSkin('Monty Python Skin', TestRequest())
@@ -43,6 +52,7 @@ should get the edit skin::
 Now we logout::
 
     >>> self.logout()
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://127.0.0.1'))
+    >>> del request._cookies['__ac']
+    >>> context.switchskin(context, request)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'

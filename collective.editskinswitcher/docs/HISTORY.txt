@@ -6,6 +6,11 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.2 (Unreleased)
 ----------------------------------------------
 
+- When testing if the user is logged in, check for the __ac cookie in
+  the request instead of portal_membership.isAnonymousUser as this
+  does not work in real life; probably because we use an AccessRule.
+  [maurits]
+
 - Add based_on_url property (default: True).  When True, the skin
   switching is done when you visit the site via an edit url.  When
   combined with need_authentication=True, only logged-in users on the
