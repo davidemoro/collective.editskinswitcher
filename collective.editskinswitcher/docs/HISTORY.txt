@@ -6,6 +6,16 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.2 (Unreleased)
 ----------------------------------------------
 
+- Add based_on_url property (default: True).  When True, the skin
+  switching is done when you visit the site via an edit url.  When
+  combined with need_authentication=True, only logged-in users on the
+  edit url get the edit skin.
+  [maurits]
+
+- Add need_authentication property (default: False).  When True, the
+  skin switching is only done when you are authenticated (logged in).
+  [maurits]
+
 - In the base test cases, create the new default skin.
   [maurits]
 
