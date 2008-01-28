@@ -37,6 +37,29 @@ Ni!  Just go to the ``portal_properties``, then ``editskin_switcher``
 and change the ``edit_skin`` property to your dashing theme.
 
 
+Other options
+-------------
+
+Next to the ``edit_skin`` option, there are two other properties in
+the ``editskin_switcher`` property sheet you can play with:
+
+- ``based_on_url``: when True (the default) you get the behaviour
+  described above.
+
+- ``need_authentication``: when True you need to be logged in before
+  your skin is switched.  By default this is set to False.  This looks
+  for the ``__ac`` cookie that Plone gives you when logged in.  Note:
+  logging in via the Zope Management Interface is handled without
+  cookies, so the editskin switcher regards you as anonymous then.
+
+You can combine the two behaviours if you want.  If they are both
+True, then you need to have the right url and you need to be logged
+in.
+
+When both are False, nothing happens: then you might as well simply
+uninstall this product as it is not useful.
+
+
 Why not CMFUrlSkinSwitcher?
 ---------------------------
 

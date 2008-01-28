@@ -6,6 +6,9 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.3 (Unreleased)
 ----------------------------------------------
 
+- Update README.txt to tell about the new options introduced in
+  version 0.2.
+  [maurits]
 
 collective.editskinswitcher - 0.2 (Released 28 January 2008)
 ------------------------------------------------------------
