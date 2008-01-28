@@ -1,5 +1,5 @@
-Skin Switcher
-=============
+Skin Switching based on URL
+===========================
 
 We rely on the getURL() method.  So we check that we can fool the test
 instance into believing it is on a different url::

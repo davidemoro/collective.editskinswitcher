@@ -8,7 +8,7 @@ def test_suite():
 
         # Integration tests that use PloneTestCase
         ztc.ZopeDocFileSuite(
-            'setup.txt', package='collective.editskinswitcher.tests',
+            'url_switch.txt', package='collective.editskinswitcher.tests',
             test_class=BaseTestCase),
         
         ])
