@@ -3,8 +3,12 @@ Changelog for collective.editskinswitcher
 
   (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.2 (Unreleased)
+collective.editskinswitcher - 0.3 (Unreleased)
 ----------------------------------------------
+
+
+collective.editskinswitcher - 0.2 (Released 28 January 2008)
+------------------------------------------------------------
 
 - When testing if the user is logged in, check for the __ac cookie in
   the request instead of portal_membership.isAnonymousUser as this
