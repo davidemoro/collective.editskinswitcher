@@ -3,8 +3,8 @@ Changelog for collective.editskinswitcher
 
   (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.3 (Unreleased)
-----------------------------------------------
+collective.editskinswitcher - 0.3 (Released 30 January 2008)
+------------------------------------------------------------
 
 - Instead of an Access Rule, use a pre-traversal hook.  Idea: David
   Convent.  Thanks!  Is a lot cleaner.
