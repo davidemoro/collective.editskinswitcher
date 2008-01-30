@@ -6,6 +6,10 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.3 (Unreleased)
 ----------------------------------------------
 
+- Avoid confusion in README.txt: talk about Editor Skin and Visitor
+  Skin instead of Plone Default and the default skin.
+  [maurits]
+
 - Update README.txt to tell about the new options introduced in
   version 0.2.
   [maurits]

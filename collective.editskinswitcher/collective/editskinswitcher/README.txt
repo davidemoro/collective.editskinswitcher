@@ -22,26 +22,28 @@ should ask your local Apache guru how he did that.
 
 With ``collective.editskinswitcher`` installed (with the portal quick
 installer), visitors that go to the website with the url
-``edit.yourdomain.com`` will see the Plone Default skin, which is
-meant for content editors.  Visitors to ``www.yourdomain.com`` will
-see whatever skin you have set as the default skin in portal_skins.
-Can be pretty handy.
+``edit.yourdomain.com`` will see the Editor Skin.  (This can be set in
+a property, as we shall see later.)  Visitors to
+``www.yourdomain.com`` will see whatever skin you have set as the
+default skin in portal_skins.  Can be pretty handy.
 
-Developer types probably like the fact that you also get the default
-skin when visiting ``localhost`` and the edit skin when you go to
+To avoid confusion: we will call what you have set as "default skin"
+the Visitor Skin.  And the skin meant for editors we call the Editor
+Skin.
+
+Developer types probably like the fact that you also get the Visitor
+Skin when visiting ``localhost`` and the Editor Skin when you go to
 ``127.0.0.1``.
-
-But maybe you want to turn it around: your visitors should see Plone
-Default and your editors should see your brilliant Monty Python Skin!
-Ni!  Just go to the ``portal_properties``, then ``editskin_switcher``
-and change the ``edit_skin`` property to your dashing theme.
-
 
 Other options
 -------------
 
-Next to the ``edit_skin`` option, there are two other properties in
-the ``editskin_switcher`` property sheet you can play with:
+There are some options you can set.  Go to ``portal_properties``, and
+then go to the ``editskin_switcher`` property sheet.  These options
+are available:
+
+- ``edit_skin``: set the skin that editors get.  The default is "Plone
+  Default".
 
 - ``based_on_url``: when True (the default) you get the behaviour
   described above.
@@ -85,10 +87,10 @@ from running the tests of course), is:
 
 - Go to portal_skins in the ZMI.
 
-- Create a new skin selection based on Plone Default.  In the tests I
-  call this Monty Python Skin, so I will use that term here as well.
+- Create a new skin selection based on Plone Default.  Call this
+  "Visitor Skin".
 
-- Make Monty Python Skin the default skin.
+- Make Visitor Skin the default skin.
 
 - Remove the custom skin layer from Plone Default.
 
@@ -105,8 +107,9 @@ On Linux you can edit ``/etc/hosts`` and add a line like::
 
   127.0.0.1 edit.yourdomain.com www.yourdomain.com
 
-Now visiting ``edit.yourdomain.com`` should give you default Plone and
-``www.yourdomain.com`` should give you the customized Plone.
+Now visiting ``edit.yourdomain.com`` should give you the Editor Skin
+and ``www.yourdomain.com`` should give you the Visitor Skin with the
+customizations.
 
 
 You can also let the edit urls begin with ``cms`` or ``manage``.  As
