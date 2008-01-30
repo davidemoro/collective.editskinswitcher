@@ -3,8 +3,6 @@ from Products.CMFCore.utils import getToolByName
 
 
 def switch_skin(object, event):
-    """Switch the skin if needed
-    """
     """Switch to the Plone Default skin when we are editing.
     """
     context = object
