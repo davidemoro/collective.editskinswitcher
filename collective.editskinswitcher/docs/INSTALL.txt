@@ -24,3 +24,18 @@ collective.editskinswitcher Installation
   * Edit portal_properties/editskin_switch if wanted.
 
 .. _pythonproducts: http://plone.org/products/pythonproducts
+
+
+Upgrading
+=========
+
+0.2 to 0.3
+----------
+
+It is best to go to the quick installer and uninstall the previous
+version before upgrading.  Else you are left with an Access Rule and
+an External Method called 'switchskin' in your Plone Site.  Removing
+it manually should work, but you will run into errors before you have
+done that.
+
+Now go to the quick installer and install this product.

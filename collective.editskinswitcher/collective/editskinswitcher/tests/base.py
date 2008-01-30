@@ -15,9 +15,6 @@ def setup_product():
                      collective.editskinswitcher)
     fiveconfigure.debug_mode = False
     ztc.installPackage('collective.editskinswitcher') 
-    # We add an access rule in the installer, so we need SiteAccess
-    # available in our test instance.
-    ztc.installProduct('SiteAccess')
 
 
 class BaseTestCase(ptc.PloneTestCase):

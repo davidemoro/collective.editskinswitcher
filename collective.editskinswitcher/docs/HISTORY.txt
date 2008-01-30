@@ -6,6 +6,10 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.3 (Unreleased)
 ----------------------------------------------
 
+- Instead of an Access Rule, use a pre-traversal hook.  Idea: David
+  Convent.  Thanks!  Is a lot cleaner.
+  [maurits]
+
 - Avoid confusion in README.txt: talk about Editor Skin and Visitor
   Skin instead of Plone Default and the default skin.
   [maurits]

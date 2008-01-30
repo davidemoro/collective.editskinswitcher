@@ -6,4 +6,10 @@
 
     <include file="profiles.zcml" />
 
+  <subscriber
+      for="*
+           zope.app.publication.interfaces.IBeforeTraverseEvent"
+      handler=".traversal.switch_skin"
+      />
+
 </configure>

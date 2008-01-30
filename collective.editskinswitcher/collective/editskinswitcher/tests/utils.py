@@ -21,3 +21,10 @@ def new_default_skin(portal):
     skinpath = sk_tool.getSkinPath('Plone Default')
     sk_tool.addSkinSelection('Monty Python Skin', skinpath)
     sk_tool.default_skin = 'Monty Python Skin'
+
+
+class FakeTraversalEvent(object):
+
+    def __init__(self, object, request):
+        self.object = object
+        self.request = request

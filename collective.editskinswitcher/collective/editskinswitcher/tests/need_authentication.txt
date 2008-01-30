@@ -21,9 +21,16 @@ We prepare a request to an edit url for someone who is logged in::
     >>> request = TestRequest(SERVER_URL='http://127.0.0.1')
     >>> request._cookies['__ac'] = "We are the Knights Who Say Ni!"
 
+We used to use an AccessRule with an External Method, but now we use a
+pre-traversal event.  We fake that::
+
+    >>> from collective.editskinswitcher.tests.utils import FakeTraversalEvent
+    >>> event = FakeTraversalEvent(context, request)
+
 On an edit url we normally get the edit skin::
 
-    >>> context.switchskin(context, request)
+    >>> from collective.editskinswitcher.traversal import switch_skin
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Plone Default'
 
@@ -36,7 +43,7 @@ automatically when your browser makes a new request.
 Now we change the settings so the url has no influence anymore::
 
     >>> editskin_props.based_on_url = False
-    >>> context.switchskin(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
 
@@ -44,7 +51,7 @@ Now we set need_authentication to True.  Since we are logged in, we
 should get the edit skin::
 
     >>> editskin_props.need_authentication = True
-    >>> context.switchskin(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Plone Default'
     >>> context.changeSkin('Monty Python Skin', TestRequest())
@@ -53,6 +60,6 @@ Now we logout::
 
     >>> self.logout()
     >>> del request._cookies['__ac']
-    >>> context.switchskin(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'

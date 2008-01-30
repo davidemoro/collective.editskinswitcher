@@ -20,9 +20,14 @@ instance into believing it is on a different url::
     >>> TestRequest(SERVER_URL='http://edit.domain.org').getURL()
     'http://edit.domain.org'
 
-On localhost we show visitors the default skin::
+On localhost we show visitors the default skin.  We test that by
+faking traversal::
 
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
+    >>> from collective.editskinswitcher.tests.utils import FakeTraversalEvent
+    >>> from collective.editskinswitcher.traversal import switch_skin
+    >>> request = TestRequest(SERVER_URL='http://localhost')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
 
@@ -31,7 +36,9 @@ and view the same site.  They get a different skin then, which is the
 whole purpose of this package.  Content editors should be happy with
 just the Plone Default skin::
 
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://127.0.0.1'))
+    >>> request = TestRequest(SERVER_URL='http://127.0.0.1')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Plone Default'
 
@@ -43,14 +50,18 @@ a new request.
 
 Visitors on localhost still see our fabulous Monty Python Skin::
 
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
+    >>> request = TestRequest(SERVER_URL='http://localhost')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
 
 Any content editors that arrive via a url beginning with 'edit' (or
 'cms' or 'manage') will get their beloved Plone Default skin again::
 
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
+    >>> request = TestRequest(SERVER_URL='http://edit.domain.org')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Plone Default'
 
@@ -59,10 +70,13 @@ so everyone gets the default skin::
 
     >>> context.changeSkin('Monty Python Skin', TestRequest())
     >>> editskin_props.based_on_url = False
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://localhost'))
+    >>> request = TestRequest(SERVER_URL='http://localhost')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
-    >>> context.switchskin(context, TestRequest(SERVER_URL='http://edit.domain.org'))
+    >>> request = TestRequest(SERVER_URL='http://edit.domain.org')
+    >>> event = FakeTraversalEvent(context, request)
+    >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Monty Python Skin'
-
