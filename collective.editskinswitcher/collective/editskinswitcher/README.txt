@@ -1,4 +1,4 @@
-Collective Edit Skin Switcher
+Collective edit skin switcher
 =============================
 
 For a customer of `Zest Software`_ I [Maurits van Rees] created a
