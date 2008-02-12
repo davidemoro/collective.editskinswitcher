@@ -5,9 +5,8 @@ from Products.CMFCore.utils import getToolByName
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
     """
-    context = object
     request = event.request
-    portal_props = getToolByName(context, 'portal_properties')
+    portal_props = getToolByName(object, 'portal_properties')
     if portal_props is None:
         return None
     editskin_props = portal_props.get('editskin_switcher')
@@ -30,7 +29,14 @@ def switch_skin(object, event):
     # used as an AccessRule.
     if need_authentication and not request.cookies.get('__ac'):
         return None
+
+    # object might be a view, for instance a KSS view.  Use the
+    # context of that object then.
+    try:
+        changeSkin = object.changeSkin
+    except AttributeError:
+        changeSkin = object.context.changeSkin
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
-    context.changeSkin(edit_skin, request)
+    changeSkin(edit_skin, request)
     return None
