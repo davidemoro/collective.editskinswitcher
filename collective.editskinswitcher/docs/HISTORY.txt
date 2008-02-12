@@ -8,6 +8,10 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.4 (Unreleased)
 ----------------------------------------------
 
+- Bug fix: if object has no changeSkin, try its context.  Happens at
+  least on the sharing tab when searching for users, as object is a
+  KSS view then.
+  [maurits]
 
 collective.editskinswitcher - 0.3 (Released 30 January 2008)
 ------------------------------------------------------------
