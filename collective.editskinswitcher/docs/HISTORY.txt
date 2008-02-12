@@ -4,9 +4,12 @@ Changelog for collective.editskinswitcher
 (name of developer listed in brackets)
 
 
-
-collective.editskinswitcher - 0.4 (Unreleased)
+collective.editskinswitcher - 0.5 (Unreleased)
 ----------------------------------------------
+
+
+collective.editskinswitcher - 0.4 (Released 12 February 2008)
+-------------------------------------------------------------
 
 - Bug fix: if object has no changeSkin, try its context.  Happens at
   least on the sharing tab when searching for users, as object is a
