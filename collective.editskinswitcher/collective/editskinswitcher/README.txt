@@ -120,6 +120,29 @@ long as the url is something like::
 you end up in the edit skin.
 
 
+Installation using zc.buildout
+------------------------------
+
+For using collective.editskinswitcher with zc.buildout you have to add
+``collective.editskinswitcher`` to the ``eggs`` and ``zcml`` sections::
+
+   eggs = collective.editskinswitcher
+   ...
+   zcml = collective.editskinswitcher
+   ...
+
+
+Configuration without using zc.buildout
+---------------------------------------
+
+If you are using collective.editskinswicher without zc.buildout, you need
+to add a ZCML slug ``collective.editksinswitcher-configure.zcml`` within
+your ``etc/package-includes`` directory containing::
+
+  <include package="collective.editskinswitcher" />
+
+
+
 Have fun!
 
 Maurits van Rees
