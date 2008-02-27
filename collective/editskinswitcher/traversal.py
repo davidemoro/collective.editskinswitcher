@@ -6,7 +6,7 @@ def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
     """
     request = event.request
-    portal_props = getToolByName(object, 'portal_properties')
+    portal_props = getToolByName(object, 'portal_properties', None)
     if portal_props is None:
         return None
     editskin_props = portal_props.get('editskin_switcher')

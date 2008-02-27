@@ -7,6 +7,9 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.5 (Unreleased)
 ----------------------------------------------
 
+- Bug fix: when called on the zope root (can happen in some cases)
+  portal_properties was not found, which was not caught correctly.
+  [maurits]
 
 collective.editskinswitcher - 0.4 (Released 12 February 2008)
 -------------------------------------------------------------
