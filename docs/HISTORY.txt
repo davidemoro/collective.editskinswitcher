@@ -7,6 +7,8 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.6 (Unreleased)
 ----------------------------------------------
 
+- Setting eol style in subversion correctly. [reinout]
+
 
 collective.editskinswitcher - 0.5 (Released 7 March 2008)
 ---------------------------------------------------------
