@@ -4,7 +4,9 @@ Changelog for collective.editskinswitcher
 (name of developer listed in brackets)
 
 collective.editskinswitcher - 0.7 (Unreleased - August 2008)
-----------------------------------------------
+------------------------------------------------------------
+
+TO BE ADDED awaiting confirmation from Maurits / Reinout:
 
 - Extra URL skin switching options of SSL or specific URLs
 
