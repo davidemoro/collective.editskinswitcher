@@ -54,14 +54,6 @@ Now lets check that our test skin is installed
     >>> request.get('editskinswitched',0)
     0
 
-Check that the default skin is thin ... so narrow band people dont give up when first visiting the site 
-
-    >>> browser.open(portal_url)
-    >>> print browser.contents.find('/portal_javascripts/kupu') == -1
-    True
-    >>> print browser.contents.count('/portal_javascripts/') < 10
-    True
-
 Check that the default skin is really the Monty Python skin via the browser by testing the changed template in the skin
 
     >>> browser.open(portal_url + '/accessibility-info')
@@ -84,16 +76,6 @@ Confirm that via the browser testing the changed template in the skin ... is not
     >>> 'Monty Python' in browser.contents
     False
 
-Check that the skin has been altered to Plone's normal fat skin")
-
-    >>> request.get('editskinswitched',0)
-    1
-
-Because this is a dummy request we need to fake it via the browser url...
-
-    >>> browser.open(portal_url + '?editskinswitched=1')
-    >>> browser.contents.count('/portal_javascripts/') > 10
-    True
 
 In these tests we need to manually switch the skin back to our
 default, which normally happens automatically when your browser makes
