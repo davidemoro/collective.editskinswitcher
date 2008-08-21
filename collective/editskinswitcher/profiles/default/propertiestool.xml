@@ -7,6 +7,6 @@
   <property name="specific_domains" type="lines"></property>
   <property name="need_authentication" type="boolean">False</property>
   <property name="change_view_into_preview" type="boolean">False</property>
-  <property name="add_preview_tab" type="boolean">True</property>
+  <property name="add_preview_tab" type="boolean">False</property>
  </object>
 </object>
