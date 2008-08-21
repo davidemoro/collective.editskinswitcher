@@ -7,3 +7,8 @@ know who had this great idea.
 
 - Write tests for the pre traversal adapter.  Perhaps browser tests?
   [maurits]
+ 
+  ... Added browser tests for this in new feature tests ssl_switch.txt and specific_switch.txt
+  [Ed Crewe]
+
+

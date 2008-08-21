@@ -1,6 +1,28 @@
 Collective edit skin switcher
 =============================
 
+Ed Crewe changes
+
+--------
+
+Add a preview tab - to maintain wysiwig functionality in the admin skin
+Extra property options to switch on protocol:
+
+Options are:
+
+Based on URL:
+  Searches for first part of url in cms, manage or edit
+  or whole url is localhost (see the following options)
+
+Specific URLs:
+  if these are specified doesn't use the first check but instead has to match one of these
+
+Based on SSL:
+  If this is ticked then any urls that are not SSL will be the default skin (not the edit skin)
+
+
+==================
+
 For a customer of `Zest Software`_ I [Maurits van Rees] created a
 package called ``collective.editskinswitcher``.  I gladly took some code
 from colleague Mark van Lent who did something similar for a different

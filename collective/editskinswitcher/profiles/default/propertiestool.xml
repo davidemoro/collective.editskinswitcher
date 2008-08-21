@@ -3,7 +3,10 @@
  <object name="editskin_switcher" meta_type="Plone Property Sheet">
   <property name="title">Collective Edit Skin Switcher Properties</property>
   <property name="edit_skin" type="string">Plone Default</property>
-  <property name="based_on_url" type="boolean">True</property>
+  <property name="switch_skin_action" type="selection" select_variable="editSwitchList">based on edit URL</property>
+  <property name="specific_domains" type="lines"></property>
   <property name="need_authentication" type="boolean">False</property>
+  <property name="change_view_into_preview" type="boolean">False</property>
+  <property name="add_preview_tab" type="boolean">True</property>
  </object>
 </object>

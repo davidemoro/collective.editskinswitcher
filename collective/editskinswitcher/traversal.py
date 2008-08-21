@@ -1,6 +1,33 @@
-from collective.editskinswitcher.utils import is_edit_url
 from Products.CMFCore.utils import getToolByName
 
+def edit_url(request, props):
+    ''' The default switch check based on a subdomain of cms, edit or manage'''
+    from collective.editskinswitcher.utils import is_edit_url
+    return is_edit_url(request.getURL())
+
+def specific_domain(request, props):
+    specific_domains = props.getProperty('specific_domains', ())    
+    if specific_domains != ():
+        thisurl = request.getURL()
+        if thisurl in specific_domains:
+            return True
+    return False
+
+def ssl_url(request, props):        
+    parts = request.getURL().split('://')
+    if parts[0]=='https':
+        return True
+    return False
+
+def no_url(request, props):
+    ''' This is for skin switching based on authentication only '''
+    return props.getProperty('need_authentication',False)
+
+
+methods = {'based on edit URL':edit_url,
+           'based on specific domains':specific_domain,
+           'based on SSL':ssl_url,
+           'no URL based switching':no_url }
 
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
@@ -14,28 +41,30 @@ def switch_skin(object, event):
         return None
     # Okay, we have a property sheet we can use.
     edit_skin = editskin_props.getProperty('edit_skin', '')
-    based_on_url = editskin_props.getProperty('based_on_url', True)
-    need_authentication = editskin_props.getProperty('need_authentication',
-                                                     False)
-    if not based_on_url and not need_authentication:
-        # This makes no sense.  Just uninstall this product and use
-        # the default skin.
-        return None
-    if based_on_url and not is_edit_url(request.getURL()):
-        return None
-    # Note: we need to check for cookies as a call like to
-    # portal_membership.isAnonymousUser() works fine in our tests, but
-    # not in real life.  Probably because our switch_skin method is
-    # used as an AccessRule.
-    if need_authentication and not request.cookies.get('__ac'):
+
+    # Check if need authentication first ... possibly in addition to one of the other tests
+    if editskin_props.getProperty('need_authentication',False) and not request.cookies.get('__ac'):
         return None
 
+    switch = editskin_props.getProperty('switch_skin_action', 'based on edit URL')
+    if not methods.get(switch, edit_url)(request, editskin_props):
+        return None
+
+    # Use to preview default skin in edit skin mode 
+    if request.get('mutate_skin','') == 'default':
+        return None
+        
     # object might be a view, for instance a KSS view.  Use the
     # context of that object then.
     try:
         changeSkin = object.changeSkin
     except AttributeError:
         changeSkin = object.context.changeSkin
+
+    # Assume that if you get here you are switching to the edit skin
+    # ... flag this for the purposes of caching / kss loading etc.
+    request.set('editskinswitched',1)
+    
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
     changeSkin(edit_skin, request)

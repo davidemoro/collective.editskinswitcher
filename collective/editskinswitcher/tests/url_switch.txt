@@ -8,7 +8,7 @@ is the default::
     >>> context = portal
     >>> portal_props = getToolByName(context, 'portal_properties')
     >>> editskin_props = portal_props.get('editskin_switcher')
-    >>> editskin_props.getProperty('based_on_url')
+    >>> editskin_props.getProperty('switch_skin_action') == 'based on edit URL'
     True
 
 We rely on the getURL() method.  So we check that we can fool the test
@@ -65,11 +65,11 @@ Any content editors that arrive via a url beginning with 'edit' (or
     >>> context.getCurrentSkinName()
     'Plone Default'
 
-When we set the based_on_url property to False, no switching is done,
+When we set the switch_skin_action to none so no switching is done,
 so everyone gets the default skin::
 
     >>> context.changeSkin('Monty Python Skin', TestRequest())
-    >>> editskin_props.based_on_url = False
+    >>> editskin_props.switch_skin_action = 'no URL based switching'
     >>> request = TestRequest(SERVER_URL='http://localhost')
     >>> event = FakeTraversalEvent(context, request)
     >>> switch_skin(context, event)

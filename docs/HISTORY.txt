@@ -3,10 +3,9 @@ Changelog for collective.editskinswitcher
 
 (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.7 (Unreleased - August 2008)
-------------------------------------------------------------
 
-TO BE ADDED awaiting confirmation from Maurits / Reinout:
+collective.editskinswitcher - 0.6 (Unreleased - August 2008)
+----------------------------------------------
 
 - Extra URL skin switching options of SSL or specific URLs
 
@@ -23,14 +22,9 @@ TO BE ADDED awaiting confirmation from Maurits / Reinout:
 
 [Ed Crewe, Internet Development - University of Bristol]
 
-collective.editskinswitcher - 0.6 (Unreleased)
+
+collective.editskinswitcher - 0.5 (Unreleased)
 ----------------------------------------------
-
-- Setting eol style in subversion correctly. [reinout]
-
-
-collective.editskinswitcher - 0.5 (Released 7 March 2008)
----------------------------------------------------------
 
 - Bug fix: when called on the zope root (can happen in some cases)
   portal_properties was not found, which was not caught correctly.
