@@ -10,14 +10,11 @@ TO BE ADDED awaiting confirmation from Maurits / Reinout:
 
 - Extra URL skin switching options of SSL or specific URLs
 
-- New profile for the default skin to make it lighter ie. under 170 kB rather than 540 Kb for the edit skin
-  to avoid very low bandwidth users giving up on first accessing a plone site
-
 - New preview feature so that the default skin can be seen via the edit skin interface to preserve 
-  some level of WYSIWYG for editing 
+  some level of WYSIWYG for editing. 
 
-- Added preview feature property options - ie. via a separate tab or instead of the normal view tab content
-  ... and event handler to allow for live switching of these
+  Preview feature is available as a viewlet for use via a view or a viewletManager ... but it is turned off by default.
+  Examples of how to enable it are included in the tests ... where it is enabled and tested.
 
 - Added tests for these new features and browser tests to the test suite
 
