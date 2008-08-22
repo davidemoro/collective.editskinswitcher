@@ -8,17 +8,11 @@
 
     <include package=".browser" />
     <include file="profiles.zcml" />
-    <include file="skins.zcml" />
 
    <subscriber
       for="*
            zope.app.publication.interfaces.IBeforeTraverseEvent"
       handler=".traversal.switch_skin"
       />
-
-   <subscriber
-      for=".browser.interfaces.IPropertiesModifiedEvent"
-      handler=".edit_properties.propertiesEditedHandler"
-    /> 
 
 </configure>
