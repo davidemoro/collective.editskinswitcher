@@ -49,20 +49,14 @@ We check that we get the logged-in message
 Now lets start our editskinswitcher specific edit skin tests 
 ------------------------------------------------------------
 
-make sure we have switched on an edit skins preview tab in the properties 
+Make sure we have switched on an edit skins preview tab in the actions
 
     >>> from Products.CMFCore.utils import getToolByName
-    >>> portal_props = getToolByName(portal, 'portal_properties')
-    >>> editskin_props = portal_props.get('editskin_switcher')
-    >>> editskin_props.add_preview_tab = True
-
-Now simulate us doing this via the web by tripping its event handler
-
     >>> from collective.editskinswitcher.browser.interfaces import PropertiesModifiedEvent
-    >>> from zope.event import notify
-    >>> notify(PropertiesModifiedEvent(editskin_props))
+    >>> import add_preview
+    >>> add_preview.previewChange({'add_preview_tab':True})
 
-See if the propertyActions event handler has done its work
+See if the add_preview handler has done its work
 
     >>> a_tool = getToolByName(portal, 'portal_actions')
     >>> ptabs = getattr(a_tool,'object',None)
@@ -78,10 +72,7 @@ Check we have the preview tab
 
 Lets switch it back and check again
 
-    >>> editskin_props.add_preview_tab = False
-    >>> notify(PropertiesModifiedEvent(editskin_props))
-    >>> editskin_props.getProperty('add_preview_tab')
-    False
+    >>> add_preview.previewChange({'add_preview_tab':False})
     >>> ptab.getProperty('visible')
     False
 
