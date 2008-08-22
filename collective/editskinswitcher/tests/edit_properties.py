@@ -1,8 +1,9 @@
-### Handler that modifies skins and actions tools 
+### Handler that modifies skins and actions tools - just used for tests
+### - all this stuff could be set up by the companion default skin theme egg
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import manage_addDirectoryView
 
-def skintabChange(props):
+def previewChange(props):
     ''' This toggles the preview tab and making view like preview '''
     preview = props.get('add_preview_tab',False)
     a_tool = getToolByName(sheet, 'portal_actions')
