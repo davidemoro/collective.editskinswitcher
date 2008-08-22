@@ -1,24 +1,58 @@
 ### Handler that modifies skins and actions tools - just used for tests
-### - all this stuff could be set up by the companion default skin theme egg
+### - If you want to use preview then either add it as an action tab using the actions.xml below
+### or add the test/skins/editskinswitcher_edit_content to your edit skin to replace the standard edit view
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.DirectoryView import manage_addDirectoryView
+from Products.CMFCore.exportimport.actions import importActionProviders
+from Products.GenericSetup.tests.common import DummyImportContext
+from Products.Five import zcml
+import collective.editskinswitcher.tests
 
-def previewChange(props):
+
+ACTIONSCONFIG = """\
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool" xmlns:i18n="http://xml.zope.org/namespaces/i18n">  
+
+ <object name="object" meta_type="CMF Action Category">
+  <property name="title"></property>
+  
+  <object name="skinpreview" meta_type="CMF Action" i18n:domain="plone">
+    <property name="title" i18n:translate="">Preview</property>
+    <property name="description" i18n:translate=""></property>
+    <property name="url_expr">string:${object_url}/@@preview</property>
+    <property name="icon_expr"></property>
+    <property name="available_expr"></property>
+    <property name="permissions">
+     <element value="View"/>
+    </property>
+    <property name="visible">False</property>
+  </object>
+
+ </object>
+</object>
+"""
+
+def previewChange(context, props):
     ''' This toggles the preview tab and making view like preview '''
     preview = props.get('add_preview_tab',False)
-    a_tool = getToolByName(sheet, 'portal_actions')
+    a_tool = getToolByName(context, 'portal_actions')
     ptabs = getattr(a_tool,'object',None)
     if ptabs:
         prevtab = getattr(ptabs,'skinpreview',None)
-        if prevtab:
-            prevtab.visible = preview
-        else:
-            raise 'Sorry no skin preview tab found in object actions'
+        if not prevtab:
+            # Add both the @@preview view and the tab that calls it
+            zcml.load_config('configure.zcml', collective.editskinswitcher.tests)
+            importcontext = DummyImportContext(context, False)
+            importcontext._files['actions.xml'] = ACTIONSCONFIG
+            importActionProviders(importcontext)
+            prevtab = getattr(ptabs,'skinpreview')
+        prevtab.visible = preview
     else:
         raise 'Sorry no portal actions tool - object actions found'
 
     changeview = props.get('change_view_into_preview',False)
-    sk_tool = getToolByName(sheet, 'portal_skins')
+    sk_tool = getToolByName(context, 'portal_skins')
     defaultpath = sk_tool.getSkinPath('Plone Default')
     changed = defaultpath.find('editskinswitcher_edit_content') > -1
     if changeview != changed:

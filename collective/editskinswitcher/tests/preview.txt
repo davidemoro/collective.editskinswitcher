@@ -3,8 +3,9 @@ Preview the default skin via the edit skin
 
 Tests for new features by Ed Crewe, Internet Development (University of Bristol) August 2008
 
-This test checks that changing the add preview tab properties switches the visibility in other tools and confirm it adds a tab, when logged in to the edit skin, via the browser. 
-Do the same for the modified view option. Implementation of a tab or view replacement is for the accompanying default theme egg
+This test installs the preview viewlet using it to replace the content in the edit skins view or as a preview action tab. 
+It then checks that the tab or view contains the iframe via the test browser.
+Implementation of a tab or view replacement is for the accompanying default theme egg
 
 First, we must perform some setup of the test browser.
 
@@ -52,10 +53,9 @@ Now lets start our editskinswitcher specific edit skin tests
 Make sure we have switched on an edit skins preview tab in the actions
 
     >>> from Products.CMFCore.utils import getToolByName
-    >>> from collective.editskinswitcher.browser.interfaces import PropertiesModifiedEvent
-    >>> collective.editskinswitcher.tests import add_preview
+    >>> from collective.editskinswitcher.tests.add_preview import previewChange
 
-    >>> add_preview.previewChange({'add_preview_tab':True})
+    >>> previewChange(portal,{'add_preview_tab':True})
 
 See if the add_preview handler has done its work
 
@@ -71,9 +71,15 @@ Check we have the preview tab
     >>> '@@preview' in browser.contents
     True
 
+Click on it and see if we have the preview iframe
+
+    >>> browser.getLink('Preview').click()
+    >>> '</iframe>' in browser.contents
+    True
+
 Lets switch it back and check again
 
-    >>> add_preview.previewChange({'add_preview_tab':False})
+    >>> previewChange(portal,{'add_preview_tab':False})
     >>> ptab.getProperty('visible')
     False
 
@@ -94,12 +100,12 @@ Now test preview as a modified view skin
 
 Switch it on
 
-    >>> add_preview.previewChange({'change_view_into_preview':True})
+    >>> previewChange(portal,{'change_view_into_preview':True})
 
 Check the editskinswitcher skins have been put in the edit skin
 
     >>> sk_tool = getToolByName(portal, 'portal_skins')
-    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_content') > -1
+    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_edit_content') > -1
     True
 
 Make sure we are still in the edit skin
@@ -116,9 +122,8 @@ Check that the view now has the preview iframe
 
 Now lets turn this off again and confirm the edit skin has changed
 
-    >>> add_preview.previewChange({'change_view_into_preview':False})
-    >>> notify(PropertiesModifiedEvent(editskin_props))
-    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_content') > -1
+    >>> previewChange(portal,{'change_view_into_preview':False})
+    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_edit_content') > -1
     False
 
 

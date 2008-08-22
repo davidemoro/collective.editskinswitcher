@@ -47,9 +47,9 @@ def new_default_skin(portal):
     """
     sk_tool = getToolByName(portal, 'portal_skins')
     zcml.load_config('skins.zcml', collective.editskinswitcher.tests)
-    context = DummyImportContext(portal, False)
-    context._files['skins.xml'] = SKINCONFIG
-    importSkinsTool(context)
+    importcontext = DummyImportContext(portal, False)
+    importcontext._files['skins.xml'] = SKINCONFIG
+    importSkinsTool(importcontext)
 
 
 class FakeTraversalEvent(object):
