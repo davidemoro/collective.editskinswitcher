@@ -4,7 +4,7 @@ Preview the default skin via the edit skin
 Tests for new features by Ed Crewe, Internet Development (University of Bristol) August 2008
 
 This test checks that changing the add preview tab properties switches the visibility in other tools and confirm it adds a tab, when logged in to the edit skin, via the browser. 
-Do the same for the modified view option.
+Do the same for the modified view option. Implementation of a tab or view replacement is for the accompanying default theme egg
 
 First, we must perform some setup of the test browser.
 
@@ -53,7 +53,8 @@ Make sure we have switched on an edit skins preview tab in the actions
 
     >>> from Products.CMFCore.utils import getToolByName
     >>> from collective.editskinswitcher.browser.interfaces import PropertiesModifiedEvent
-    >>> import add_preview
+    >>> collective.editskinswitcher.tests import add_preview
+
     >>> add_preview.previewChange({'add_preview_tab':True})
 
 See if the add_preview handler has done its work
@@ -93,10 +94,7 @@ Now test preview as a modified view skin
 
 Switch it on
 
-    >>> editskin_props.change_view_into_preview = True
-    >>> notify(PropertiesModifiedEvent(editskin_props))
-    >>> editskin_props.getProperty('change_view_into_preview')
-    True
+    >>> add_preview.previewChange({'change_view_into_preview':True})
 
 Check the editskinswitcher skins have been put in the edit skin
 
@@ -118,7 +116,7 @@ Check that the view now has the preview iframe
 
 Now lets turn this off again and confirm the edit skin has changed
 
-    >>> editskin_props.change_view_into_preview = False
+    >>> add_preview.previewChange({'change_view_into_preview':False})
     >>> notify(PropertiesModifiedEvent(editskin_props))
     >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_content') > -1
     False
