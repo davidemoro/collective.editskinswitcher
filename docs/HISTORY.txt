@@ -3,25 +3,18 @@ Changelog for collective.editskinswitcher
 
 (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.7 (Unreleased - August 2008)
-------------------------------------------------------------
-
-TO BE ADDED awaiting confirmation from Maurits / Reinout:
-
-- Extra URL skin switching options of SSL or specific URLs
-
-- New preview feature so that the default skin can be seen via the edit skin interface to preserve 
-  some level of WYSIWYG for editing. 
-
-  Preview feature is available as a viewlet for use via a view or a viewletManager ... but it is turned off by default.
-  Examples of how to enable it are included in the tests ... where it is enabled and tested.
-
-- Added tests for these new features and browser tests to the test suite
-
-[Ed Crewe, Internet Development - University of Bristol]
-
 collective.editskinswitcher - 0.6 (Unreleased)
 ----------------------------------------------
+
+- New preview feature so that the default skin can be seen via the
+  edit skin interface to preserve some level of WYSIWYG for editing.
+  Preview feature is available as a viewlet for use via a view or a
+  viewletManager, but it is turned off by default.  Examples of how to
+  enable it are included in the tests, where it is enabled and tested.
+  [Ed Crewe, Internet Development - University of Bristol]
+
+- Extra URL skin switching options of SSL or specific URLs
+  [Ed Crewe, Internet Development - University of Bristol]
 
 - Setting eol style in subversion correctly. [reinout]
 
@@ -33,6 +26,7 @@ collective.editskinswitcher - 0.5 (Released 7 March 2008)
   portal_properties was not found, which was not caught correctly.
   [maurits]
 
+
 collective.editskinswitcher - 0.4 (Released 12 February 2008)
 -------------------------------------------------------------
 
@@ -40,6 +34,7 @@ collective.editskinswitcher - 0.4 (Released 12 February 2008)
   least on the sharing tab when searching for users, as object is a
   KSS view then.
   [maurits]
+
 
 collective.editskinswitcher - 0.3 (Released 30 January 2008)
 ------------------------------------------------------------
@@ -55,6 +50,7 @@ collective.editskinswitcher - 0.3 (Released 30 January 2008)
 - Update README.txt to tell about the new options introduced in
   version 0.2.
   [maurits]
+
 
 collective.editskinswitcher - 0.2 (Released 28 January 2008)
 ------------------------------------------------------------

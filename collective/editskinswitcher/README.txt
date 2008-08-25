@@ -35,6 +35,7 @@ Developer types probably like the fact that you also get the Visitor
 Skin when visiting ``localhost`` and the Editor Skin when you go to
 ``127.0.0.1``.
 
+
 Other options
 -------------
 
@@ -45,20 +46,33 @@ are available:
 - ``edit_skin``: set the skin that editors get.  The default is "Plone
   Default".
 
-- ``based_on_url``: when True (the default) you get the behaviour
-  described above.
+- ``switch_skin_action``: choose the url condition that is used for
+  switching to the edit skin.  Options are:
+
+  - Based on URL: With this you get the behaviour described above.
+    This is the default.
+
+  - Specific URLs: If this is specified the edit skin is used when the
+    first part of the url matches one of the entries in the
+    ``specific_domains`` property.  This url is the url for the root
+    of thePlone Site; so usually this will be a domain, like
+    ``http://special.domain.com``.
+
+  - Based on SSL: If this is chosen, then any urls that are SSL
+    will get the edit skin and others will get the default skin.
+
+  - No URL based switching: do not base the skin switching on the url.
 
 - ``need_authentication``: when True you need to be logged in before
   your skin is switched.  By default this is set to False.  This looks
-  for the ``__ac`` cookie that Plone gives you when logged in.  Note:
+  for the ``__ac`` cookie that Plone gives you when logged in.  **Note**:
   logging in via the Zope Management Interface is handled without
   cookies, so the editskin switcher regards you as anonymous then.
 
-You can combine the two behaviours if you want.  If they are both
-True, then you need to have the right url and you need to be logged
-in.
+If you combine the switch skin action and the authentication, then you
+need to have the right url and you need to be logged in.
 
-When both are False, nothing happens: then you might as well simply
+When both are not used, nothing happens: then you might as well simply
 uninstall this product as it is not useful.
 
 
@@ -118,6 +132,14 @@ long as the url is something like::
   ...//(edit|cms|manage).something.something....
 
 you end up in the edit skin.
+
+
+Preview
+-------
+
+Look at the tests to see how to add a preview tab, to maintain some
+wysiwyg functionality in the edit skin.
+
 
 
 Installation using zc.buildout

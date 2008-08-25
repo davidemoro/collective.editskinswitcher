@@ -88,3 +88,4 @@ def is_edit_url(url):
     if parts[0] not in ('edit', 'cms', 'manage'):
         return False
     return True
+

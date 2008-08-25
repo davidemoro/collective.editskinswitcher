@@ -1,6 +1,11 @@
 import unittest
+import doctest
+
 from Testing import ZopeTestCase as ztc
-from base import BaseFunctionalTestCase
+from collective.editskinswitcher.tests import base
+
+import zope.component.testing
+import zope.component.eventtesting
 
 
 def test_suite():
@@ -8,8 +13,8 @@ def test_suite():
 
         # Integration tests that use PloneTestCase
         ztc.ZopeDocFileSuite(
-            'need_authentication.txt', package='collective.editskinswitcher.tests',
-            test_class=BaseFunctionalTestCase),
+            'tests/preview.txt', package='collective.editskinswitcher',
+            test_class=base.BaseFunctionalTestCase),
         
         ])
 

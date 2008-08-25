@@ -44,12 +44,12 @@ At this moment a user only gets the edit skin when he visits an edit
 url and is authenticated.  We can also only check if they are
 authenticated, regardless of the url::
 
-    >>> based_on_url = editskin_props.getProperty('based_on_url')
-    >>> based_on_url
+    >>> switch_skin_action = editskin_props.getProperty('switch_skin_action')
+    >>> switch_skin_action == 'based on edit URL'
     True
-    >>> editskin_props.based_on_url = False
-    >>> based_on_url = editskin_props.getProperty('based_on_url')
-    >>> based_on_url
+    >>> editskin_props.switch_skin_action = 'no URL based switching'
+    >>> switch_skin_action = editskin_props.getProperty('switch_skin_action')
+    >>> switch_skin_action == 'based on edit URL'
     False
 
 When we totally remove our property sheet, no errors are thrown, just
