@@ -76,8 +76,8 @@ def is_edit_url(url):
     if protocolend == -1:
         # No url
         return False
-    protocol = url[0 : protocolend+2]
-    url = url[protocolend+2 : ]
+    protocol = url[0:protocolend+2]
+    url = url[protocolend+2:]
     domain = url.split('/')[0]
     # Note: domain could be mydomain.com:8080 here but we do not care.
     parts = domain.split('.')
@@ -88,4 +88,3 @@ def is_edit_url(url):
     if parts[0] not in ('edit', 'cms', 'manage'):
         return False
     return True
-

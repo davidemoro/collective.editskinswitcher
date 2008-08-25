@@ -61,4 +61,3 @@ no switching is done anymore.
     >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
     'Holy Grail'
-

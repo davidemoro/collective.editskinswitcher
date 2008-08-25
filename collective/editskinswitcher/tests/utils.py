@@ -7,13 +7,18 @@ import collective.editskinswitcher.tests
 
 SKINCONFIG = """\
 <?xml version="1.0"?>
-<!-- This file adds in the Monty Python test skins layer with a test template -->
+<!-- This file adds in the Monty Python test skins layer with a test template
+  -->
 
-<object name="portal_skins" allow_any="False" cookie_persistence="False" default_skin="Monty Python Skin">
+<object name="portal_skins"
+  allow_any="False"
+  cookie_persistence="False"
+  default_skin="Monty Python Skin">
 
  <object name="editskinswitcher_tests"
     meta_type="Filesystem Directory View"
-    directory="collective.editskinswitcher.tests:skins/editskinswitcher_tests"/>
+    directory="collective.editskinswitcher.tests:skins/editskinswitcher_tests"
+    />
 
  <skin-path name="Monty Python Skin" based-on="Plone Default">
   <layer name="editskinswitcher_tests"
@@ -22,6 +27,7 @@ SKINCONFIG = """\
 
 </object>
 """
+
 
 def _hold(self, object):
     """Hold a reference to an object to delay it's destruction until mine
@@ -36,11 +42,12 @@ def _hold(self, object):
 class TestRequest(baseTestRequest):
     """ This just adds the set, get methods of the real REQUEST object """
 
-    def set(self,key,value):
+    def set(self, key, value):
         self.form[key] = value
-        
+
 TestRequest._hold = _hold
-                                                                        
+
+
 def new_default_skin(portal):
     """ Register test skins folder with extra test template - zcml
         then make new default skin based on Plone Default with test skin - xml

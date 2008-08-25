@@ -8,9 +8,10 @@ def test_suite():
 
         # Integration tests that use PloneTestCase
         ztc.ZopeDocFileSuite(
-            'need_authentication.txt', package='collective.editskinswitcher.tests',
+            'need_authentication.txt',
+            package='collective.editskinswitcher.tests',
             test_class=BaseFunctionalTestCase),
-        
+
         ])
 
 if __name__ == '__main__':

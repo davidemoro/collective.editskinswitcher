@@ -14,7 +14,7 @@ def setup_product():
     zcml.load_config('configure.zcml',
                      collective.editskinswitcher)
     fiveconfigure.debug_mode = False
-    ztc.installPackage('collective.editskinswitcher') 
+    ztc.installPackage('collective.editskinswitcher')
 
 
 class BaseTestCase(ptc.PloneTestCase):

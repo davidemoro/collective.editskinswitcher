@@ -4,12 +4,12 @@
     xmlns:cmf="http://namespaces.zope.org/cmf"
     i18n_domain="ecu.theme">
 
-    <five:registerPackage package="." initialize=".initialize" />
+  <five:registerPackage package="." initialize=".initialize" />
 
-    <include package=".browser" />
-    <include file="profiles.zcml" />
+  <include package=".browser" />
+  <include file="profiles.zcml" />
 
-   <subscriber
+  <subscriber
       for="*
            zope.app.publication.interfaces.IBeforeTraverseEvent"
       handler=".traversal.switch_skin"

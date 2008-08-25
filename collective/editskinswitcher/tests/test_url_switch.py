@@ -10,7 +10,7 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'url_switch.txt', package='collective.editskinswitcher.tests',
             test_class=BaseTestCase),
-        
+
         ])
 
 if __name__ == '__main__':

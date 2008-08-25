@@ -1,11 +1,6 @@
 import unittest
-import doctest
-
 from Testing import ZopeTestCase as ztc
 from collective.editskinswitcher.tests import base
-
-import zope.component.testing
-import zope.component.eventtesting
 
 
 def test_suite():
@@ -15,7 +10,7 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'tests/preview.txt', package='collective.editskinswitcher',
             test_class=base.BaseFunctionalTestCase),
-        
+
         ])
 
 if __name__ == '__main__':
