@@ -3,8 +3,8 @@ Changelog for collective.editskinswitcher
 
 (name of developer listed in brackets)
 
-collective.editskinswitcher - 0.6 (Unreleased)
-----------------------------------------------
+collective.editskinswitcher - 0.6 (Released 27 August 2008)
+-----------------------------------------------------------
 
 - New preview feature so that the default skin can be seen via the
   edit skin interface to preserve some level of WYSIWYG for editing.
