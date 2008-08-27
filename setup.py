@@ -9,10 +9,16 @@ readmefile = open(os.path.join('collective', 'editskinswitcher', 'README.txt'))
 readme = readmefile.read().strip()
 readmefile.close()
 
+historyfile = open(os.path.join('docs', 'HISTORY.txt'))
+history = historyfile.read().strip()
+historyfile.close()
+
+long_description = "%s\n\n\n%s" % (readme, history)
+
 setup(name='collective.editskinswitcher',
       version=version,
       description="Switch to the edit skin for certain domains.""",
-      long_description=readme,
+      long_description=long_description,
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
