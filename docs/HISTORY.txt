@@ -3,6 +3,12 @@ Changelog for collective.editskinswitcher
 
 (name of developer listed in brackets)
 
+collective.editskinswitcher - 0.7 (unreleased)
+----------------------------------------------
+
+- Nothing changed yet.
+
+
 collective.editskinswitcher - 0.6 (Released 27 August 2008)
 -----------------------------------------------------------
 
