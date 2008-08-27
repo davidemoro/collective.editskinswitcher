@@ -153,10 +153,11 @@ for the view tab content in the edit skin.
 Both are implemented within the tests folder and tested, but neither is 
 used by default.
 
-For editskinswitcher to be of use it requires an accompanying theme.egg 
-holding the configuration for the default (and edit) skins. 
-In order to use preview, it must be turned on within this accompanying 
-theme egg. Example code to do this are within the tests folder.
+For the preview of editskinswitcher to be of use it requires an
+accompanying theme.egg holding the configuration for the default (and
+edit) skins.  In order to use preview, it must be turned on within
+this accompanying theme egg. Example code to do this are within the
+tests folder.
 
 Instructions for replacing view with preview are given in
 tests/skins/README.txt
