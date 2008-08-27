@@ -8,6 +8,7 @@ collective.editskinswitcher - 0.6 (Unreleased)
 
 - New preview feature so that the default skin can be seen via the
   edit skin interface to preserve some level of WYSIWYG for editing.
+  (Based on part of an unreleased plone 2 product by Dominic Hiles.)
   Preview feature is available as a viewlet for use via a view or a
   viewletManager, but it is turned off by default.  Examples of how to
   enable it are included in the tests, where it is enabled and tested.
