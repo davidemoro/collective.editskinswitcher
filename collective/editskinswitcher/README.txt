@@ -137,9 +137,38 @@ you end up in the edit skin.
 Preview
 -------
 
-Look at the tests to see how to add a preview tab, to maintain some
-wysiwyg functionality in the edit skin.
+The preview option allows you to see the default skin via the edit skin. 
 
+It does so by using an iframe which accesses the edit skin content but flips 
+it to the default skin. This allows you to easily view previous versions, 
+private content etc. as it will appear in the default skin if published.
+
+This is particularly useful in cases where your default skin differs 
+radically from the edit skin. It allows the edit interface to maintain some
+wysiwyg functionality.
+
+Preview can either be used as a separate preview tab, or as a replacement 
+for the view tab content in the edit skin.
+
+Both are implemented within the tests folder and tested, but neither is 
+used by default.
+
+For editskinswitcher to be of use it requires an accompanying theme.egg 
+holding the configuration for the default (and edit) skins. 
+In order to use preview, it must be turned on within this accompanying 
+theme egg. Example code to do this are within the tests folder.
+
+Instructions for replacing view with preview are given in
+tests/skins/README.txt
+
+To add it as a separate preview tab:
+
+1. Add the browser view by putting what is in tests/configure.zcml in 
+   your theme egg configure.zcml
+
+2. Within tests/add_preview.py there is ACTIONSCONFIG 
+   Add this as a profiles/default/actions.xml file.
+   Change the default visible=False property to True. 
 
 
 Installation using zc.buildout
