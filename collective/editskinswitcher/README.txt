@@ -49,16 +49,21 @@ are available:
 - ``switch_skin_action``: choose the url condition that is used for
   switching to the edit skin.  Options are:
 
-  - Based on URL: With this you get the behaviour described above.
+  - based on edit URL: With this you get the behaviour described above.
     This is the default.
 
-  - Specific URLs: If this is specified the edit skin is used when the
+  - based on specific domain: If this is specified the edit skin is used when the
     first part of the url matches one of the entries in the
     ``specific_domains`` property.  This url is the url for the root
     of thePlone Site; so usually this will be a domain, like
     ``http://special.domain.com``.
 
-  - Based on SSL: If this is chosen, then any urls that are SSL
+  - based on admin header: If this is chosen you will need to set up your proxy 
+    server, eg. Apache, to add a 'HTTP_PLONEADMIN' header to the request. It can 
+    do this based on the url for instance. An example is given in
+    /tests/ploneadmin_header.txt
+
+  - based on SSL: If this is chosen, then any urls that are SSL
     will get the edit skin and others will get the default skin.
 
   - No URL based switching: do not base the skin switching on the url.

@@ -7,7 +7,8 @@ from Globals import InitializeClass
 def editSwitchList(self):
     """ Options for switch_skin_action property """
     return ["based on edit URL", "based on specific domains",
-            "based on SSL", "no URL based switching"]
+            "based on SSL", "based on admin header",
+            "no URL based switching"]
 
 setattr(SimpleItemWithProperties, 'editSwitchList', editSwitchList)
 InitializeClass(SimpleItemWithProperties)

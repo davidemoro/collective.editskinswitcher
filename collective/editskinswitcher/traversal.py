@@ -22,7 +22,11 @@ def ssl_url(request, props):
         return True
     return False
 
-
+def admin_header(request, props):
+    if request.get('HTTP_PLONEADMIN',None):
+        return True
+    return False
+    
 def no_url(request, props):
     """This is for skin switching based on authentication only."""
     return props.getProperty('need_authentication', False)
@@ -31,6 +35,7 @@ def no_url(request, props):
 methods = {'based on edit URL': edit_url,
            'based on specific domains': specific_domain,
            'based on SSL': ssl_url,
+           'based on admin header': admin_header,           
            'no URL based switching': no_url}
 
 
