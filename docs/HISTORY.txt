@@ -6,8 +6,9 @@ Changelog for collective.editskinswitcher
 collective.editskinswitcher - 0.7 (unreleased)
 ----------------------------------------------
 
-- Nothing changed yet.
-
+- Added switching option based on a request header flag set by the
+  proxy server (eg. Apache)
+  [Ed Crewe, ILRT - University of Bristol]
 
 collective.editskinswitcher - 0.6 (Released 27 August 2008)
 -----------------------------------------------------------
@@ -18,10 +19,10 @@ collective.editskinswitcher - 0.6 (Released 27 August 2008)
   Preview feature is available as a viewlet for use via a view or a
   viewletManager, but it is turned off by default.  Examples of how to
   enable it are included in the tests, where it is enabled and tested.
-  [Ed Crewe, Internet Development - University of Bristol]
+  [Ed Crewe, ILRT - University of Bristol]
 
 - Extra URL skin switching options of SSL or specific URLs
-  [Ed Crewe, Internet Development - University of Bristol]
+  [Ed Crewe, ILRT - University of Bristol]
 
 - Setting eol style in subversion correctly. [reinout]
 
