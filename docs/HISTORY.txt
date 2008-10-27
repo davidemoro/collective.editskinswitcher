@@ -2,16 +2,14 @@ Changelog for collective.editskinswitcher
 =========================================
 
 0.7 (2008-10-04)
-
-collective.editskinswitcher - 0.7 (unreleased)
-----------------------------------------------
+----------------
 
 - Added switching option based on a request header flag set by the
   proxy server (eg. Apache)
   [Ed Crewe, ILRT - University of Bristol]
 
-collective.editskinswitcher - 0.6 (Released 27 August 2008)
------------------------------------------------------------
+0.6 (2008-08-27)
+----------------
 
 - New preview feature so that the default skin can be seen via the
   edit skin interface to preserve some level of WYSIWYG for editing.
@@ -27,16 +25,16 @@ collective.editskinswitcher - 0.6 (Released 27 August 2008)
 - Setting eol style in subversion correctly. [reinout]
 
 
-collective.editskinswitcher - 0.5 (Released 7 March 2008)
----------------------------------------------------------
+0.5 (2008-03-07)
+----------------
 
 - Bug fix: when called on the zope root (can happen in some cases)
   portal_properties was not found, which was not caught correctly.
   [maurits]
 
 
-collective.editskinswitcher - 0.4 (Released 12 February 2008)
--------------------------------------------------------------
+0.4 (2008-02-12)
+----------------
 
 - Bug fix: if object has no changeSkin, try its context.  Happens at
   least on the sharing tab when searching for users, as object is a
@@ -44,8 +42,8 @@ collective.editskinswitcher - 0.4 (Released 12 February 2008)
   [maurits]
 
 
-collective.editskinswitcher - 0.3 (Released 30 January 2008)
-------------------------------------------------------------
+0.3 (2008-01-30)
+----------------
 
 - Instead of an Access Rule, use a pre-traversal hook.  Idea: David
   Convent.  Thanks!  Is a lot cleaner.
@@ -60,8 +58,8 @@ collective.editskinswitcher - 0.3 (Released 30 January 2008)
   [maurits]
 
 
-collective.editskinswitcher - 0.2 (Released 28 January 2008)
-------------------------------------------------------------
+0.2 (2008-01-28)
+----------------
 
 - When testing if the user is logged in, check for the __ac cookie in
   the request instead of portal_membership.isAnonymousUser as this
@@ -90,8 +88,8 @@ collective.editskinswitcher - 0.2 (Released 28 January 2008)
   [maurits]
 
 
-collective.editskinswitcher - 0.1 (Released 25 January 2008)
-------------------------------------------------------------
+0.1 (2008-01-25)
+----------------
 
 - Add a property sheet editskin_switcher with property edit_skin.
   Default value: Plone Default.  Use that for determining which
