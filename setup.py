@@ -41,5 +41,8 @@ setup(name='collective.editskinswitcher',
       ],
       entry_points="""
       # -*- Entry points: -*-
+
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
