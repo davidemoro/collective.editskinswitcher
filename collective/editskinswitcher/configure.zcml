@@ -1,8 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
-    xmlns:cmf="http://namespaces.zope.org/cmf"
-    i18n_domain="ecu.theme">
+    xmlns:cmf="http://namespaces.zope.org/cmf">
 
   <five:registerPackage package="." initialize=".initialize" />
 
