@@ -11,4 +11,12 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+  <genericsetup:upgradeStep
+      title="Add admin_header property"
+      description=""
+      source="1000"
+      destination="1001"
+      handler="collective.editskinswitcher.upgrades.add_admin_header_property"
+      profile="collective.editskinswitcher:default" />
+
 </configure>

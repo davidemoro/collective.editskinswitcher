@@ -4,6 +4,9 @@ Changelog for collective.editskinswitcher
 0.8 (unreleased)
 ----------------
 
+- Allow specifying the admin_header; defaults to HTTP_PLONEADMIN.
+  [maurits]
+
 - Added z3c.autoinclude.plugin entry point for plone, to avoid having
   collective.editskinswitcher in the zcml option of your zope
   instance; only effective in Plone 3.3 or higher.  In earlier

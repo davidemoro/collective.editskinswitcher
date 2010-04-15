@@ -23,7 +23,8 @@ def ssl_url(request, props):
     return False
 
 def admin_header(request, props):
-    if request.get('HTTP_PLONEADMIN',None):
+    admin_header = props.getProperty('admin_header', 'HTTP_PLONEADMIN')
+    if request.get(admin_header, None):
         return True
     return False
     

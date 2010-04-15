@@ -6,5 +6,6 @@
   <property name="switch_skin_action" type="selection" select_variable="editSwitchList">based on edit URL</property>
   <property name="specific_domains" type="lines"></property>
   <property name="need_authentication" type="boolean">False</property>
+  <property name="admin_header" type="string">HTTP_PLONEADMIN</property>
  </object>
 </object>
