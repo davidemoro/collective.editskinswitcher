@@ -13,6 +13,11 @@ First, we must perform some setup of the test browser.
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
 
+And we make sure we are logged out:
+
+    >>> browser.open(portal_url + '/logout')
+
+
 Skin switching is done when the switch_skin_action is 'based on
 specific domains' so lets switch on skin changing based on specific
 domains and add a couple:

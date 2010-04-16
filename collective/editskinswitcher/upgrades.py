@@ -29,3 +29,15 @@ def add_admin_header_property(context, logger=None):
     portal_props = getToolByName(context, 'portal_properties')
     sheet = portal_props.editskin_switcher
     add_property(sheet, 'admin_header', 'HTTP_PLONEADMIN', 'string', logger)
+
+
+def add_force_login_header_property(context, logger=None):
+    """Add the force_login_header property.
+    """
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('collective.editskinswitcher')
+
+    portal_props = getToolByName(context, 'portal_properties')
+    sheet = portal_props.editskin_switcher
+    add_property(sheet, 'force_login_header', 'FORCE_LOGIN', 'string', logger)

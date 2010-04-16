@@ -74,6 +74,11 @@ are available:
   logging in via the Zope Management Interface is handled without
   cookies, so the editskin switcher regards you as anonymous then.
 
+- ``force_login_header``: when the request has this header, only
+  authenticated use is allowed.  This does not actually switch the
+  skin; you just get redirected to the login_form.  By default this is
+  set to the string ``FORCE_LOGIN``.
+
 If you combine the switch skin action and the authentication, then you
 need to have the right url and you need to be logged in.
 

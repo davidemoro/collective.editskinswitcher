@@ -37,6 +37,10 @@ tests. It lets us see all error messages in the error_log.
     >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
 
+And we make sure we are logged out:
+
+    >>> browser.open(portal_url + '/logout')
+ 
 Skin switching is done when the switch_skin_action is 'based on admin header'
 so lets switch on skin changing due to admin header:
 

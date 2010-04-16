@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 0.8 (unreleased)
 ----------------
 
+- When a FORCE_LOGIN header is passed (exact spelling is configurable)
+  only allow access to logged in users (you get redirected usually).
+  [maurits]
+
 - Allow specifying the admin_header; defaults to HTTP_PLONEADMIN.
   [maurits]
 
@@ -20,6 +24,7 @@ Changelog for collective.editskinswitcher
 - Added switching option based on a request header flag set by the
   proxy server (eg. Apache)
   [Ed Crewe, ILRT - University of Bristol]
+
 
 0.6 (2008-08-27)
 ----------------

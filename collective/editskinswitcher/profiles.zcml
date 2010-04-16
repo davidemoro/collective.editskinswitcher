@@ -19,4 +19,12 @@
       handler="collective.editskinswitcher.upgrades.add_admin_header_property"
       profile="collective.editskinswitcher:default" />
 
+  <genericsetup:upgradeStep
+      title="Add force_login_header property"
+      description=""
+      source="1001"
+      destination="1002"
+      handler="collective.editskinswitcher.upgrades.add_force_login_header_property"
+      profile="collective.editskinswitcher:default" />
+
 </configure>

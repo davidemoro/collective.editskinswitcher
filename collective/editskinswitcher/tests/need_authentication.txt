@@ -48,6 +48,7 @@ we authenticate with the test browser instead:
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
+    >>> browser.open(portal_url + '/logout')
     >>> browser.open(portal_url)
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password

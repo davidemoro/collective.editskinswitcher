@@ -15,6 +15,10 @@ First, we must perform some setup of the test browser.
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
 
+And we make sure we are logged out:
+
+    >>> browser.open(portal_url + '/logout')
+ 
 All our tests are to do with the edit skin interface so lets switch to it:
 
     >>> from collective.editskinswitcher.tests.utils import TestRequest

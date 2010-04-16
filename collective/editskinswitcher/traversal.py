@@ -1,4 +1,10 @@
+from AccessControl import Unauthorized
 from Products.CMFCore.utils import getToolByName
+
+
+def check_auth(request):
+    if not request.cookies.get('__ac'):
+        raise Unauthorized('Go away')
 
 
 def edit_url(request, props):
@@ -22,12 +28,23 @@ def ssl_url(request, props):
         return True
     return False
 
+
+def force_login(request, props):
+    force_login_header = props.getProperty('force_login_header', None)
+    if not force_login_header:
+        return False
+    if request.get(force_login_header, None):
+        return True
+    return False
+
+
 def admin_header(request, props):
     admin_header = props.getProperty('admin_header', 'HTTP_PLONEADMIN')
     if request.get(admin_header, None):
         return True
     return False
-    
+
+
 def no_url(request, props):
     """This is for skin switching based on authentication only."""
     return props.getProperty('need_authentication', False)
@@ -53,6 +70,12 @@ def switch_skin(object, event):
 
     # Okay, we have a property sheet we can use.
     edit_skin = editskin_props.getProperty('edit_skin', '')
+
+    if force_login(request, editskin_props):
+        # We have a header that forces us to be logged in; so add a
+        # hook at the end of the traversal to check that we really are
+        # logged in.
+        request.post_traverse(check_auth, (request, ))
 
     # Check if we need authentication first, possibly in addition to
     # one of the other tests
