@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 0.8 (unreleased)
 ----------------
 
+- Slightly better check for anonymous users, user getSecurityManager
+  instead of checking for an ``__ac`` cookie.
+  [maurits]
+
 - When a FORCE_LOGIN header is passed (exact spelling is configurable)
   only allow access to logged in users (you get redirected usually).
   [maurits]

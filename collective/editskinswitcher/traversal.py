@@ -1,9 +1,13 @@
-from AccessControl import Unauthorized
+from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
 
 
+def anonymous():
+    return (getSecurityManager().getUser().getUserName() == 'Anonymous User')
+
+
 def check_auth(request):
-    if not request.cookies.get('__ac'):
+    if anonymous():
         raise Unauthorized('Go away')
 
 
@@ -80,7 +84,7 @@ def switch_skin(object, event):
     # Check if we need authentication first, possibly in addition to
     # one of the other tests
     if editskin_props.getProperty('need_authentication', False) \
-            and not request.cookies.get('__ac'):
+            and not anonymous():
         return None
 
     switch = editskin_props.getProperty('switch_skin_action',
