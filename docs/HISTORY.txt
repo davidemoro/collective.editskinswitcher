@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-0.8 (unreleased)
+0.8 (2010-04-16)
 ----------------
 
 - Slightly better check for anonymous users, user getSecurityManager
