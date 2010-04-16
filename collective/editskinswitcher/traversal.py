@@ -24,7 +24,7 @@ def specific_domain(request, props):
 
 def ssl_url(request, props):
     parts = request.getURL().split('://')
-    if parts[0]=='https':
+    if parts[0] == 'https':
         return True
     return False
 
@@ -53,7 +53,7 @@ def no_url(request, props):
 methods = {'based on edit URL': edit_url,
            'based on specific domains': specific_domain,
            'based on SSL': ssl_url,
-           'based on admin header': admin_header,           
+           'based on admin header': admin_header,
            'no URL based switching': no_url}
 
 
