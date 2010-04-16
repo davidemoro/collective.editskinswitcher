@@ -8,13 +8,15 @@ def is_edit_url(url):
     >>> is_edit_url('http://127.0.0.1/')
     True
 
-    Urls starting with 'edit', 'cms' or 'manage' are editing urls.
+    Urls starting with 'edit', 'cms', 'manage' or 'admin' are editing urls.
 
     >>> is_edit_url('http://edit.google.com/')
     True
     >>> is_edit_url('http://edit.google.com')
     True
     >>> is_edit_url('http://cms.google.com/')
+    True
+    >>> is_edit_url('http://admin.google.com/')
     True
     >>> is_edit_url('http://google.com/')
     False
@@ -84,6 +86,6 @@ def is_edit_url(url):
         return False
     if domain.startswith('127.0.0.1'):
         return True
-    if parts[0] not in ('edit', 'cms', 'manage'):
+    if parts[0] not in ('edit', 'cms', 'manage', 'admin'):
         return False
     return True
