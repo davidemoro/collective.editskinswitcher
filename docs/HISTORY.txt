@@ -8,7 +8,7 @@ Changelog for collective.editskinswitcher
   instead of checking for an ``__ac`` cookie.
   [maurits]
 
-- When a FORCE_LOGIN header is passed (exact spelling is configurable)
+- When a X_FORCE_LOGIN header is passed (exact spelling is configurable)
   only allow access to logged in users (you get redirected usually).
   [maurits]
 

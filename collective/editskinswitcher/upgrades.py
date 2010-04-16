@@ -40,4 +40,4 @@ def add_force_login_header_property(context, logger=None):
 
     portal_props = getToolByName(context, 'portal_properties')
     sheet = portal_props.editskin_switcher
-    add_property(sheet, 'force_login_header', 'FORCE_LOGIN', 'string', logger)
+    add_property(sheet, 'force_login_header', 'X_FORCE_LOGIN', 'string', logger)

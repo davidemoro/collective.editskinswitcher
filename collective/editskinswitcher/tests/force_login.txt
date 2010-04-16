@@ -2,7 +2,7 @@ Force login
 ===========
 
 This tests forcing a login when a custom header is added.  The admin
-header checked for is FORCE_LOGIN by default.  This can be useful
+header checked for is X_FORCE_LOGIN by default.  This can be useful
 for example to only allow access to a preview site for known users
 before making it available to the general public.  For how to add a
 custom header, see ploneadmin_header.txt
@@ -24,7 +24,7 @@ you will get redirected to the login form.  In the tests this
 apparently does not function transparantly, as it just raises the
 Unauthorized exception:
 
-    >>> browser.open(portal_url + '?FORCE_LOGIN=on')
+    >>> browser.open(portal_url + '?X_FORCE_LOGIN=on')
     Traceback (most recent call last):
     ...
     Unauthorized...
@@ -38,9 +38,9 @@ That is fine.  Now we login and try again:
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
-    >>> browser.open(portal_url + '?FORCE_LOGIN=on')
+    >>> browser.open(portal_url + '?X_FORCE_LOGIN=on')
     >>> browser.url
-    'http://nohost/plone?FORCE_LOGIN=on'
+    'http://nohost/plone?X_FORCE_LOGIN=on'
     >>> portal.getCurrentSkinName()
     'Monty Python Skin'
     >>> browser.open(portal_url + '/logout')

@@ -7,6 +7,6 @@
   <property name="specific_domains" type="lines"></property>
   <property name="need_authentication" type="boolean">False</property>
   <property name="admin_header" type="string">HTTP_PLONEADMIN</property>
-  <property name="force_login_header" type="string">FORCE_LOGIN</property>
+  <property name="force_login_header" type="string">X_FORCE_LOGIN</property>
  </object>
 </object>
