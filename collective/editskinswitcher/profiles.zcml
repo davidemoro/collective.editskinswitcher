@@ -27,4 +27,12 @@
       handler="collective.editskinswitcher.upgrades.add_force_login_header_property"
       profile="collective.editskinswitcher:default" />
 
+  <genericsetup:upgradeStep
+      title="Change switch skin action to multiple selection"
+      description=""
+      source="1002"
+      destination="1003"
+      handler="collective.editskinswitcher.upgrades.change_switch_skin_action_to_multiple_selection"
+      profile="collective.editskinswitcher:default" />
+
 </configure>

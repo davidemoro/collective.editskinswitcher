@@ -87,9 +87,24 @@ def switch_skin(object, event):
             and not anonymous():
         return None
 
-    switch = editskin_props.getProperty('switch_skin_action',
-                                        'based on edit URL')
-    if not methods.get(switch, edit_url)(request, editskin_props):
+    # Try to find a reason for switching to the edit skin.  When one
+    # of the selected actions returns True, we switch the skin.
+    switches = editskin_props.getProperty('switch_skin_action', [])
+    if not isinstance(switches, tuple):
+        # Old data using a selection instead of multiple selection,
+        # which returns a string instead of a tuple of strings.
+        switches = (switches, )
+
+    found = False
+    for switch in switches:
+        method = methods.get(switch)
+        if not method:
+            continue
+        if method(request, editskin_props):
+            found = True
+            break
+    if not found:
+        # No switching
         return None
 
     # Use to preview default skin in edit skin mode

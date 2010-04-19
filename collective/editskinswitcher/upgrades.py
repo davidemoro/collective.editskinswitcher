@@ -40,4 +40,26 @@ def add_force_login_header_property(context, logger=None):
 
     portal_props = getToolByName(context, 'portal_properties')
     sheet = portal_props.editskin_switcher
-    add_property(sheet, 'force_login_header', 'X_FORCE_LOGIN', 'string', logger)
+    add_property(sheet, 'force_login_header', 'X_FORCE_LOGIN', 'string',
+                 logger)
+
+
+def change_switch_skin_action_to_multiple_selection(context, logger=None):
+    """Change switch skin action to multiple selection.
+    """
+    if logger is None:
+        # Called as upgrade step: define our own logger.
+        logger = logging.getLogger('collective.editskinswitcher')
+
+    portal_props = getToolByName(context, 'portal_properties')
+    sheet = portal_props.editskin_switcher
+    if sheet.getPropertyType('switch_skin_action') == 'multiple selection':
+        return
+    original = sheet.getProperty('switch_skin_action')
+    sheet._delProperty('switch_skin_action')
+    # As value we need the list of allowed methods, editSwitchList
+    # (see monkeypatches.py):
+    add_property(sheet, 'switch_skin_action', 'editSwitchList',
+                 'multiple selection', logger)
+    sheet._setPropValue('switch_skin_action', (original, ))
+    logger.info("Restored original value: %r", original)

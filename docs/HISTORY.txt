@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 0.9 (unreleased)
 ----------------
 
+- Change the switch skin action to a multiple selection.  When one
+  of the selected actions returns True, we switch the skin.
+  [maurits]
+
 - Also accept urls like admin.example.org as edit urls.
   [maurits]
 

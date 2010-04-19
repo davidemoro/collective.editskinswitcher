@@ -8,8 +8,9 @@ is the default::
     >>> context = portal
     >>> portal_props = getToolByName(context, 'portal_properties')
     >>> editskin_props = portal_props.get('editskin_switcher')
-    >>> editskin_props.getProperty('switch_skin_action') == 'based on edit URL'
-    True
+    >>> editskin_props.getProperty('switch_skin_action')
+    ('based on edit URL',)
+
 
 We rely on the getURL() method.  So we check that we can fool the test
 instance into believing it is on a different url::
