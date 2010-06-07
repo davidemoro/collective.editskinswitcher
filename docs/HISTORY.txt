@@ -1,8 +1,8 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-0.10 (unreleased)
------------------
+1.0 (2010-06-07)
+----------------
 
 - Fix: when we need authentication and we are anonymous then we do
   *not* want to switch: we want to have the default behaviour of
