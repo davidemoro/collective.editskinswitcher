@@ -1,3 +1,5 @@
+.. contents::
+ 
 Collective edit skin switcher
 =============================
 
