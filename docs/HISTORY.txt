@@ -4,7 +4,19 @@ Changelog for collective.editskinswitcher
 0.10 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Fix: when we need authentication and we are anonymous then we do
+  *not* want to switch: we want to have the default behaviour of
+  getting the standard skin instead of the edit skin.  Added some more
+  inline documentation.
+  [maurits]
+
+- Switch back to checking the ``__ac`` cookie to see if someone is
+  anonymous or not; the getSecurityManager check always says we are
+  anonymous, though I thought I had seen it working previously.
+  [maurits]
+
+- Add logging lines for debugging.
+  [maurits]
 
 
 0.9 (2010-04-19)
@@ -21,7 +33,7 @@ Changelog for collective.editskinswitcher
 0.8 (2010-04-16)
 ----------------
 
-- Slightly better check for anonymous users, user getSecurityManager
+- Slightly better check for anonymous users, using getSecurityManager
   instead of checking for an ``__ac`` cookie.
   [maurits]
 

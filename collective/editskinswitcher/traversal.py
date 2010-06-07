@@ -1,20 +1,35 @@
+import logging
 from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
 
+logger = logging.getLogger('editskinswitcher')
 
-def anonymous():
-    return (getSecurityManager().getUser().getUserName() == 'Anonymous User')
+
+def anonymous(request=None):
+    if request is None:
+        # I thought I had seen this working, but under normal
+        # circumstances when traversing you are always anonymous...
+        anon = (getSecurityManager().getUser().getUserName() ==
+                'Anonymous User')
+    elif request.cookies.get('__ac'):
+        anon = False
+    else:
+        anon = True
+    logger.debug("Anonymous? %s", anon)
+    return anon
 
 
 def check_auth(request):
-    if anonymous():
+    if anonymous(request):
         raise Unauthorized('Go away')
 
 
 def edit_url(request, props):
     ''' The default switch check based on a subdomain of cms, edit or manage'''
     from collective.editskinswitcher.utils import is_edit_url
-    return is_edit_url(request.getURL())
+    val = is_edit_url(request.getURL())
+    logger.debug("Is edit url? %s", val)
+    return val
 
 
 def specific_domain(request, props):
@@ -22,14 +37,18 @@ def specific_domain(request, props):
     if specific_domains != ():
         thisurl = request.getURL()
         if thisurl in specific_domains:
+            logger.debug("This url is in a specific domain.")
             return True
+    logger.debug("This url is NOT in a specific domain.")
     return False
 
 
 def ssl_url(request, props):
     parts = request.getURL().split('://')
     if parts[0] == 'https':
+        logger.debug("https url")
         return True
+    logger.debug("normal http url")
     return False
 
 
@@ -38,31 +57,44 @@ def force_login(request, props):
     if not force_login_header:
         return False
     if request.get(force_login_header, None):
+        logger.debug("Login will be forced.")
         return True
+    logger.debug("Login will NOT be forced.")
     return False
 
 
 def admin_header(request, props):
     admin_header = props.getProperty('admin_header', 'HTTP_PLONEADMIN')
     if request.get(admin_header, None):
+        logger.debug("admin header found")
         return True
+    logger.debug("no admin header found")
     return False
 
 
-def no_url(request, props):
+def need_authentication(request, props):
     """This is for skin switching based on authentication only."""
-    return props.getProperty('need_authentication', False)
+    val = props.getProperty('need_authentication', False)
+    logger.debug("Need authentication? %s", val)
+    return val
 
 
 methods = {'based on edit URL': edit_url,
            'based on specific domains': specific_domain,
            'based on SSL': ssl_url,
            'based on admin header': admin_header,
-           'no URL based switching': no_url}
+           'no URL based switching': need_authentication}
 
 
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
+
+    Note: when we bail out before the changeSkin call, then we show
+    the normal theme, which presumably is a custom theme for this
+    website.
+
+    If we do the changeSkin call, this means we switch to the edit
+    skin, which normally is the Plone Default skin.
     """
     request = event.request
     portal_props = getToolByName(object, 'portal_properties', None)
@@ -83,8 +115,8 @@ def switch_skin(object, event):
 
     # Check if we need authentication first, possibly in addition to
     # one of the other tests
-    if editskin_props.getProperty('need_authentication', False) \
-            and not anonymous():
+    if need_authentication(request, editskin_props) and anonymous(request):
+        logger.debug("need auth, but am anonymous: staying at normal skin.")
         return None
 
     # Try to find a reason for switching to the edit skin.  When one
@@ -105,7 +137,10 @@ def switch_skin(object, event):
             break
     if not found:
         # No switching
+        logger.debug("no switching, staying at normal skin")
         return None
+
+    logger.debug("will switch to edit skin")
 
     # Use to preview default skin in edit skin mode
     if request.get('mutate_skin', '') == 'default':
