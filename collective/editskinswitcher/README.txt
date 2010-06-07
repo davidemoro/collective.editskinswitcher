@@ -211,6 +211,22 @@ your ``etc/package-includes`` directory containing::
   <include package="collective.editskinswitcher" />
 
 
+Upgrading
+---------
+
+- In version 0.9 the ``switch_skin_action`` property was changed to a
+  multiple selection field.  There is an upgrade step that migrates
+  your previous setting correctly.  If you have changed this property
+  in your custom theme or policy package in a ``propertiestool.xml``
+  file, you will need to upgrade that file manually to the new setting
+  like this::
+
+    <property name="switch_skin_action"
+              type="multiple selection"
+              select_variable="editSwitchList">
+     <element value="based on edit URL"/>
+    </property>
+
 
 Have fun!
 
