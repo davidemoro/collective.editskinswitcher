@@ -17,14 +17,14 @@ What does it do?
 Let's say you have a Plone Site.  I tested this with Plone 3.  I see
 no reason why it should fail on Plone 2.5.  Maybe it even works on a
 CMF site.  Anyway, whatever site you have is available on two urls:
-``www.yourdomain.com`` and ``edit.yourdomain.com``.  Some day you
+``www.example.com`` and ``edit.example.com``.  Some day you
 should ask your local Apache guru how he did that.
 
 With ``collective.editskinswitcher`` installed (with the portal quick
 installer), visitors that go to the website with the url
-``edit.yourdomain.com`` will see the Editor Skin.  (This can be set in
+``edit.example.com`` will see the Editor Skin.  (This can be set in
 a property, as we shall see later.)  Visitors to
-``www.yourdomain.com`` will see whatever skin you have set as the
+``www.example.com`` will see whatever skin you have set as the
 default skin in portal_skins.  Can be pretty handy.
 
 To avoid confusion: we will call what you have set as "default skin"
@@ -129,10 +129,10 @@ from running the tests of course), is:
 
 On Linux you can edit ``/etc/hosts`` and add a line like::
 
-  127.0.0.1 edit.yourdomain.com www.yourdomain.com
+  127.0.0.1 edit.example.com www.example.com
 
-Now visiting ``edit.yourdomain.com`` should give you the Editor Skin
-and ``www.yourdomain.com`` should give you the Visitor Skin with the
+Now visiting ``edit.example.com`` should give you the Editor Skin
+and ``www.example.com`` should give you the Visitor Skin with the
 customizations.
 
 
