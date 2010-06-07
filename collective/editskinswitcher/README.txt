@@ -47,7 +47,9 @@ are available:
   Default".
 
 - ``switch_skin_action``: choose the url condition that is used for
-  switching to the edit skin.  Options are:
+  switching to the edit skin.  **Note**: since version 0.9 this is a
+  multiple select: if *one* of the selected options gives a positive
+  result, then we switch to the edit skin.  Options are:
 
   - based on edit URL: With this you get the behaviour described above.
     This is the default.
@@ -55,8 +57,8 @@ are available:
   - based on specific domain: If this is specified the edit skin is used when the
     first part of the url matches one of the entries in the
     ``specific_domains`` property.  This url is the url for the root
-    of thePlone Site; so usually this will be a domain, like
-    ``http://special.domain.com``.
+    of the Plone Site; so usually this will be a domain, like
+    ``http://special.example.com``.
 
   - based on admin header: If this is chosen you will need to set up your proxy 
     server, eg. Apache, to add a 'HTTP_PLONEADMIN' header to the request. It can 
@@ -66,7 +68,8 @@ are available:
   - based on SSL: If this is chosen, then any urls that are SSL
     will get the edit skin and others will get the default skin.
 
-  - No URL based switching: do not base the skin switching on the url.
+  - No URL based switching: do not base the skin switching on the url;
+    instead we check the ``need_authentication`` option.
 
 - ``need_authentication``: when True you need to be logged in before
   your skin is switched.  By default this is set to False.  This looks
@@ -192,6 +195,8 @@ For using collective.editskinswitcher with zc.buildout you have to add
    ...
    zcml = collective.editskinswitcher
    ...
+
+Note that the zcml line is not needed on Plone 3.3 or higher.
 
 
 Configuration without using zc.buildout
