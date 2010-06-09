@@ -74,10 +74,8 @@ are available:
     instead we check the ``need_authentication`` option.
 
 - ``need_authentication``: when True you need to be logged in before
-  your skin is switched.  By default this is set to False.  This looks
-  for the ``__ac`` cookie that Plone gives you when logged in.  **Note**:
-  logging in via the Zope Management Interface is handled without
-  cookies, so the editskin switcher regards you as anonymous then.
+  your skin is switched.  By default this is set to False.  See
+  the section `Am I authenticated?`_ below for some notes.
 
 - ``force_login_header``: when the request has this header, only
   authenticated use is allowed.  This does not actually switch the
@@ -89,6 +87,30 @@ need to have the right url and you need to be logged in.
 
 When both are not used, nothing happens: then you might as well simply
 uninstall this product as it is not useful.
+
+
+Am I authenticated?
+-------------------
+
+The ``need_authentication`` option looks for the ``__ac`` cookie that
+Plone gives you when logged in.  There are a few possible problems
+with this:
+
+- Logging in via the Zope Management Interface is handled without
+  cookies, so the editskin switcher regards you as anonymous then.
+
+- We do not check if the the cookie is actually valid.  This can
+  mostly give a surprise when you are developing multiple websites on
+  your own local computer: Plone stores the ``__ac`` cookie for the
+  localhost domain, without differentiating between multiple Plone
+  sites.  So if you are logged into Plone Site A on localhost with a
+  cookie, then the skin switcher thinks you are authenticated for all
+  websites on localhost.
+
+Alternatively, we could check ``getSecurityManager().getUser()``, but
+that check always thinks we are anonymous, presumably because our
+check is done during traversal, which apparently is too soon for
+anyone to be recognized as being logged in.
 
 
 Why not CMFUrlSkinSwitcher?
