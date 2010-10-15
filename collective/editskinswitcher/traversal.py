@@ -114,7 +114,14 @@ def switch_skin(object, event):
     request = event.request
 
     context = get_real_context(object)
-    ns = IAnnotations(context).get(ANNOTATION_KEY, None)
+    try:
+        annotations = IAnnotations(context)
+    except TypeError:
+        # Not a context that we can handle (seen with
+        # Products.CMFUid.UniqueIdAnnotationTool.UniqueIdAnnotation
+        # when saving an object).
+        return None
+    ns = annotations.get(ANNOTATION_KEY, None)
     if ns is not None:
         skin_name = ns.get("default-skin", None)
         if skin_name is not None:
