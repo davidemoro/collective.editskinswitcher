@@ -1,4 +1,9 @@
 import logging
+
+from zope.annotation.interfaces import IAnnotations
+
+from collective.editskinswitcher.browser.view import ANNOTATION_KEY
+
 from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
 
@@ -86,6 +91,16 @@ methods = {'based on edit URL': edit_url,
            'no URL based switching': need_authentication}
 
 
+def really_switch_skin(object, request, skin_name):
+    # object might be a view, for instance a KSS view.  Use the
+    # context of that object then.
+    try:
+        changeSkin = object.changeSkin
+    except AttributeError:
+        changeSkin = object.context.changeSkin
+    changeSkin(skin_name, request)
+
+
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
 
@@ -97,6 +112,13 @@ def switch_skin(object, event):
     skin, which normally is the Plone Default skin.
     """
     request = event.request
+
+    ns = IAnnotations(object).get(ANNOTATION_KEY, None)
+    if ns is not None:
+        skin_name = ns.get("default-skin", None)
+        if skin_name is not None:
+            really_switch_skin(object, request, skin_name)
+
     portal_props = getToolByName(object, 'portal_properties', None)
     if portal_props is None:
         return None
@@ -146,18 +168,11 @@ def switch_skin(object, event):
     if request.get('mutate_skin', '') == 'default':
         return None
 
-    # object might be a view, for instance a KSS view.  Use the
-    # context of that object then.
-    try:
-        changeSkin = object.changeSkin
-    except AttributeError:
-        changeSkin = object.context.changeSkin
-
     # Assume that if you get here you are switching to the edit skin
     # ... flag this for the purposes of caching / kss loading etc.
     request.set('editskinswitched', 1)
 
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
-    changeSkin(edit_skin, request)
+    really_switch_skin(object, request, edit_skin)
     return None
