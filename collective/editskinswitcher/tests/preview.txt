@@ -39,10 +39,10 @@ Check we are in the edit skin via the browser
 Now we need to login using the default user from PloneTestCase:
 
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
-    >>> browser.open(portal_url)
 
-We have the login portlet, so let's use that:
+We use the login form:
 
+    >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
