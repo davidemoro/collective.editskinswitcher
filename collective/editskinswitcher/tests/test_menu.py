@@ -10,8 +10,13 @@ from collective.editskinswitcher.tests.utils import (
     FakeTraversalEvent, TestRequest, new_default_skin)
 from collective.editskinswitcher.traversal import switch_skin
 
+from Acquisition import aq_base
+from ZPublisher.BeforeTraverse import queryBeforeTraverse
+
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
+from Products.Five.component import LocalSiteHook, HOOK_NAME
+from Products.SiteAccess.AccessRule import AccessRule
 
 # BBB Zope 2.12
 try:
@@ -93,6 +98,7 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
     def afterSetUp(self):
         self.basic_auth = "%s:%s" % (ptc.default_user, ptc.default_password)
         self.folder_path = self.folder.absolute_url(1)
+        self.portal_path = self.portal.absolute_url(1)
 
     def testSwitchDefaultSkin(self):
         response = self.publish(
@@ -101,6 +107,14 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
         self.assertEqual(response.getStatus(), 302)
         self.assertEqual(self.folder.absolute_url(),
                          response.getHeader("Location"))
+        self.assertTrue(hasattr(aq_base(self.folder), HOOK_NAME))
+        self.assertTrue(isinstance(getattr(aq_base(self.folder), HOOK_NAME),
+                                   LocalSiteHook))
+
+        btr = queryBeforeTraverse(self.folder, HOOK_NAME)[0]
+        self.assertEqual(1, btr[0])
+        self.assertTrue(isinstance(btr[1], AccessRule))
+        self.assertEqual(HOOK_NAME, btr[1].name)
         ns = IAnnotations(self.folder).get(ANNOTATION_KEY, None)
         self.assertNotEqual(None, ns)
         self.assertEqual("Plone Default", ns["default-skin"])
@@ -114,10 +128,11 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
         self.assertEqual(response.getStatus(), 302)
         self.assertFalse(self.folder.absolute_url() ==
                          response.getHeader("Location"))
+        self.assertFalse(hasattr(aq_base(self.folder), HOOK_NAME))
         ns = IAnnotations(self.folder).get(ANNOTATION_KEY, None)
         self.assertEqual(None, ns)
 
-    def testSkinSwitchedOnTraversalEvent(self):
+    def testSkinSwitchedOnFakeTraversalEvent(self):
         response = self.publish(
             self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
             basic=self.basic_auth)
@@ -135,3 +150,24 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
         switch_skin(self.folder, event)
         self.assertEqual("Plone Default", self.folder.getCurrentSkinName())
         self.assertEqual(0, request.get("editskinswitched", 0))
+
+    def testSkinSwitchedOnRealTraversalEvent(self):
+        # Create new skin based on Plone Default and make this the
+        # default skin.
+        new_default_skin(self.portal)
+        response = self.publish(
+            self.folder_path + '/getCurrentSkinName',
+            basic=self.basic_auth)
+        self.assertEqual("Monty Python Skin", response.getBody())
+
+        response = self.publish(
+            self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
+            basic=self.basic_auth)
+        self.assertEqual(response.getStatus(), 302)
+        self.assertEqual(self.folder.absolute_url(),
+                         response.getHeader("Location"))
+
+        response = self.publish(
+            self.folder_path + '/getCurrentSkinName',
+            basic=self.basic_auth)
+        self.assertEqual("Plone Default", response.getBody())
