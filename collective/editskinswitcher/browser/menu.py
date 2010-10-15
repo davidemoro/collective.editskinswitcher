@@ -16,7 +16,8 @@ from Acquisition import aq_base
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 
-from Products.SubPlone.interfaces import ISkinsSubMenuItem, ISkinsMenu
+from collective.editskinswitcher.browser.interfaces import (
+    ISkinsSubMenuItem, ISkinsMenu)
 
 
 class SkinsSubMenuItem(BrowserSubMenuItem):
