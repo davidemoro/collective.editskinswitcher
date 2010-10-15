@@ -91,14 +91,14 @@ methods = {'based on edit URL': edit_url,
            'no URL based switching': need_authentication}
 
 
-def really_switch_skin(object, request, skin_name):
+def get_real_context(object):
     # object might be a view, for instance a KSS view.  Use the
     # context of that object then.
     try:
-        changeSkin = object.changeSkin
+        getattr(object, 'changeSkin')
     except AttributeError:
-        changeSkin = object.context.changeSkin
-    changeSkin(skin_name, request)
+        return object.context
+    return object
 
 
 def switch_skin(object, event):
@@ -113,13 +113,14 @@ def switch_skin(object, event):
     """
     request = event.request
 
-    ns = IAnnotations(object).get(ANNOTATION_KEY, None)
+    context = get_real_context(object)
+    ns = IAnnotations(context).get(ANNOTATION_KEY, None)
     if ns is not None:
         skin_name = ns.get("default-skin", None)
         if skin_name is not None:
-            really_switch_skin(object, request, skin_name)
+            context.changeSkin(skin_name, request)
 
-    portal_props = getToolByName(object, 'portal_properties', None)
+    portal_props = getToolByName(context, 'portal_properties', None)
     if portal_props is None:
         return None
     editskin_props = portal_props.get('editskin_switcher')
@@ -174,5 +175,5 @@ def switch_skin(object, event):
 
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
-    really_switch_skin(object, request, edit_skin)
+    context.changeSkin(edit_skin, request)
     return None
