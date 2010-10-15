@@ -70,17 +70,17 @@ class SkinsMenu(BrowserMenu):
         for skin in skins_tool.getSkinSelections():
             skin_id = utils.normalizeString(skin, context, "utf-8")
             selected = skin == current_skin
-            cssClass = "actionMenu" if not selected else "actionMenuSelected"
+            cssClass = selected and "actionMenuSelected" or "actionMenu"
             results.append(
-                {"title" : skin,
-                 "description" : u"Use '%s' skin for this folder" % skin,
-                 "action" : "%s/@@switchDefaultSkin?skin_name=%s" % (url, skin),
-                 "selected" : selected,
-                 "extra" : {
+                {"title": skin,
+                 "description": u"Use '%s' skin for this folder" % skin,
+                 "action": "%s/@@switchDefaultSkin?skin_name=%s" % (url, skin),
+                 "selected": selected,
+                 "extra": {
                      "id": "collective.editskinswitcher-skin-%s" % skin_id,
                      "separator": False,
                      "class": cssClass},
-                 "submenu" : None,
-                 "icon" : None,
+                 "submenu": None,
+                 "icon": None,
                  })
         return results
