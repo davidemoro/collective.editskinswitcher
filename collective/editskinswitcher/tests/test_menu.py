@@ -37,7 +37,7 @@ class TestContentMenu(ptc.PloneTestCase):
         items = self.menu.getMenuItems(self.folder, self.request)
         skinsMenuItem = [
             i for i in items if
-            i["extra"]["id"] == "collective.editskinswitcher-menu-skins"][0]
+            i["extra"]["id"] == "collective-editskinswitcher-menu-skins"][0]
         self.assertEqual(skinsMenuItem["action"],
                          self.folder.absolute_url() + "/folder_contents")
         self.failUnless(len(skinsMenuItem["submenu"]) > 0)
@@ -47,7 +47,7 @@ class TestContentMenu(ptc.PloneTestCase):
         items = self.menu.getMenuItems(self.folder.doc, self.request)
         skinsMenuItem = [
             i for i in items if
-            i["extra"]["id"] == "collective.editskinswitcher-menu-skins"]
+            i["extra"]["id"] == "collective-editskinswitcher-menu-skins"]
         self.failIf(len(skinsMenuItem) > 0)
 
 
@@ -60,7 +60,7 @@ class TestContentMenu(ptc.PloneTestCase):
         items = self.menu.getMenuItems(self.folder, self.request)
         skinsMenuItem = [
             i for i in items if
-            i["extra"]["id"] == "collective.editskinswitcher-menu-skins"]
+            i["extra"]["id"] == "collective-editskinswitcher-menu-skins"]
         self.failIf(len(skinsMenuItem) > 0)
 
 
@@ -68,7 +68,7 @@ class TestSkinsMenu(ptc.PloneTestCase):
 
     def afterSetUp(self):
         self.menu = getUtility(
-            IBrowserMenu, name="collective.editskinswitcher-menu-skins",
+            IBrowserMenu, name="collective-editskinswitcher-menu-skins",
             context=self.folder)
         self.request = self.app.REQUEST
 
@@ -86,9 +86,9 @@ class TestSkinsMenu(ptc.PloneTestCase):
                          set([a["title"] for a in actions]))
         self.assertEqual(u"Use '%s' skin for this folder" % actions[0]["title"],
                          actions[0]["description"])
-        param = "selectSkin?skin_name=%s" % actions[0]["title"]
+        param = "switchDefaultSkin?skin_name=%s" % actions[0]["title"]
         self.assertEqual(param, actions[0]["action"].split("@@")[1])
-        skin_id = normalizeString(actions[0]["title"])
+        skin_id = normalizeString(actions[0]["title"], "utf-8")
         self.assertEqual("collective.editskinswitcher-skin-%s" % skin_id,
                          actions[0]["extra"]["id"])
 

@@ -23,10 +23,10 @@ from collective.editskinswitcher.browser.interfaces import (
 class SkinsSubMenuItem(BrowserSubMenuItem):
 
     implements(ISkinsSubMenuItem)
-    submenuId = "collective.editskinswitcher-menu-skins"
+    submenuId = "collective-editskinswitcher-menu-skins"
     title = u"Skins"
     description = u"Change skin for the current content item"
-    extra = {'id': 'collective.editskinswitcher-menu-skins'}
+    extra = {'id': 'collective-editskinswitcher-menu-skins'}
 
     order = 11
 
