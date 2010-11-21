@@ -5,7 +5,8 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 
 from collective.editskinswitcher.browser.interfaces import ISkinsMenu
-from collective.editskinswitcher.browser.view import ANNOTATION_KEY
+from collective.editskinswitcher.skin import (
+    ANNOTATION_KEY, get_selected_default_skin, set_selected_default_skin)
 from collective.editskinswitcher.tests.utils import (
     FakeTraversalEvent, TestRequest, new_default_skin)
 from collective.editskinswitcher.traversal import switch_skin
@@ -97,6 +98,18 @@ class TestSkinsMenu(ptc.PloneTestCase):
         skin_id = normalizeString(actions[0]["title"], "utf-8")
         self.assertEqual("collective.editskinswitcher-skin-%s" % skin_id,
                          actions[0]["extra"]["id"])
+
+    def testSelectedSkinHasProperCSSClass(self):
+        st = getToolByName(self.folder, "portal_skins")
+        skins = st.getSkinSelections()
+        actions = self.menu.getMenuItems(self.folder, self.request)
+        action = [a for a in actions if a["title"] == skins[0]][0]
+        self.assertEqual("actionMenu", action["extra"]["class"])
+        set_selected_default_skin(self.folder, skins[0])
+        self.assertEqual(skins[0], get_selected_default_skin(self.folder))
+        actions = self.menu.getMenuItems(self.folder, self.request)
+        action = [a for a in actions if a["title"] == skins[0]][0]
+        self.assertEqual("actionMenuSelected", action["extra"]["class"])
 
 
 class TestSelectSkinView(ptc.FunctionalTestCase):

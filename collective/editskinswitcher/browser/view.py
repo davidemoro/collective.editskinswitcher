@@ -1,9 +1,6 @@
-from persistent.mapping import PersistentMapping
-
-from zope.annotation.interfaces import IAnnotations
 from zope.publisher.browser import BrowserView
 
-from Acquisition import aq_base, aq_inner
+from Acquisition import aq_base
 from ZPublisher.BeforeTraverse import registerBeforeTraverse
 
 from Products.Five.component import LocalSiteHook, HOOK_NAME
@@ -11,8 +8,7 @@ from Products.SiteAccess.AccessRule import AccessRule
 
 from Products.CMFPlone.utils import getToolByName
 
-
-ANNOTATION_KEY = "collective.editskinswitcher"
+from collective.editskinswitcher.skin import set_selected_default_skin
 
 
 class SelectSkin(BrowserView):
@@ -29,13 +25,8 @@ class SelectSkin(BrowserView):
             registerBeforeTraverse(obj, hook, HOOK_NAME, 1)
             setattr(obj, HOOK_NAME, LocalSiteHook())
 
-        annotations = IAnnotations(aq_inner(self.context))
-        ns = annotations.get(ANNOTATION_KEY, None)
-        if ns is None:
-            ns = annotations[ANNOTATION_KEY] = PersistentMapping()
-
-        skin_name = self.request.form.get("skin_name", None)
-        ns["default-skin"] = skin_name
+        set_selected_default_skin(
+            self.context, self.request.form.get("skin_name", None))
 
         utils = getToolByName(self.context, "plone_utils")
         utils.addPortalMessage(u"Skin changed.")

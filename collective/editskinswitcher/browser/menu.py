@@ -12,15 +12,13 @@ except ImportError:
     from zope.app.publisher.browser.menu import BrowserMenu
     from zope.app.publisher.browser.menu import BrowserSubMenuItem
 
-from Acquisition import aq_base
-
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 
 from collective.editskinswitcher.browser.interfaces import (
     ISkinsSubMenuItem, ISkinsMenu)
 from collective.editskinswitcher.permissions import SetDefaultSkin
-
+from collective.editskinswitcher.skin import get_selected_default_skin
 
 class SkinsSubMenuItem(BrowserSubMenuItem):
 
@@ -68,7 +66,7 @@ class SkinsMenu(BrowserMenu):
 
         skins_tool = getToolByName(context, "portal_skins")
         url = context.absolute_url()
-        current_skin = getattr(aq_base(context), "skin_name", None)
+        current_skin = get_selected_default_skin(context)
         for skin in skins_tool.getSkinSelections():
             skin_id = utils.normalizeString(skin, context, "utf-8")
             selected = skin == current_skin

@@ -1,11 +1,9 @@
 import logging
 
-from zope.annotation.interfaces import IAnnotations
-
-from collective.editskinswitcher.browser.view import ANNOTATION_KEY
-
 from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
+
+from collective.editskinswitcher.skin import get_selected_default_skin
 
 logger = logging.getLogger('editskinswitcher')
 
@@ -114,18 +112,9 @@ def switch_skin(object, event):
     request = event.request
 
     context = get_real_context(object)
-    try:
-        annotations = IAnnotations(context)
-    except TypeError:
-        # Not a context that we can handle (seen with
-        # Products.CMFUid.UniqueIdAnnotationTool.UniqueIdAnnotation
-        # when saving an object).
-        return None
-    ns = annotations.get(ANNOTATION_KEY, None)
-    if ns is not None:
-        skin_name = ns.get("default-skin", None)
-        if skin_name is not None:
-            context.changeSkin(skin_name, request)
+    skin_name = get_selected_default_skin(context)
+    if skin_name is not None:
+        context.changeSkin(skin_name, request)
 
     portal_props = getToolByName(context, 'portal_properties', None)
     if portal_props is None:
