@@ -18,6 +18,7 @@ from Products.CMFPlone import utils
 
 from collective.editskinswitcher.browser.interfaces import (
     ISkinsSubMenuItem, ISkinsMenu)
+from collective.editskinswitcher.permissions import SetDefaultSkin
 
 
 class SkinsSubMenuItem(BrowserSubMenuItem):
@@ -51,7 +52,7 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
     @memoize
     def _manageSkinSettings(self):
         return self.tools.membership().checkPermission(
-            "Add portal content", self.context)
+            SetDefaultSkin, self.context)
 
     def selected(self):
         return False

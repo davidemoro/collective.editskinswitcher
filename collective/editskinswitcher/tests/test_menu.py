@@ -9,6 +9,7 @@ from collective.editskinswitcher.browser.view import ANNOTATION_KEY
 from collective.editskinswitcher.tests.utils import (
     FakeTraversalEvent, TestRequest, new_default_skin)
 from collective.editskinswitcher.traversal import switch_skin
+from collective.editskinswitcher.permissions import SetDefaultSkin
 
 from Acquisition import aq_base
 from ZPublisher.BeforeTraverse import queryBeforeTraverse
@@ -51,12 +52,16 @@ class TestContentMenu(ptc.PloneTestCase):
         self.failIf(len(skinsMenuItem) > 0)
 
 
-    def testSkinsSubMenuNotIncludedForOtherMember(self):
+    def testSkinsSubMenuNotIncludedWithoutPermission(self):
         # The skins menu is only available for someone that has the
-        # 'Add portal content' permission in the folder.
-        membership_tool = getToolByName(self.folder, 'portal_membership')
-        membership_tool.addMember('anotherMember', 'secret', ['Member'], [])
-        self.login('anotherMember')
+        # 'Set default skin' permission in the folder.
+        items = self.menu.getMenuItems(self.folder, self.request)
+        skinsMenuItem = [
+            i for i in items if
+            i["extra"]["id"] == "collective-editskinswitcher-menu-skins"]
+        self.failUnless(len(skinsMenuItem) > 0)
+        self.folder.manage_permission(
+            SetDefaultSkin, ["Manager"], acquire=0, REQUEST=None)
         items = self.menu.getMenuItems(self.folder, self.request)
         skinsMenuItem = [
             i for i in items if
