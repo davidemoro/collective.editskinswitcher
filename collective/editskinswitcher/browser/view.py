@@ -10,7 +10,6 @@ from Products.Five.component import LocalSiteHook, HOOK_NAME
 from Products.SiteAccess.AccessRule import AccessRule
 
 from Products.CMFPlone.utils import getToolByName
-from Products.CMFPlone import PloneMessageFactory as _
 
 
 ANNOTATION_KEY = "collective.editskinswitcher"
@@ -39,5 +38,5 @@ class SelectSkin(BrowserView):
         ns["default-skin"] = skin_name
 
         utils = getToolByName(self.context, "plone_utils")
-        utils.addPortalMessage(_(u"Skin changed."))
+        utils.addPortalMessage(u"Skin changed.")
         return self.request.RESPONSE.redirect(self.context.absolute_url())
