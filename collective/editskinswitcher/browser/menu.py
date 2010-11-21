@@ -3,11 +3,12 @@ from plone.memoize.instance import memoize
 from zope.interface import implements
 from zope.component import getMultiAdapter
 
-# BBB Zope 2.12
 try:
+    # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.menu import BrowserMenu
     from zope.browsermenu.menu import BrowserSubMenuItem
 except ImportError:
+    # BBB for Zope 2.12 or lower
     from zope.app.publisher.browser.menu import BrowserMenu
     from zope.app.publisher.browser.menu import BrowserSubMenuItem
 

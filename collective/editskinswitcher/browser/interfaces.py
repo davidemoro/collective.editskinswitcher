@@ -2,12 +2,13 @@ from plone.theme.interfaces import IDefaultPloneLayer
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 
-# BBB Zope 2.12
 try:
+    # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.interfaces import IBrowserMenu
     from zope.browsermenu.interfaces import IBrowserSubMenuItem
     from zope.browsermenu.interfaces import IMenuItemType
 except ImportError:
+    # BBB for Zope 2.12 or lower
     from zope.app.publisher.interfaces.browser import IBrowserMenu
     from zope.app.publisher.interfaces.browser import IBrowserSubMenuItem
     from zope.app.publisher.interfaces.browser import IMenuItemType

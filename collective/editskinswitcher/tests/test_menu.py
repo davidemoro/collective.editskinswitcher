@@ -19,10 +19,11 @@ from Products.CMFPlone.utils import normalizeString
 from Products.Five.component import LocalSiteHook, HOOK_NAME
 from Products.SiteAccess.AccessRule import AccessRule
 
-# BBB Zope 2.12
 try:
+    # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.interfaces import IBrowserMenu
 except ImportError:
+    # BBB for Zope 2.12 or lower
     from zope.app.publisher.interfaces.browser import IBrowserMenu
 
 
