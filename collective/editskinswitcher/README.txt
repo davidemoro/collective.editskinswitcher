@@ -209,6 +209,15 @@ To add it as a separate preview tab:
    Change the default visible=False property to True. 
 
 
+Per-folder default skin
+-----------------------
+
+Selecting a default skin for a specific folder is also supported. A
+'Skins' menu entry should show up in the content area, right next to
+the 'Display' and 'Actions' menu. Once you select a skin from that
+dropdown, it will be used as the default skin when visiting that
+folder instead of the site-wide default skin.
+
 Installation using zc.buildout
 ------------------------------
 
