@@ -51,10 +51,19 @@
       title="Set default skin"
       />
 
-  <browser:view
+  <browser:page
       for="*"
       name="switchDefaultSkin"
       class=".view.SelectSkin"
+      attribute="update"
+      permission="collective.editskinswitcher.SetDefaultSkin"
+      />
+
+  <browser:page
+      for="*"
+      name="select_skin"
+      class=".view.SelectSkin"
+      template="templates/select_skin.pt"
       permission="collective.editskinswitcher.SetDefaultSkin"
       />
 

@@ -1,4 +1,5 @@
 from zope.publisher.browser import BrowserView
+from zope.component import getUtility
 
 from Acquisition import aq_base
 from ZPublisher.BeforeTraverse import registerBeforeTraverse
@@ -10,10 +11,18 @@ from Products.CMFPlone.utils import getToolByName
 
 from collective.editskinswitcher.skin import set_selected_default_skin
 
+try:
+    # Try import that works in Zope 2.13 or higher first
+    from zope.browsermenu.interfaces import IBrowserMenu
+except ImportError:
+    # BBB for Zope 2.12 or lower
+    from zope.app.publisher.interfaces.browser import IBrowserMenu
+
 
 class SelectSkin(BrowserView):
 
-    def __call__(self):
+    def update(self):
+        """Set selected skin as the default for the current folder."""
         # Check to see if the current object already has a
         # LocalSiteHook from Five registered. If not, then register
         # one ourselves, going around ``enableSite`` since we don't
@@ -31,3 +40,10 @@ class SelectSkin(BrowserView):
         utils = getToolByName(self.context, "plone_utils")
         utils.addPortalMessage(u"Skin changed.")
         return self.request.RESPONSE.redirect(self.context.absolute_url())
+
+    def menuItems(self):
+        """Return the menu items for the skin switcher."""
+        menu = getUtility(
+            IBrowserMenu, name="collective-editskinswitcher-menu-skins",
+            context=self.context)
+        return menu.getMenuItems(self.context, self.request)

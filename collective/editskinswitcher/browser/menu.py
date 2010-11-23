@@ -41,7 +41,7 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
         folder = self.context
         if not self.context_state.is_structural_folder():
             folder = utils.parent(self.context)
-        return folder.absolute_url() + '/folder_contents'
+        return folder.absolute_url() + '/select_skin'
 
     @memoize
     def available(self):

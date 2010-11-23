@@ -18,6 +18,7 @@ from ZPublisher.BeforeTraverse import queryBeforeTraverse
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
 from Products.Five.component import LocalSiteHook, HOOK_NAME
+from Products.Five.testbrowser import Browser
 from Products.SiteAccess.AccessRule import AccessRule
 
 try:
@@ -42,7 +43,7 @@ class TestContentMenu(ptc.PloneTestCase):
             i for i in items if
             i["extra"]["id"] == "collective-editskinswitcher-menu-skins"][0]
         self.assertEqual(skinsMenuItem["action"],
-                         self.folder.absolute_url() + "/folder_contents")
+                         self.folder.absolute_url() + "/select_skin")
         self.failUnless(len(skinsMenuItem["submenu"]) > 0)
 
     def testSkinsSubMenuNotIncludedForDocument(self):
@@ -190,3 +191,34 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
             self.folder_path + '/getCurrentSkinName',
             basic=self.basic_auth)
         self.assertEqual("Plone Default", response.getBody())
+
+
+class TestSelectSkinFallbackForm(ptc.FunctionalTestCase):
+
+    def afterSetUp(self):
+        self.basic_auth = "%s:%s" % (ptc.default_user, ptc.default_password)
+        self.folder_path = self.folder.absolute_url(1)
+        self.portal_path = self.portal.absolute_url(1)
+        self.browser = Browser()
+        self.browser.addHeader("Authorization",
+                               "Basic %s" % self.basic_auth.encode("base64"))
+
+    def testSkinSwitchUsingFallbackForm(self):
+        # Create a new default skin.
+        new_default_skin(self.portal)
+
+        # Switch the default skin for this folder to the newly created
+        # skin.
+        self.browser.open(self.folder.absolute_url() + "/select_skin")
+        control = self.browser.getControl(name="skin_name")
+        self.assertEqual([], control.value)
+        control.value = ["Monty Python Skin"]
+
+        # Saving the form redirects back to the folder.
+        self.browser.getControl(name="form.button.Save").click()
+        self.assertEqual(self.folder.absolute_url(), self.browser.url)
+
+        # Going back to the form has the skin selected.
+        self.browser.open(self.folder.absolute_url() + "/select_skin")
+        control = self.browser.getControl(name="skin_name")
+        self.assertEqual(["Monty Python Skin"], control.value)
