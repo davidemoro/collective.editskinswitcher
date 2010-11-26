@@ -28,8 +28,10 @@ except ImportError:
     # BBB for Zope 2.12 or lower
     from zope.app.publisher.interfaces.browser import IBrowserMenu
 
+from collective.editskinswitcher.tests import base
 
-class TestContentMenu(ptc.PloneTestCase):
+
+class TestContentMenu(base.BaseTestCase):
 
     def afterSetUp(self):
         self.menu = getUtility(
@@ -54,7 +56,6 @@ class TestContentMenu(ptc.PloneTestCase):
             i["extra"]["id"] == "collective-editskinswitcher-menu-skins"]
         self.failIf(len(skinsMenuItem) > 0)
 
-
     def testSkinsSubMenuNotIncludedWithoutPermission(self):
         # The skins menu is only available for someone that has the
         # 'Set default skin' permission in the folder.
@@ -72,7 +73,7 @@ class TestContentMenu(ptc.PloneTestCase):
         self.failIf(len(skinsMenuItem) > 0)
 
 
-class TestSkinsMenu(ptc.PloneTestCase):
+class TestSkinsMenu(base.BaseTestCase):
 
     def afterSetUp(self):
         self.menu = getUtility(
@@ -113,7 +114,7 @@ class TestSkinsMenu(ptc.PloneTestCase):
         self.assertEqual("actionMenuSelected", action["extra"]["class"])
 
 
-class TestSelectSkinView(ptc.FunctionalTestCase):
+class TestSelectSkinView(base.BaseFunctionalTestCase):
 
     def afterSetUp(self):
         self.basic_auth = "%s:%s" % (ptc.default_user, ptc.default_password)
@@ -193,7 +194,7 @@ class TestSelectSkinView(ptc.FunctionalTestCase):
         self.assertEqual("Plone Default", response.getBody())
 
 
-class TestSelectSkinFallbackForm(ptc.FunctionalTestCase):
+class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
 
     def afterSetUp(self):
         self.basic_auth = "%s:%s" % (ptc.default_user, ptc.default_password)
@@ -222,3 +223,13 @@ class TestSelectSkinFallbackForm(ptc.FunctionalTestCase):
         self.browser.open(self.folder.absolute_url() + "/select_skin")
         control = self.browser.getControl(name="skin_name")
         self.assertEqual(["Monty Python Skin"], control.value)
+
+
+def test_suite():
+    from unittest import TestSuite, makeSuite
+    suite = TestSuite()
+    suite.addTest(makeSuite(TestContentMenu))
+    suite.addTest(makeSuite(TestSkinsMenu))
+    suite.addTest(makeSuite(TestSelectSkinView))
+    suite.addTest(makeSuite(TestSelectSkinFallbackForm))
+    return suite
