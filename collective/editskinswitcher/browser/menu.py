@@ -48,8 +48,14 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
     def available(self):
         if not self._manageSkinSettings():
             return False
-        return (self.context_state.is_structural_folder()
-                or self.context_state.is_default_page())
+        if not (self.context_state.is_structural_folder()
+                or self.context_state.is_default_page()):
+            return False
+        # Check if our property sheet is available.  When not, then
+        # this might be a second Plone site in the same Zope instance.
+        # If we are not installed in this Plone Site, we do not want
+        # to offer this menu item.
+        return bool(self.tools.properties().get('editskin_switcher'))
 
     @memoize
     def _manageSkinSettings(self):

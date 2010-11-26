@@ -140,7 +140,7 @@ def switch_skin(object, event):
 
     # Try to find a reason for switching to the edit skin.  When one
     # of the selected actions returns True, we switch the skin.
-    switches = editskin_props.getProperty('switch_skin_action', [])
+    switches = editskin_props.getProperty('switch_skin_action', ())
     if not isinstance(switches, tuple):
         # Old data using a selection instead of multiple selection,
         # which returns a string instead of a tuple of strings.
