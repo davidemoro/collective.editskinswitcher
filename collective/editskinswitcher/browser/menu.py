@@ -20,6 +20,7 @@ from collective.editskinswitcher.browser.interfaces import (
 from collective.editskinswitcher.permissions import SetDefaultSkin
 from collective.editskinswitcher.skin import get_selected_default_skin
 
+
 class SkinsSubMenuItem(BrowserSubMenuItem):
 
     implements(ISkinsSubMenuItem)
@@ -45,8 +46,10 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
 
     @memoize
     def available(self):
-        return (self._manageSkinSettings() and
-                self.context_state.is_structural_folder())
+        if not self._manageSkinSettings():
+            return False
+        return (self.context_state.is_structural_folder()
+                or self.context_state.is_default_page())
 
     @memoize
     def _manageSkinSettings(self):
@@ -65,10 +68,15 @@ class SkinsMenu(BrowserMenu):
         results = []
 
         skins_tool = getToolByName(context, "portal_skins")
-        url = context.absolute_url()
-        current_skin = get_selected_default_skin(context)
+        context_state = getMultiAdapter((context, request),
+                                        name='plone_context_state')
+        folder = context
+        if not context_state.is_structural_folder():
+            folder = utils.parent(context)
+        url = folder.absolute_url()
+        current_skin = get_selected_default_skin(folder)
         for skin in skins_tool.getSkinSelections():
-            skin_id = utils.normalizeString(skin, context, "utf-8")
+            skin_id = utils.normalizeString(skin, folder, "utf-8")
             selected = skin == current_skin
             cssClass = selected and "actionMenuSelected" or "actionMenu"
             results.append(
