@@ -136,4 +136,4 @@ Now lets turn this off again and confirm the edit skin has changed:
 Change back the skin to the default manually at the end of this test
 in case other tests expect it:
 
-    >>> portal.changeSkin('Monty Python Skin', TestRequest())
+    >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
