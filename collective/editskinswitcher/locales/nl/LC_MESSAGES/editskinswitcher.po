@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.editskinswitcher 1.1\n"
-"POT-Creation-Date: 2010-11-27 00:06+0000\n"
-"PO-Revision-Date: 2010-11-27 01:07+0100\n"
+"POT-Creation-Date: 2010-11-27 00:20+0000\n"
+"PO-Revision-Date: 2010-11-27 01:21+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Domain: editskinswitcher\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
+#: ./browser/menu.py:28
+msgid "Change skin for the current content item"
+msgstr "Verander de skin voor het huidige content item"
+
 #: ./browser/templates/select_skin.pt:20
 msgid "Select default skin"
 msgstr "Selecteer de standaard skin"
@@ -28,6 +32,10 @@ msgstr "Selecteer de skin die standaard toegepast moet worden op deze map."
 #: ./browser/view.py:39
 msgid "Skin changed."
 msgstr "Skin veranderd"
+
+#: ./browser/menu.py:27
+msgid "Skins"
+msgstr "Stijlen"
 
 #: ./browser/menu.py:89
 msgid "Use '${skin}' skin for this folder"

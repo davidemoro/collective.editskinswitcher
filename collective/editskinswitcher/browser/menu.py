@@ -24,8 +24,8 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
 
     implements(ISkinsSubMenuItem)
     submenuId = "collective-editskinswitcher-menu-skins"
-    title = u"Skins"
-    description = u"Change skin for the current content item"
+    title = _(u"Skins")
+    description = _(u"Change skin for the current content item")
     extra = {'id': 'collective-editskinswitcher-menu-skins'}
 
     order = 11
