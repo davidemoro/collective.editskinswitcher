@@ -3,6 +3,7 @@ ptc.setupPloneSite()
 
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
+from zope.i18n import translate
 
 from collective.editskinswitcher.browser.interfaces import ISkinsMenu
 from collective.editskinswitcher.skin import (
@@ -93,8 +94,9 @@ class TestSkinsMenu(base.BaseTestCase):
         actions = self.menu.getMenuItems(self.folder, self.request)
         self.assertEqual(set(skins),
                          set([a["title"] for a in actions]))
+        description = translate(actions[0]["description"])
         self.assertEqual(u"Use '%s' skin for this folder" % actions[0]["title"],
-                         actions[0]["description"])
+                         description)
         param = "switchDefaultSkin?skin_name=%s" % actions[0]["title"]
         self.assertEqual(param, actions[0]["action"].split("@@")[1])
         skin_id = normalizeString(actions[0]["title"], "utf-8")
