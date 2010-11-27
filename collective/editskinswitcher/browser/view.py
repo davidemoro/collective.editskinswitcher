@@ -1,15 +1,10 @@
-from zope.publisher.browser import BrowserView
-from zope.component import getUtility
-
 from Acquisition import aq_base
-from ZPublisher.BeforeTraverse import registerBeforeTraverse
-
+from Products.CMFPlone.utils import getToolByName
 from Products.Five.component import LocalSiteHook, HOOK_NAME
 from Products.SiteAccess.AccessRule import AccessRule
-
-from Products.CMFPlone.utils import getToolByName
-
-from collective.editskinswitcher.skin import set_selected_default_skin
+from ZPublisher.BeforeTraverse import registerBeforeTraverse
+from zope.component import getUtility
+from zope.publisher.browser import BrowserView
 
 try:
     # Try import that works in Zope 2.13 or higher first
@@ -17,6 +12,9 @@ try:
 except ImportError:
     # BBB for Zope 2.12 or lower
     from zope.app.publisher.interfaces.browser import IBrowserMenu
+
+from collective.editskinswitcher import SwitcherMessageFactory as _
+from collective.editskinswitcher.skin import set_selected_default_skin
 
 
 class SelectSkin(BrowserView):
@@ -38,7 +36,7 @@ class SelectSkin(BrowserView):
             self.context, self.request.form.get("skin_name", None))
 
         utils = getToolByName(self.context, "plone_utils")
-        utils.addPortalMessage(u"Skin changed.")
+        utils.addPortalMessage(_(u"Skin changed."))
         return self.request.RESPONSE.redirect(self.context.absolute_url())
 
     def menuItems(self):

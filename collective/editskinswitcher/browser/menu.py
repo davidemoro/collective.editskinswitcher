@@ -1,7 +1,8 @@
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import utils
 from plone.memoize.instance import memoize
-
-from zope.interface import implements
 from zope.component import getMultiAdapter
+from zope.interface import implements
 
 try:
     # Try import that works in Zope 2.13 or higher first
@@ -12,9 +13,7 @@ except ImportError:
     from zope.app.publisher.browser.menu import BrowserMenu
     from zope.app.publisher.browser.menu import BrowserSubMenuItem
 
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import utils
-
+from collective.editskinswitcher import SwitcherMessageFactory as _
 from collective.editskinswitcher.browser.interfaces import (
     ISkinsSubMenuItem, ISkinsMenu)
 from collective.editskinswitcher.permissions import SetDefaultSkin
@@ -87,7 +86,8 @@ class SkinsMenu(BrowserMenu):
             cssClass = selected and "actionMenuSelected" or "actionMenu"
             results.append(
                 {"title": skin,
-                 "description": u"Use '%s' skin for this folder" % skin,
+                 "description": _(u"Use '${skin}' skin for this folder",
+                                  mapping=dict(skin=skin)),
                  "action": "%s/@@switchDefaultSkin?skin_name=%s" % (url, skin),
                  "selected": selected,
                  "extra": {
