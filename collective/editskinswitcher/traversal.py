@@ -1,6 +1,9 @@
 import logging
+
 from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
+
+from collective.editskinswitcher.skin import get_selected_default_skin
 
 logger = logging.getLogger('editskinswitcher')
 
@@ -86,6 +89,16 @@ methods = {'based on edit URL': edit_url,
            'no URL based switching': need_authentication}
 
 
+def get_real_context(object):
+    # object might be a view, for instance a KSS view.  Use the
+    # context of that object then.
+    try:
+        getattr(object, 'changeSkin')
+    except AttributeError:
+        return object.context
+    return object
+
+
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
 
@@ -97,7 +110,13 @@ def switch_skin(object, event):
     skin, which normally is the Plone Default skin.
     """
     request = event.request
-    portal_props = getToolByName(object, 'portal_properties', None)
+
+    context = get_real_context(object)
+    skin_name = get_selected_default_skin(context)
+    if skin_name is not None:
+        context.changeSkin(skin_name, request)
+
+    portal_props = getToolByName(context, 'portal_properties', None)
     if portal_props is None:
         return None
     editskin_props = portal_props.get('editskin_switcher')
@@ -121,7 +140,7 @@ def switch_skin(object, event):
 
     # Try to find a reason for switching to the edit skin.  When one
     # of the selected actions returns True, we switch the skin.
-    switches = editskin_props.getProperty('switch_skin_action', [])
+    switches = editskin_props.getProperty('switch_skin_action', ())
     if not isinstance(switches, tuple):
         # Old data using a selection instead of multiple selection,
         # which returns a string instead of a tuple of strings.
@@ -146,18 +165,11 @@ def switch_skin(object, event):
     if request.get('mutate_skin', '') == 'default':
         return None
 
-    # object might be a view, for instance a KSS view.  Use the
-    # context of that object then.
-    try:
-        changeSkin = object.changeSkin
-    except AttributeError:
-        changeSkin = object.context.changeSkin
-
     # Assume that if you get here you are switching to the edit skin
     # ... flag this for the purposes of caching / kss loading etc.
     request.set('editskinswitched', 1)
 
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
-    changeSkin(edit_skin, request)
+    context.changeSkin(edit_skin, request)
     return None

@@ -4,7 +4,9 @@ Changelog for collective.editskinswitcher
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Allow setting a default skin on a folder, using the new Styles
+  context menu.
+  [dreamcatcher]
 
 
 1.0 (2010-06-07)

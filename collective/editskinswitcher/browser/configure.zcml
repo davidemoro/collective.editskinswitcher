@@ -32,4 +32,39 @@
       permission="zope.Public"
       />
 
+  <!-- Wire up the Skins menu -->
+  <include package="plone.app.contentmenu" />
+
+  <browser:menu
+      id="collective-editskinswitcher-menu-skins"
+      title="The 'skins' menu - allows the user to locally switch skin"
+      class=".menu.SkinsMenu"
+      />
+
+  <adapter for="* *"
+           name="collective.editskinswitcher.menu.skins"
+           factory=".menu.SkinsSubMenuItem"
+           provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
+  <permission
+      id="collective.editskinswitcher.SetDefaultSkin"
+      title="Set default skin"
+      />
+
+  <browser:page
+      for="*"
+      name="switchDefaultSkin"
+      class=".view.SelectSkin"
+      attribute="update"
+      permission="collective.editskinswitcher.SetDefaultSkin"
+      />
+
+  <browser:page
+      for="*"
+      name="select_skin"
+      class=".view.SelectSkin"
+      template="templates/select_skin.pt"
+      permission="collective.editskinswitcher.SetDefaultSkin"
+      />
+
 </configure>

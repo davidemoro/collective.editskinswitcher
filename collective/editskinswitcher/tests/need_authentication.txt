@@ -36,7 +36,7 @@ In these tests, whenever we have really changed the skin, we need to
 manually switch the skin back to our default, which normally happens
 automatically when your browser makes a new request.
 
-    >>> portal.changeSkin('Monty Python Skin', TestRequest())
+    >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
     >>> portal.getCurrentSkinName()
     'Monty Python Skin'
 
@@ -49,7 +49,7 @@ we authenticate with the test browser instead:
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
     >>> browser.open(portal_url + '/logout')
-    >>> browser.open(portal_url)
+    >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()

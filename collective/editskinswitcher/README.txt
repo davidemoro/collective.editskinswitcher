@@ -37,6 +37,11 @@ Developer types probably like the fact that you also get the Visitor
 Skin when visiting ``localhost`` and the Editor Skin when you go to
 ``127.0.0.1``.
 
+Since version 1.1 you can also set a different default skin in a
+folder.  So you can set it up so that folder-1 uses a red theme,
+folder-2 a blue theme and when you edit either folder you still use
+Plone Default.  See also the `Per-folder default skin`_ section.
+
 
 Other options
 -------------
@@ -207,6 +212,16 @@ To add it as a separate preview tab:
 2. Within tests/add_preview.py there is ACTIONSCONFIG 
    Add this as a profiles/default/actions.xml file.
    Change the default visible=False property to True. 
+
+
+Per-folder default skin
+-----------------------
+
+Selecting a default skin for a specific folder is also supported. A
+'Skins' menu entry should show up in the content area, right next to
+the 'Display' and 'Actions' menu. Once you select a skin from that
+dropdown, it will be used as the default skin when visiting that
+folder instead of the site-wide default skin.
 
 
 Installation using zc.buildout

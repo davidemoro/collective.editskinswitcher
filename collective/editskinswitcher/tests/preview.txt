@@ -39,10 +39,10 @@ Check we are in the edit skin via the browser
 Now we need to login using the default user from PloneTestCase:
 
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
-    >>> browser.open(portal_url)
 
-We have the login portlet, so let's use that:
+We use the login form:
 
+    >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
@@ -136,4 +136,4 @@ Now lets turn this off again and confirm the edit skin has changed:
 Change back the skin to the default manually at the end of this test
 in case other tests expect it:
 
-    >>> portal.changeSkin('Monty Python Skin', TestRequest())
+    >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
