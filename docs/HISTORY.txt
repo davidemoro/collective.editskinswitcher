@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-1.2 (unreleased)
+1.2 (2010-12-07)
 ----------------
 
 - Do not force logging in when you get this header for a login page.
