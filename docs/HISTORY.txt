@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-1.1 (unreleased)
+1.1 (2010-12-07)
 ----------------
 
 - Use ``get_header`` instead of ``get`` when looking for headers to
