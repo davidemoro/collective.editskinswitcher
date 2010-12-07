@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 1.1 (unreleased)
 ----------------
 
+- Use ``get_header`` instead of ``get`` when looking for headers to
+  force logging in or force using the edit skin.
+  [maurits]
+
 - Allow setting a default skin on a folder, using the new Styles
   context menu.
   [dreamcatcher]

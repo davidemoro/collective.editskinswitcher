@@ -59,7 +59,7 @@ def force_login(request, props):
     force_login_header = props.getProperty('force_login_header', None)
     if not force_login_header:
         return False
-    if request.get(force_login_header, None):
+    if request.get_header(force_login_header, None):
         logger.debug("Login will be forced.")
         return True
     logger.debug("Login will NOT be forced.")
@@ -68,7 +68,7 @@ def force_login(request, props):
 
 def admin_header(request, props):
     admin_header = props.getProperty('admin_header', 'HTTP_PLONEADMIN')
-    if request.get(admin_header, None):
+    if request.get_header(admin_header, None):
         logger.debug("admin header found")
         return True
     logger.debug("no admin header found")
