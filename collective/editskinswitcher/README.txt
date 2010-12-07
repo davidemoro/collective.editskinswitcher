@@ -223,6 +223,12 @@ the 'Display' and 'Actions' menu. Once you select a skin from that
 dropdown, it will be used as the default skin when visiting that
 folder instead of the site-wide default skin.
 
+This menu is available for everyone who has the ``Set default skin``
+permission, which by default is for Managers and Owners.  So if you do
+not want anyone to have this menu, you can do so by not giving anyone
+this permission.
+
+
 
 Installation using zc.buildout
 ------------------------------
