@@ -85,7 +85,10 @@ are available:
 - ``force_login_header``: when the request has this header, only
   authenticated use is allowed.  This does not actually switch the
   skin; you just get redirected to the login_form.  By default this is
-  set to the string ``X_FORCE_LOGIN``.
+  set to the string ``X_FORCE_LOGIN``.  Note that this is not done for
+  the login_form and other pages like that.  Such a page probably
+  looks ugly though, as you still are forced to login before you can
+  get the css and images for that page.
 
 If you combine the switch skin action and the authentication, then you
 need to have the right url and you need to be logged in.

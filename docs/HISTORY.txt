@@ -4,7 +4,8 @@ Changelog for collective.editskinswitcher
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Do not force logging in when you get this header for a login page.
+  [maurits]
 
 
 1.1 (2010-12-07)

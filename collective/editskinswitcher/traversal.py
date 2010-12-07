@@ -12,6 +12,7 @@ def anonymous(request=None):
     if request is None:
         # I thought I had seen this working, but under normal
         # circumstances when traversing you are always anonymous...
+        logger.debug("No request passed in")
         anon = (getSecurityManager().getUser().getUserName() ==
                 'Anonymous User')
     elif request.cookies.get('__ac'):
@@ -55,13 +56,42 @@ def ssl_url(request, props):
     return False
 
 
+# List mostly taken from
+# Products/CMFPlone/skins/plone_login/login_next.cpy (some removed)
+# Used in the force_login function to avoid forcing a login for pages
+# that are used in the login process.
+PAGE_WHITE_LIST = [
+    'login_success', 'login_password', 'login_failed',
+    'login_form', 'logged_in', 'logged_out', 'registered',
+    'mail_password', 'mail_password_form', 'join_form',
+    'require_login', 'member_search_results', 'pwreset_finish',
+    ]
+
+
 def force_login(request, props):
     force_login_header = props.getProperty('force_login_header', None)
     if not force_login_header:
         return False
+
+    actual_url = request.get('ACTUAL_URL', '')
+    logger.debug("ACTUAL_URL: %s", actual_url)
+    end_part = actual_url.split('/')[-1]
+    logger.debug("End part: %s", end_part)
+    if end_part in PAGE_WHITE_LIST:
+        # We are at a login page so we will not force a login here as
+        # that would be double and pretty much broken.
+        return False
+
+    # Note: to truly test what happens when forcing login via a header
+    # on your local machine without any Apache setup, you can
+    # uncomment this:
+    #if True:
+    #    return True
+
     if request.get_header(force_login_header, None):
         logger.debug("Login will be forced.")
         return True
+
     logger.debug("Login will NOT be forced.")
     return False
 
