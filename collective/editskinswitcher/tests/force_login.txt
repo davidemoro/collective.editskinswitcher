@@ -28,7 +28,7 @@ Unauthorized exception:
     Traceback (most recent call last):
     ...
     Unauthorized...
-   >>> portal.getCurrentSkinName()
+    >>> portal.getCurrentSkinName()
     'Monty Python Skin'
 
 That is fine.  Now we login and try again:
