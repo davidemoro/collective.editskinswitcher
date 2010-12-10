@@ -229,8 +229,15 @@ folder instead of the site-wide default skin.
 This menu is available for everyone who has the ``Set default skin``
 permission, which by default is for Managers and Owners.  So if you do
 not want anyone to have this menu, you can do so by not giving anyone
-this permission.
+this permission.  In the rolemap.xml file of your GenericSetup profile
+that would look like this::
 
+  <?xml version="1.0"?>
+  <rolemap>
+    <permissions>
+     <permission name="Set default skin" acquire="False" />
+    </permissions>
+  </rolemap>
 
 
 Installation using zc.buildout
