@@ -79,13 +79,13 @@ def force_login(request, props):
     if end_part in PAGE_WHITE_LIST:
         # We are at a login page so we will not force a login here as
         # that would be double and pretty much broken.
-        logger.info('NOT forcing login: %s is in page white list.',
+        logger.debug('NOT forcing login: %s is in page white list.',
                      end_part)
         return False
 
     end_suffix = end_part.split('.')[-1]
     if end_suffix in SUFFIX_WHITE_LIST:
-        logger.info('NOT forcing login: suffix of %s is in white list.',
+        logger.debug('NOT forcing login: suffix of %s is in white list.',
                      end_part)
         return False
 
