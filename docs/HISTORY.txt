@@ -4,13 +4,18 @@ Changelog for collective.editskinswitcher
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added SUFFIX_WHITE_LIST to avoid triggering a forced login for css
+  or javascript files, otherwise the login form will look ugly.  Also
+  added logo.jpg/png/gif and favicon.ico to the PAGE_WHITE_LIST for
+  the same reason.
+  [maurits]
 
 
 1.2 (2010-12-07)
 ----------------
 
-- Do not force logging in when you get this header for a login page.
+- Do not force logging in when you get this header for a login page
+  (specified by the PAGE_WHITE_LIST).
   [maurits]
 
 

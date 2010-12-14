@@ -65,6 +65,15 @@ PAGE_WHITE_LIST = [
     'login_form', 'logged_in', 'logged_out', 'registered',
     'mail_password', 'mail_password_form', 'join_form',
     'require_login', 'member_search_results', 'pwreset_finish',
+    # Allow some pictures:
+    'favicon.ico', 'logo.jpg', 'logo.png', 'logo.gif',
+    ]
+
+# Do not force login for these suffixes, otherwise the login_form will
+# likely look really ugly (css) or not work properly (javascript).
+SUFFIX_WHITE_LIST = [
+    'css',
+    'js',
     ]
 
 
@@ -80,12 +89,20 @@ def force_login(request, props):
     if end_part in PAGE_WHITE_LIST:
         # We are at a login page so we will not force a login here as
         # that would be double and pretty much broken.
+        logger.info('NOT forcing login: %s is in page white list.',
+                     end_part)
+        return False
+    end_suffix = end_part.split('.')[-1]
+    if end_suffix in SUFFIX_WHITE_LIST:
+        logger.info('NOT forcing login: suffix of %s is in white list.',
+                     end_part)
         return False
 
     # Note: to truly test what happens when forcing login via a header
     # on your local machine without any Apache setup, you can
     # uncomment this:
     #if True:
+    #    logger.info('FORCING LOGIN for %s', end_part)
     #    return True
 
     if request.get_header(force_login_header, None):
