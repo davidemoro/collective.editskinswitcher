@@ -4,6 +4,8 @@ from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
 
 from collective.editskinswitcher.skin import get_selected_default_skin
+from collective.editskinswitcher.config import PAGE_WHITE_LIST
+from collective.editskinswitcher.config import SUFFIX_WHITE_LIST
 
 logger = logging.getLogger('editskinswitcher')
 
@@ -54,27 +56,6 @@ def ssl_url(request, props):
         return True
     logger.debug("normal http url")
     return False
-
-
-# List mostly taken from
-# Products/CMFPlone/skins/plone_login/login_next.cpy (some removed)
-# Used in the force_login function to avoid forcing a login for pages
-# that are used in the login process.
-PAGE_WHITE_LIST = [
-    'login_success', 'login_password', 'login_failed',
-    'login_form', 'logged_in', 'logged_out', 'registered',
-    'mail_password', 'mail_password_form', 'join_form',
-    'require_login', 'member_search_results', 'pwreset_finish',
-    # Allow some pictures:
-    'favicon.ico', 'logo.jpg', 'logo.png', 'logo.gif',
-    ]
-
-# Do not force login for these suffixes, otherwise the login_form will
-# likely look really ugly (css) or not work properly (javascript).
-SUFFIX_WHITE_LIST = [
-    'css',
-    'js',
-    ]
 
 
 def force_login(request, props):

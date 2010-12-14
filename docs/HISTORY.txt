@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 1.3 (unreleased)
 ----------------
 
+- Moved PAGE_WHITE_LIST and SUFFIX_WHITE_LIST from traversal.py to new
+  config.py.
+  [maurits]
+
 - Added SUFFIX_WHITE_LIST to avoid triggering a forced login for css
   or javascript files, otherwise the login form will look ugly.  Also
   added logo.jpg/png/gif and favicon.ico to the PAGE_WHITE_LIST for
