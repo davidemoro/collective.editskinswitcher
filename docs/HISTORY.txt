@@ -4,6 +4,9 @@ Changelog for collective.editskinswitcher
 1.3 (unreleased)
 ----------------
 
+- Do not show the Styles menu when there are no styles to choose.
+  [maurits]
+
 - Moved PAGE_WHITE_LIST and SUFFIX_WHITE_LIST from traversal.py to new
   config.py.
   [maurits]
