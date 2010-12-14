@@ -63,6 +63,15 @@ def force_login(request, props):
     if not force_login_header:
         return False
 
+    # Note: to truly test what happens when forcing login via a header
+    # on your local machine without any Apache setup, you should 
+    # comment out this condition:
+    if not request.get_header(force_login_header, None):
+        logger.debug("Login will NOT be forced.")
+        return False
+
+    # Okay, login should be forced, except when this url is in a white
+    # list.
     actual_url = request.get('ACTUAL_URL', '')
     logger.debug("ACTUAL_URL: %s", actual_url)
     end_part = actual_url.split('/')[-1]
@@ -73,25 +82,15 @@ def force_login(request, props):
         logger.info('NOT forcing login: %s is in page white list.',
                      end_part)
         return False
+
     end_suffix = end_part.split('.')[-1]
     if end_suffix in SUFFIX_WHITE_LIST:
         logger.info('NOT forcing login: suffix of %s is in white list.',
                      end_part)
         return False
 
-    # Note: to truly test what happens when forcing login via a header
-    # on your local machine without any Apache setup, you can
-    # uncomment this:
-    #if True:
-    #    logger.info('FORCING LOGIN for %s', end_part)
-    #    return True
-
-    if request.get_header(force_login_header, None):
-        logger.debug("Login will be forced.")
-        return True
-
-    logger.debug("Login will NOT be forced.")
-    return False
+    logger.debug("Login will be forced.")
+    return True
 
 
 def admin_header(request, props):
