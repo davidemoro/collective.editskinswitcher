@@ -51,6 +51,11 @@
       title="Set default skin"
       />
 
+  <permission
+      id="collective.editskinswitcher.SetNavigationRoot"
+      title="Set navigation root"
+      />
+
   <browser:page
       for="*"
       name="switchDefaultSkin"
@@ -65,6 +70,22 @@
       class=".view.SelectSkin"
       template="templates/select_skin.pt"
       permission="collective.editskinswitcher.SetDefaultSkin"
+      />
+
+  <browser:page
+      for="*"
+      name="set-navigation-root"
+      class=".view.NavigationRoot"
+      attribute="set_navigation_root"
+      permission="collective.editskinswitcher.SetNavigationRoot"
+      />
+
+  <browser:page
+      for="*"
+      name="unset-navigation-root"
+      class=".view.NavigationRoot"
+      attribute="unset_navigation_root"
+      permission="collective.editskinswitcher.SetNavigationRoot"
       />
 
 </configure>

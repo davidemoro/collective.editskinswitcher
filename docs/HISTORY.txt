@@ -4,7 +4,10 @@ Changelog for collective.editskinswitcher
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Added menu item to set the context as a navigation root
+  (plone.app.layout.navigation.interfaces.INavigationRoot) guarded by
+  new permission "Set navigation root", by default only for Manager.
+  [maurits]
 
 
 1.3 (2010-12-14)

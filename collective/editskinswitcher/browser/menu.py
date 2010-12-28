@@ -13,10 +13,13 @@ except ImportError:
     from zope.app.publisher.browser.menu import BrowserMenu
     from zope.app.publisher.browser.menu import BrowserSubMenuItem
 
+from plone.app.layout.navigation.interfaces import INavigationRoot
+
 from collective.editskinswitcher import SwitcherMessageFactory as _
 from collective.editskinswitcher.browser.interfaces import (
     ISkinsSubMenuItem, ISkinsMenu)
 from collective.editskinswitcher.permissions import SetDefaultSkin
+from collective.editskinswitcher.permissions import SetNavigationRoot
 from collective.editskinswitcher.skin import get_selected_default_skin
 
 
@@ -45,6 +48,10 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
 
     @memoize
     def available(self):
+        if self.context_state.is_portal_root():
+            # Just use the portal_skins tool, Luke!
+            return False
+
         if not self._manageSkinSettings():
             return False
 
@@ -60,6 +67,11 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
         if not self.tools.properties().get('editskin_switcher'):
             return False
 
+        # This menu is also used to set the navigation root, when
+        # allowed.
+        if self._allowSetNavigationRoot():
+            return True
+
         skins_tool = getToolByName(self.context, 'portal_skins')
         if len(skins_tool.getSkinSelections()) < 2:
             # Nothing to choose.
@@ -70,6 +82,11 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
     def _manageSkinSettings(self):
         return self.tools.membership().checkPermission(
             SetDefaultSkin, self.context)
+
+    @memoize
+    def _allowSetNavigationRoot(self):
+        return self.tools.membership().checkPermission(
+            SetNavigationRoot, self.context)
 
     def selected(self):
         return False
@@ -101,10 +118,37 @@ class SkinsMenu(BrowserMenu):
                  "action": "%s/@@switchDefaultSkin?skin_name=%s" % (url, skin),
                  "selected": selected,
                  "extra": {
+                     "is_skin_option": True,
                      "id": "collective.editskinswitcher-skin-%s" % skin_id,
                      "separator": False,
                      "class": cssClass},
                  "submenu": None,
                  "icon": None,
                  })
+
+        tools = getMultiAdapter((context, request), name='plone_tools')
+        if tools.membership().checkPermission(SetNavigationRoot, context):
+            # Now add an option to set/unset the navigation root.
+            menu_item = {
+                "title": _(u"Navigation root"),
+                "extra": {
+                    "is_skin_option": False,
+                    "id": "collective.editskinswitcher-set-navigation-root",
+                    "separator": 'actionSeparator',
+                    "class": cssClass},
+                "submenu": None,
+                "icon": None,
+                }
+            if INavigationRoot.providedBy(folder):
+                menu_item["selected"] = True
+                menu_item["description"] = _(
+                    u"No longer use this folder as a navigation root.")
+                menu_item["action"] = "%s/@@unset-navigation-root" % (url)
+            else:
+                menu_item["selected"] = False
+                menu_item["description"] = _(
+                    u"Start using this folder as a navigation root.")
+                menu_item["action"] = "%s/@@set-navigation-root" % (url)
+            results.append(menu_item)
+
         return results

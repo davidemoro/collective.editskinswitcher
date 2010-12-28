@@ -240,6 +240,17 @@ that would look like this::
   </rolemap>
 
 
+Sub sites with navigation root
+------------------------------
+
+Using the `Per-folder default skin`_ menu you already mostly have a to
+make simple subsites.  The only other basic thing needed is to set the
+folder as a navigation root, so giving it the
+``plone.app.layout.navigation.interfaces.INavigationRoot`` marker
+inferface.  This option has now been added to the menu, guarded by new
+permission "Set navigation root", by default only for Manager.
+
+
 Installation using zc.buildout
 ------------------------------
 

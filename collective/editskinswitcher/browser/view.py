@@ -1,5 +1,7 @@
+from zope.interface import alsoProvides, noLongerProvides
 from Acquisition import aq_base
 from Products.CMFPlone.utils import getToolByName
+from plone.app.layout.navigation.interfaces import INavigationRoot
 from Products.Five.component import LocalSiteHook, HOOK_NAME
 from Products.SiteAccess.AccessRule import AccessRule
 from ZPublisher.BeforeTraverse import registerBeforeTraverse
@@ -45,3 +47,20 @@ class SelectSkin(BrowserView):
             IBrowserMenu, name="collective-editskinswitcher-menu-skins",
             context=self.context)
         return menu.getMenuItems(self.context, self.request)
+
+
+class NavigationRoot(BrowserView):
+
+    def set_navigation_root(self):
+        if not INavigationRoot.providedBy(self.context):
+            alsoProvides(self.context, INavigationRoot)
+            utils = getToolByName(self.context, "plone_utils")
+            utils.addPortalMessage(_(u"Activated navigation root."))
+        return self.request.RESPONSE.redirect(self.context.absolute_url())
+
+    def unset_navigation_root(self):
+        if INavigationRoot.providedBy(self.context):
+            noLongerProvides(self.context, INavigationRoot)
+            utils = getToolByName(self.context, "plone_utils")
+            utils.addPortalMessage(_(u"Deactivated navigation root."))
+        return self.request.RESPONSE.redirect(self.context.absolute_url())

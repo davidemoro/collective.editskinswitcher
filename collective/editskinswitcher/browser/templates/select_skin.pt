@@ -31,6 +31,7 @@
             tal:attributes="action string:${context/absolute_url}/@@switchDefaultSkin">
         <dl tal:define="skins view/menuItems">
           <tal:skins repeat="item skins">
+            <tal:skin condition="item/extra/is_skin_option|nothing">
             <dt>
               <input type="radio" name="skin_name"
                      tal:attributes="value item/title;
@@ -42,6 +43,7 @@
               </label>
             </dt>
             <dd tal:content="item/description">Type description</dd>
+            </tal:skin>
           </tal:skins>
         </dl>
 
