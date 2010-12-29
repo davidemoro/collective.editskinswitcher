@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: collective.editskinswitcher 1.1\n"
 "POT-Creation-Date: 2010-12-29 13:29+0000\n"
-"PO-Revision-Date: 2010-11-27 01:21+0100\n"
+"PO-Revision-Date: 2010-12-29 14:34+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ./browser/view.py:111
 msgid "Activated navigation root."
-msgstr ""
+msgstr "Navigatieroot geactiveerd"
 
 #: ./browser/menu.py:33
 msgid "Change skin for the current content item"
@@ -27,23 +27,23 @@ msgstr "Verander de skin voor het huidige content item"
 
 #: ./browser/view.py:121
 msgid "Deactivated navigation root."
-msgstr ""
+msgstr "Navigatieroot gedeactiveerd"
 
 #: ./browser/menu.py:179
 msgid "Navigation root"
-msgstr ""
+msgstr "Navigatieroot"
 
 #: ./browser/view.py:55
 msgid "No default skin selected anymore."
-msgstr ""
+msgstr "Geen default skin meer geselecteerd."
 
 #: ./browser/menu.py:191
 msgid "No longer use this folder as a navigation root."
-msgstr ""
+msgstr "Gebruik deze map niet langer als een navigatieroot"
 
 #: ./browser/view.py:50
 msgid "Nothing changed."
-msgstr ""
+msgstr "Niets veranderd."
 
 #: ./browser/templates/select_skin.pt:20
 msgid "Select default skin"
@@ -55,7 +55,7 @@ msgstr "Selecteer de skin die standaard toegepast moet worden op deze map."
 
 #: ./browser/menu.py:138
 msgid "Skin '${skin}' no longer exists. Please pick another or use the default."
-msgstr ""
+msgstr "Skin '${skin}' bestaat niet langer. Kies een andere of gebruik de default."
 
 #: ./browser/view.py:73
 msgid "Skin changed."
@@ -67,7 +67,7 @@ msgstr "Stijlen"
 
 #: ./browser/menu.py:197
 msgid "Start using this folder as a navigation root."
-msgstr ""
+msgstr "Start met het gebruiken van deze map als navigatieroot."
 
 #: ./browser/menu.py:161
 msgid "Use '${skin}' skin for this folder"
@@ -75,5 +75,5 @@ msgstr "Gebruik de '${skin}' skin voor deze map"
 
 #: ./browser/menu.py:136
 msgid "Warning: ${skin}"
-msgstr ""
+msgstr "Waarschuwing: ${skin}"
 
