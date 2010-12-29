@@ -3,8 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.editskinswitcher 1.1\n"
-"POT-Creation-Date: 2010-12-29 13:29+0000\n"
-"PO-Revision-Date: 2010-12-29 14:34+0100\n"
+"POT-Creation-Date: 2010-12-29 14:02+0000\n"
+"PO-Revision-Date: 2010-12-29 15:03+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Verander de skin voor het huidige content item"
 msgid "Deactivated navigation root."
 msgstr "Navigatieroot gedeactiveerd"
 
-#: ./browser/menu.py:179
+#: ./browser/menu.py:198
 msgid "Navigation root"
 msgstr "Navigatieroot"
 
@@ -37,7 +37,7 @@ msgstr "Navigatieroot"
 msgid "No default skin selected anymore."
 msgstr "Geen default skin meer geselecteerd."
 
-#: ./browser/menu.py:191
+#: ./browser/menu.py:210
 msgid "No longer use this folder as a navigation root."
 msgstr "Gebruik deze map niet langer als een navigatieroot"
 
@@ -54,8 +54,8 @@ msgid "Select the skin that should be applied to this folder by default."
 msgstr "Selecteer de skin die standaard toegepast moet worden op deze map."
 
 #: ./browser/menu.py:138
-msgid "Skin '${skin}' no longer exists. Please pick another or use the default."
-msgstr "Skin '${skin}' bestaat niet langer. Kies een andere of gebruik de default."
+msgid "Skin '${skin}' no longer exists. Selecting this again will result in using the site default."
+msgstr "Skin '${skin}' bestaat niet langer. Als je deze weer selecteert, zal dit resulteren in het gebruik van de default van de site."
 
 #: ./browser/view.py:73
 msgid "Skin changed."
@@ -65,13 +65,17 @@ msgstr "Skin veranderd"
 msgid "Skins"
 msgstr "Stijlen"
 
-#: ./browser/menu.py:197
+#: ./browser/menu.py:216
 msgid "Start using this folder as a navigation root."
 msgstr "Start met het gebruiken van deze map als navigatieroot."
 
 #: ./browser/menu.py:161
 msgid "Use '${skin}' skin for this folder"
 msgstr "Gebruik de '${skin}' skin voor deze map"
+
+#: ./browser/menu.py:180
+msgid "Use site default"
+msgstr "Gebruik de site default"
 
 #: ./browser/menu.py:136
 msgid "Warning: ${skin}"

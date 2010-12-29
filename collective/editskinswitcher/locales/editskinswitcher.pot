@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-12-29 13:29+0000\n"
+"POT-Creation-Date: 2010-12-29 14:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Deactivated navigation root."
 msgstr ""
 
-#: ./browser/menu.py:179
+#: ./browser/menu.py:198
 msgid "Navigation root"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "No default skin selected anymore."
 msgstr ""
 
-#: ./browser/menu.py:191
+#: ./browser/menu.py:210
 msgid "No longer use this folder as a navigation root."
 msgstr ""
 
@@ -54,7 +54,7 @@ msgid "Select the skin that should be applied to this folder by default."
 msgstr ""
 
 #: ./browser/menu.py:138
-msgid "Skin '${skin}' no longer exists. Please pick another or use the default."
+msgid "Skin '${skin}' no longer exists. Selecting this again will result in using the site default."
 msgstr ""
 
 #: ./browser/view.py:73
@@ -65,12 +65,16 @@ msgstr ""
 msgid "Skins"
 msgstr ""
 
-#: ./browser/menu.py:197
+#: ./browser/menu.py:216
 msgid "Start using this folder as a navigation root."
 msgstr ""
 
 #: ./browser/menu.py:161
 msgid "Use '${skin}' skin for this folder"
+msgstr ""
+
+#: ./browser/menu.py:180
+msgid "Use site default"
 msgstr ""
 
 #: ./browser/menu.py:136
