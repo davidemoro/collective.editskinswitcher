@@ -64,7 +64,7 @@ def force_login(request, props):
         return False
 
     # Note: to truly test what happens when forcing login via a header
-    # on your local machine without any Apache setup, you should 
+    # on your local machine without any Apache setup, you should
     # comment out this condition:
     if not request.get_header(force_login_header, None):
         logger.debug("Login will NOT be forced.")
@@ -141,7 +141,13 @@ def switch_skin(object, event):
     context = get_real_context(object)
     skin_name = get_selected_default_skin(context)
     if skin_name is not None:
-        context.changeSkin(skin_name, request)
+        portal_skins = getToolByName(context, 'portal_skins', None)
+        if (portal_skins is not None and
+            skin_name not in portal_skins.getSkinSelections()):
+            logger.warn("Non-existing skin %s set on %s",
+                        skin_name, context.absolute_url())
+        else:
+            context.changeSkin(skin_name, request)
 
     portal_props = getToolByName(context, 'portal_properties', None)
     if portal_props is None:

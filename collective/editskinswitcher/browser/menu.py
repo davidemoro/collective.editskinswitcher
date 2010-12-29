@@ -74,7 +74,17 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
         if self._allowSetNavigationRoot():
             return True
 
-        skins_tool = getToolByName(self.context, 'portal_skins')
+        if not self.context_state.is_structural_folder():
+            folder = utils.parent(self.context)
+        else:
+            folder = self.context
+        if get_selected_default_skin(folder):
+            # We have previously selected a default skin, so we should
+            # show the menu to make this clear (and possibly unset
+            # it).
+            return True
+
+        skins_tool = getToolByName(folder, 'portal_skins')
         if len(skins_tool.getSkinSelections()) < 2:
             # Nothing to choose.
             return False
@@ -101,7 +111,6 @@ class SkinsMenu(BrowserMenu):
         """Return menu item entries in a TAL-friendly form."""
         results = []
 
-        skins_tool = getToolByName(context, "portal_skins")
         context_state = getMultiAdapter((context, request),
                                         name='plone_context_state')
         folder = context
@@ -109,17 +118,48 @@ class SkinsMenu(BrowserMenu):
             folder = utils.parent(context)
         url = folder.absolute_url()
         current_skin = get_selected_default_skin(folder)
+
+        skins_tool = getToolByName(context, "portal_skins")
         skin_selections = skins_tool.getSkinSelections()
-        # Only add menu items for skins when we have a choice.
-        if len(skin_selections) > 1:
+
+        # Only add menu items for skins when we have a choice or when
+        # we have previously selected a default skin.  It could be
+        # that this default skin has been removed and then we need a
+        # way to unset it.
+        if len(skin_selections) > 1 or current_skin:
+            if current_skin and current_skin not in skin_selections:
+                # Skin has been removed.
+                skin = current_skin
+                skin_title = utils.safe_unicode(skin)
+                skin_id = utils.normalizeString(skin, folder, "utf-8")
+                results.append(
+                    {"title": _(u"Warning: ${skin}",
+                                mapping={'skin': skin_title}),
+                     "description": _(
+                            u"Skin '${skin}' no longer exists. Please pick "
+                            u"another or use the default.",
+                            mapping=dict(skin=skin_title)),
+                     "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
+                            url, skin),
+                     "selected": True,
+                     "extra": {
+                         "is_skin_option": True,
+                         "id": "collective.editskinswitcher-skin-%s" % skin_id,
+                         "separator": False,
+                         "class": 'actionMenuSelected'},
+                     "submenu": None,
+                     "icon": None,
+                     })
+
             for skin in skin_selections:
                 skin_id = utils.normalizeString(skin, folder, "utf-8")
+                skin_title = utils.safe_unicode(skin)
                 selected = skin == current_skin
                 cssClass = selected and "actionMenuSelected" or "actionMenu"
                 results.append(
                     {"title": skin,
                      "description": _(u"Use '${skin}' skin for this folder",
-                                      mapping=dict(skin=skin)),
+                                      mapping=dict(skin=skin_title)),
                      "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
                             url, skin),
                      "selected": selected,

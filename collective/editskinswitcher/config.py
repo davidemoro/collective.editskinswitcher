@@ -17,3 +17,11 @@ SUFFIX_WHITE_LIST = [
     'css',
     'js',
     ]
+
+# When you set a default skin on a folder, we add a local site hook to
+# register a beforeTraverse event.  When resetting the default skin we
+# should normally remove the local site hook.  But this might not
+# always be the best idea.  Others might be using the local site hook
+# as well.  So here we make it configurable in case someone is badly
+# affected:
+REMOVE_LOCAL_SITE_HOOK = True
