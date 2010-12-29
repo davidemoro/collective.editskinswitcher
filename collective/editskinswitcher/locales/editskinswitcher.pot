@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-27 00:20+0000\n"
+"POT-Creation-Date: 2010-12-29 13:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,32 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: editskinswitcher\n"
 
-#: ./browser/menu.py:28
+#: ./browser/view.py:111
+msgid "Activated navigation root."
+msgstr ""
+
+#: ./browser/menu.py:33
 msgid "Change skin for the current content item"
+msgstr ""
+
+#: ./browser/view.py:121
+msgid "Deactivated navigation root."
+msgstr ""
+
+#: ./browser/menu.py:179
+msgid "Navigation root"
+msgstr ""
+
+#: ./browser/view.py:55
+msgid "No default skin selected anymore."
+msgstr ""
+
+#: ./browser/menu.py:191
+msgid "No longer use this folder as a navigation root."
+msgstr ""
+
+#: ./browser/view.py:50
+msgid "Nothing changed."
 msgstr ""
 
 #: ./browser/templates/select_skin.pt:20
@@ -29,15 +53,27 @@ msgstr ""
 msgid "Select the skin that should be applied to this folder by default."
 msgstr ""
 
-#: ./browser/view.py:39
+#: ./browser/menu.py:138
+msgid "Skin '${skin}' no longer exists. Please pick another or use the default."
+msgstr ""
+
+#: ./browser/view.py:73
 msgid "Skin changed."
 msgstr ""
 
-#: ./browser/menu.py:27
+#: ./browser/menu.py:32
 msgid "Skins"
 msgstr ""
 
-#: ./browser/menu.py:89
+#: ./browser/menu.py:197
+msgid "Start using this folder as a navigation root."
+msgstr ""
+
+#: ./browser/menu.py:161
 msgid "Use '${skin}' skin for this folder"
+msgstr ""
+
+#: ./browser/menu.py:136
+msgid "Warning: ${skin}"
 msgstr ""
 
