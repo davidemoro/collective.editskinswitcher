@@ -136,8 +136,8 @@ class SkinsMenu(BrowserMenu):
                     {"title": _(u"Warning: ${skin}",
                                 mapping={'skin': skin_title}),
                      "description": _(
-                            u"Skin '${skin}' no longer exists. Please pick "
-                            u"another or use the default.",
+                            u"Skin '${skin}' no longer exists. Selecting this "
+                            u"again will result in using the site default.",
                             mapping=dict(skin=skin_title)),
                      "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
                             url, skin),
@@ -171,6 +171,25 @@ class SkinsMenu(BrowserMenu):
                      "submenu": None,
                      "icon": None,
                      })
+
+        # Add option to reset the default.
+        if current_skin:
+            # Use a fake id that is unlikely to be the id of an actual skin.
+            skin_id = 'collective_set_default_editor_use_site_default'
+            results.append(
+                {"title": _(u"Use site default"),
+                 "description": u"",
+                 "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
+                        url, skin_id),
+                 "selected": False,
+                 "extra": {
+                     "is_skin_option": True,
+                     "id": "collective.editskinswitcher-skin-%s" % skin_id,
+                     "separator": 'actionSeparator',
+                     "class": 'actionMenu'},
+                 "submenu": None,
+                 "icon": None,
+                 })
 
         tools = getMultiAdapter((context, request), name='plone_tools')
         if tools.membership().checkPermission(SetNavigationRoot, context):
