@@ -8,6 +8,8 @@ try:
     # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.menu import BrowserMenu
     from zope.browsermenu.menu import BrowserSubMenuItem
+    BrowserMenu  # pyflakes
+    BrowserSubMenuItem  # pyflakes
 except ImportError:
     # BBB for Zope 2.12 or lower
     from zope.app.publisher.browser.menu import BrowserMenu
@@ -107,24 +109,28 @@ class SkinsMenu(BrowserMenu):
             folder = utils.parent(context)
         url = folder.absolute_url()
         current_skin = get_selected_default_skin(folder)
-        for skin in skins_tool.getSkinSelections():
-            skin_id = utils.normalizeString(skin, folder, "utf-8")
-            selected = skin == current_skin
-            cssClass = selected and "actionMenuSelected" or "actionMenu"
-            results.append(
-                {"title": skin,
-                 "description": _(u"Use '${skin}' skin for this folder",
-                                  mapping=dict(skin=skin)),
-                 "action": "%s/@@switchDefaultSkin?skin_name=%s" % (url, skin),
-                 "selected": selected,
-                 "extra": {
-                     "is_skin_option": True,
-                     "id": "collective.editskinswitcher-skin-%s" % skin_id,
-                     "separator": False,
-                     "class": cssClass},
-                 "submenu": None,
-                 "icon": None,
-                 })
+        skin_selections = skins_tool.getSkinSelections()
+        # Only add menu items for skins when we have a choice.
+        if len(skin_selections) > 1:
+            for skin in skin_selections:
+                skin_id = utils.normalizeString(skin, folder, "utf-8")
+                selected = skin == current_skin
+                cssClass = selected and "actionMenuSelected" or "actionMenu"
+                results.append(
+                    {"title": skin,
+                     "description": _(u"Use '${skin}' skin for this folder",
+                                      mapping=dict(skin=skin)),
+                     "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
+                            url, skin),
+                     "selected": selected,
+                     "extra": {
+                         "is_skin_option": True,
+                         "id": "collective.editskinswitcher-skin-%s" % skin_id,
+                         "separator": False,
+                         "class": cssClass},
+                     "submenu": None,
+                     "icon": None,
+                     })
 
         tools = getMultiAdapter((context, request), name='plone_tools')
         if tools.membership().checkPermission(SetNavigationRoot, context):
@@ -135,17 +141,19 @@ class SkinsMenu(BrowserMenu):
                     "is_skin_option": False,
                     "id": "collective.editskinswitcher-set-navigation-root",
                     "separator": 'actionSeparator',
-                    "class": cssClass},
+                    },
                 "submenu": None,
                 "icon": None,
                 }
             if INavigationRoot.providedBy(folder):
                 menu_item["selected"] = True
+                menu_item["cssClass"] = "actionMenuSelected"
                 menu_item["description"] = _(
                     u"No longer use this folder as a navigation root.")
                 menu_item["action"] = "%s/@@unset-navigation-root" % (url)
             else:
                 menu_item["selected"] = False
+                menu_item["cssClass"] = "actionMenu"
                 menu_item["description"] = _(
                     u"Start using this folder as a navigation root.")
                 menu_item["action"] = "%s/@@set-navigation-root" % (url)
