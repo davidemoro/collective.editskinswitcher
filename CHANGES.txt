@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-1.4 (unreleased)
+1.4 (2010-12-31)
 ----------------
 
 - Added menu item to set the context as a navigation root
