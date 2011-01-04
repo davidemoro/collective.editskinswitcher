@@ -42,11 +42,14 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
                                              name='plone_context_state')
 
     @property
+    def folder(self):
+        if self.context_state.is_structural_folder():
+            return self.context
+        return utils.parent(self.context)
+
+    @property
     def action(self):
-        folder = self.context
-        if not self.context_state.is_structural_folder():
-            folder = utils.parent(self.context)
-        return folder.absolute_url() + '/select_skin'
+        return self.folder.absolute_url() + '/select_skin'
 
     @memoize
     def available(self):
@@ -74,17 +77,13 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
         if self._allowSetNavigationRoot():
             return True
 
-        if not self.context_state.is_structural_folder():
-            folder = utils.parent(self.context)
-        else:
-            folder = self.context
-        if get_selected_default_skin(folder):
+        if get_selected_default_skin(self.folder):
             # We have previously selected a default skin, so we should
             # show the menu to make this clear (and possibly unset
             # it).
             return True
 
-        skins_tool = getToolByName(folder, 'portal_skins')
+        skins_tool = getToolByName(self.context, 'portal_skins')
         if len(skins_tool.getSkinSelections()) < 2:
             # Nothing to choose.
             return False
@@ -93,12 +92,12 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
     @memoize
     def _manageSkinSettings(self):
         return self.tools.membership().checkPermission(
-            SetDefaultSkin, self.context)
+            SetDefaultSkin, self.folder)
 
     @memoize
     def _allowSetNavigationRoot(self):
         return self.tools.membership().checkPermission(
-            SetNavigationRoot, self.context)
+            SetNavigationRoot, self.folder)
 
     def selected(self):
         return False
@@ -192,7 +191,7 @@ class SkinsMenu(BrowserMenu):
                  })
 
         tools = getMultiAdapter((context, request), name='plone_tools')
-        if tools.membership().checkPermission(SetNavigationRoot, context):
+        if tools.membership().checkPermission(SetNavigationRoot, folder):
             # Now add an option to set/unset the navigation root.
             menu_item = {
                 "title": _(u"Navigation root"),

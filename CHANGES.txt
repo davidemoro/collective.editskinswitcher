@@ -4,7 +4,9 @@ Changelog for collective.editskinswitcher
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Check our permissions on the folder when we are on a default page.
+  This might give a difference.
+  [maurits]
 
 
 1.4 (2010-12-31)
