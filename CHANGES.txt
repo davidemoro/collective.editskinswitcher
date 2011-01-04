@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 1.5 (unreleased)
 ----------------
 
+- Always show the Styles menu when the user has the "Set navigation
+  root" permission.
+  [maurits]
+
 - Check our permissions on the folder when we are on a default page.
   This might give a difference.
   [maurits]

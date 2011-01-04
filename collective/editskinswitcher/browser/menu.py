@@ -57,6 +57,11 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
             # Just use the portal_skins tool, Luke!
             return False
 
+        # This menu is also used to set the navigation root, when
+        # allowed.
+        if self._allowSetNavigationRoot():
+            return True
+
         if not self._manageSkinSettings():
             return False
 
@@ -71,11 +76,6 @@ class SkinsSubMenuItem(BrowserSubMenuItem):
         # to offer this menu item.
         if not self.tools.properties().get('editskin_switcher'):
             return False
-
-        # This menu is also used to set the navigation root, when
-        # allowed.
-        if self._allowSetNavigationRoot():
-            return True
 
         if get_selected_default_skin(self.folder):
             # We have previously selected a default skin, so we should
@@ -125,7 +125,9 @@ class SkinsMenu(BrowserMenu):
         # we have previously selected a default skin.  It could be
         # that this default skin has been removed and then we need a
         # way to unset it.
-        if len(skin_selections) > 1 or current_skin:
+        tools = getMultiAdapter((context, request), name='plone_tools')
+        if tools.membership().checkPermission(SetDefaultSkin, folder) and (
+            len(skin_selections) > 1 or current_skin):
             if current_skin and current_skin not in skin_selections:
                 # Skin has been removed.
                 skin = current_skin
@@ -190,7 +192,6 @@ class SkinsMenu(BrowserMenu):
                  "icon": None,
                  })
 
-        tools = getMultiAdapter((context, request), name='plone_tools')
         if tools.membership().checkPermission(SetNavigationRoot, folder):
             # Now add an option to set/unset the navigation root.
             menu_item = {
