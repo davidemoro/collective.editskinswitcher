@@ -2,6 +2,9 @@ import logging
 
 from AccessControl import Unauthorized, getSecurityManager
 from Products.CMFCore.utils import getToolByName
+from zope.component import queryUtility
+from zope.interface import noLongerProvides, alsoProvides
+from zope.publisher.interfaces.browser import IBrowserSkinType
 
 from collective.editskinswitcher.skin import get_selected_default_skin
 from collective.editskinswitcher.config import PAGE_WHITE_LIST
@@ -126,6 +129,22 @@ def get_real_context(object):
     return object
 
 
+def set_theme_specific_layers(request, context, new_skin, current_skin):
+    themespecific_layers = []
+    # add the currently selected skin interface if it exists
+    current_skin_iface = queryUtility(IBrowserSkinType, name=current_skin)
+    if current_skin_iface is not None:
+        themespecific_layers.append(current_skin_iface)
+    # remove theme specific layers above
+    for iface in themespecific_layers:
+        noLongerProvides(request, iface)
+    # check to see the skin has a BrowserSkinType and add it.
+    skin_iface = queryUtility(IBrowserSkinType, new_skin)
+    if skin_iface is not None and \
+           not skin_iface.providedBy(request):
+        alsoProvides(request, skin_iface)
+
+
 def switch_skin(object, event):
     """Switch to the Plone Default skin when we are editing.
 
@@ -137,10 +156,11 @@ def switch_skin(object, event):
     skin, which normally is the Plone Default skin.
     """
     request = event.request
-
     context = get_real_context(object)
+    current_skin = context.getCurrentSkinName()
     skin_name = get_selected_default_skin(context)
-    if skin_name is not None:
+    if skin_name is not None and not request.get('editskinswitched'):
+        # We've specified a skin and are not in the edit skin.
         portal_skins = getToolByName(context, 'portal_skins', None)
         if (portal_skins is not None and
             skin_name not in portal_skins.getSkinSelections()):
@@ -148,6 +168,8 @@ def switch_skin(object, event):
                         skin_name, context.absolute_url())
         else:
             context.changeSkin(skin_name, request)
+            set_theme_specific_layers(request, context, skin_name,
+                                      current_skin)
 
     portal_props = getToolByName(context, 'portal_properties', None)
     if portal_props is None:
@@ -205,4 +227,5 @@ def switch_skin(object, event):
     # If the edit_skin does not exist, the next call is
     # intelligent enough to use the default skin instead.
     context.changeSkin(edit_skin, request)
+    set_theme_specific_layers(request, context, edit_skin, current_skin)
     return None
