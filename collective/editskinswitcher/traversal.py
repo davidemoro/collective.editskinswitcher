@@ -130,14 +130,10 @@ def get_real_context(object):
 
 
 def set_theme_specific_layers(request, context, new_skin, current_skin):
-    themespecific_layers = []
-    # add the currently selected skin interface if it exists
+    # remove theme specific layer of the current skin
     current_skin_iface = queryUtility(IBrowserSkinType, name=current_skin)
     if current_skin_iface is not None:
-        themespecific_layers.append(current_skin_iface)
-    # remove theme specific layers above
-    for iface in themespecific_layers:
-        noLongerProvides(request, iface)
+        noLongerProvides(request, current_skin_iface)
     # check to see the skin has a BrowserSkinType and add it.
     skin_iface = queryUtility(IBrowserSkinType, new_skin)
     if skin_iface is not None and \
