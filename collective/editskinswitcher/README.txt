@@ -61,11 +61,14 @@ are available:
   - based on edit URL: With this you get the behaviour described above.
     This is the default.
 
-  - based on specific domain: If this is specified the edit skin is used when the
-    first part of the url matches one of the entries in the
-    ``specific_domains`` property.  This url is the url for the root
-    of the Plone Site; so usually this will be a domain, like
-    ``http://special.example.com``.
+  - based on specific domain: If this is specified the edit skin is
+    used when the first part of the url matches one of the entries in
+    the ``specific_domains`` property.  This url is the url for the
+    root of the Plone Site; so usually this will be a domain, like
+    ``http://special.example.com/``.  Note that you need to very
+    explicitly use the exact url to your Plone Site root.  For
+    example, when trying this locally you may need something like
+    this: ``http://localhost:8080/Plone``
 
   - based on admin header: If this is chosen you will need to set up your proxy 
     server, eg. Apache, to add a 'HTTP_PLONEADMIN' header to the request. It can 
