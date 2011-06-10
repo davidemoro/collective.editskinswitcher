@@ -4,7 +4,8 @@ Changelog for collective.editskinswitcher
 1.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Also set the theme specific browser layers when switching skins.
+  Code heavily inspired by themetweaker.themeswitcher. [markvl]
 
 
 1.5 (2011-01-04)
