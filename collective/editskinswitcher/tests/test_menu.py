@@ -213,11 +213,17 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         self.loginAsPortalOwner()
         folder_url = self.folder.absolute_url()
         portal_url = self.portal.absolute_url()
+        # Add a second folder:
         self.portal.invokeFactory('Folder', id='folder2')
         folder2 = self.portal.folder2
         wf_tool = getToolByName(self.portal, 'portal_workflow')
         wf_tool.doActionFor(folder2, 'publish')
         folder2_url = folder2.absolute_url()
+        # Add a sub folder:
+        folder2.invokeFactory('Folder', id='sub_folder')
+        sub_folder = folder2.sub_folder
+        wf_tool.doActionFor(sub_folder, 'publish')
+        sub_folder_url = sub_folder.absolute_url()
         # Create a new default skin.
         new_default_skin(self.portal)
 
@@ -250,6 +256,16 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         control = browser.getControl(name="skin_name")
         self.assertEqual(["Plone Default"], control.value)
 
+        # Set a different default skin for the sub folder.
+        browser.open(sub_folder_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
+        self.assertEqual([], control.value)
+        control.value = ["Monty Python Skin"]
+        browser.getControl(name="form.button.Save").click()
+        browser.open(sub_folder_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
+        self.assertEqual(["Monty Python Skin"], control.value)
+
         # What is the current skin name in a few contexts?
         self._login(browser)
         browser.open(portal_url + '/getCurrentSkinName')
@@ -258,6 +274,8 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         self.assertEqual(browser.contents, 'Monty Python Skin')
         browser.open(folder2_url + '/getCurrentSkinName')
         self.assertEqual(browser.contents, 'Plone Default')
+        browser.open(sub_folder_url + '/getCurrentSkinName')
+        self.assertEqual(browser.contents, 'Monty Python Skin')
 
         # Check the effect this has when visiting these contexts.  We
         # do this with an almost empty browser view that shows a
@@ -279,6 +297,11 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         browser.open(folder2_url + '/@@viewlet-test')
         self.assertFalse('We want a shrubbery!' in browser.contents)
         self.assertFalse('interfaces.IMyTheme' in browser.contents)
+
+        # Then the sub folder:
+        browser.open(sub_folder_url + '/@@viewlet-test')
+        self.assertTrue('We want a shrubbery!' in browser.contents)
+        self.assertTrue('interfaces.IMyTheme' in browser.contents)
 
 
 def test_suite():
