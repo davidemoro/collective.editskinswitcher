@@ -25,6 +25,7 @@ from Products.SiteAccess.AccessRule import AccessRule
 try:
     # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.interfaces import IBrowserMenu
+    IBrowserMenu  # pyflakes
 except ImportError:
     # BBB for Zope 2.12 or lower
     from zope.app.publisher.interfaces.browser import IBrowserMenu
@@ -197,34 +198,87 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
 
 
 class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
+    # The fallback form is the form that is shown when you click on
+    # the menu and you do not have javascript enabled
 
-    def afterSetUp(self):
-        self.basic_auth = "%s:%s" % (ptc.default_user, ptc.default_password)
-        self.folder_path = self.folder.absolute_url(1)
-        self.portal_path = self.portal.absolute_url(1)
-        self.browser = Browser()
-        self.browser.addHeader("Authorization",
-                               "Basic %s" % self.basic_auth.encode("base64"))
+    def _login(self, browser, login_name=ptc.default_user):
+        portal_url = self.portal.absolute_url()
+        browser.open(portal_url + '/logout')
+        browser.open(portal_url + '/login_form')
+        browser.getControl(name='__ac_name').value = login_name
+        browser.getControl(name='__ac_password').value = ptc.default_password
+        browser.getControl(name='submit').click()
 
     def testSkinSwitchUsingFallbackForm(self):
+        self.loginAsPortalOwner()
+        folder_url = self.folder.absolute_url()
+        portal_url = self.portal.absolute_url()
+        self.portal.invokeFactory('Folder', id='folder2')
+        folder2 = self.portal.folder2
+        wf_tool = getToolByName(self.portal, 'portal_workflow')
+        wf_tool.doActionFor(folder2, 'publish')
+        folder2_url = folder2.absolute_url()
         # Create a new default skin.
         new_default_skin(self.portal)
 
-        # Switch the default skin for this folder to the newly created
-        # skin.
-        self.browser.open(self.folder.absolute_url() + "/select_skin")
-        control = self.browser.getControl(name="skin_name")
+        # Set the default skin for the first folder.
+        browser = Browser()
+        self._login(browser)
+        browser.open(folder_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
         self.assertEqual([], control.value)
         control.value = ["Monty Python Skin"]
 
         # Saving the form redirects back to the folder.
-        self.browser.getControl(name="form.button.Save").click()
-        self.assertEqual(self.folder.absolute_url(), self.browser.url)
+        browser.getControl(name="form.button.Save").click()
+        self.assertEqual(folder_url, browser.url)
 
         # Going back to the form has the skin selected.
-        self.browser.open(self.folder.absolute_url() + "/select_skin")
-        control = self.browser.getControl(name="skin_name")
+        browser.open(folder_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
         self.assertEqual(["Monty Python Skin"], control.value)
+
+        # Set the default skin for the second folder.  We have to do
+        # this as portal owner.
+        self._login(browser, login_name=ptc.portal_owner)
+        browser.open(folder2_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
+        self.assertEqual([], control.value)
+        control.value = ["Plone Default"]
+        browser.getControl(name="form.button.Save").click()
+        browser.open(folder2_url + "/select_skin")
+        control = browser.getControl(name="skin_name")
+        self.assertEqual(["Plone Default"], control.value)
+
+        # What is the current skin name in a few contexts?
+        self._login(browser)
+        browser.open(portal_url + '/getCurrentSkinName')
+        self.assertEqual(browser.contents, 'Monty Python Skin')
+        browser.open(folder_url + '/getCurrentSkinName')
+        self.assertEqual(browser.contents, 'Monty Python Skin')
+        browser.open(folder2_url + '/getCurrentSkinName')
+        self.assertEqual(browser.contents, 'Plone Default')
+
+        # Check the effect this has when visiting these contexts.  We
+        # do this with an almost empty browser view that shows a
+        # viewlet that is specifically registered for the Monty Python
+        # theme and not the Plone Default theme.  Plus a viewlet that
+        # shows which marker interfaces the request provides.
+
+        # First the portal root:
+        browser.open(portal_url + '/@@viewlet-test')
+        self.assertTrue('We want a shrubbery!' in browser.contents)
+        self.assertTrue('interfaces.IMyTheme' in browser.contents)
+
+        # Then the first folder:
+        browser.open(folder_url + '/@@viewlet-test')
+        self.assertTrue('We want a shrubbery!' in browser.contents)
+        self.assertTrue('interfaces.IMyTheme' in browser.contents)
+
+        # Then the second folder:
+        browser.open(folder2_url + '/@@viewlet-test')
+        self.assertFalse('We want a shrubbery!' in browser.contents)
+        self.assertFalse('interfaces.IMyTheme' in browser.contents)
 
 
 def test_suite():
