@@ -1,6 +1,12 @@
 Changelog for collective.editskinswitcher
 =========================================
 
+1.7 (unreleased)
+----------------
+
+- Nothing changed yet.
+
+
 1.6 (2011-06-11)
 ----------------
 
