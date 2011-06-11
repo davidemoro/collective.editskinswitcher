@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-1.6 (unreleased)
+1.6 (2011-06-11)
 ----------------
 
 - Also set the theme specific browser layers when switching skins.
