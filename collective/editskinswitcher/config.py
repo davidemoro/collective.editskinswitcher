@@ -1,22 +1,22 @@
-# List mostly taken from
-# Products/CMFPlone/skins/plone_login/login_next.cpy (some removed)
+import re
+
 # Used in the force_login function to avoid forcing a login for pages
 # that are used in the login process.
-PAGE_WHITE_LIST = [
-    'login_success', 'login_password', 'login_failed',
-    'login_form', 'logged_in', 'logged_out', 'registered',
-    'mail_password', 'mail_password_form', 'join_form',
-    'require_login', 'member_search_results', 'pwreset_finish',
+# List mostly taken from
+# Products/CMFPlone/skins/plone_login/login_next.cpy (some removed)
+WHITELIST_REGEXPS_PATTERNS = [
+    '/login_success$', '/login_password$', '/login_failed$',
+    '/login_form$', '/logged_in$', '/logged_out$', '/registered$',
+    '/mail_password$', '/mail_password_form$', '/join_form$',
+    '/require_login$', '/member_search_results$', '/pwreset_finish$',
+    '/passwordreset/[a-f0-9]*$', '/pwreset_form$',
     # Allow some pictures:
-    'favicon.ico', 'logo.jpg', 'logo.png', 'logo.gif',
-    ]
+    '/favicon.ico$', '/logo.jpg$', '/logo.png$', '/logo.gif$',
+    # We'll need some CSS and JavaScript
+    '\.css$', '\.js$']
 
-# Do not force login for these suffixes, otherwise the login_form will
-# likely look really ugly (css) or maybe not work properly (javascript).
-SUFFIX_WHITE_LIST = [
-    'css',
-    'js',
-    ]
+# We'll be using the regexps quite a lot, so we want them compiled.
+WHITELIST_REGEXPS = [re.compile(r) for r in WHITELIST_REGEXPS_PATTERNS]
 
 # When you set a default skin on a folder, we add a local site hook to
 # register a beforeTraverse event.  When resetting the default skin we

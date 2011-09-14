@@ -4,7 +4,10 @@ Changelog for collective.editskinswitcher
 1.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Replace the PAGE_WHITE_LIST and SUFFIX_WHITE_LIST with a list of
+  regular expressions (WHITELIST_REGEXPS). Using regexps we can also
+  whitelist more complex URLs, e.g. for the password reset tool
+  (/passwordreset/1234...). [markvl]
 
 
 1.6 (2011-06-11)

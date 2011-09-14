@@ -7,8 +7,7 @@ from zope.interface import noLongerProvides, alsoProvides
 from zope.publisher.interfaces.browser import IBrowserSkinType
 
 from collective.editskinswitcher.skin import get_selected_default_skin
-from collective.editskinswitcher.config import PAGE_WHITE_LIST
-from collective.editskinswitcher.config import SUFFIX_WHITE_LIST
+from collective.editskinswitcher.config import WHITELIST_REGEXPS
 
 logger = logging.getLogger('editskinswitcher')
 
@@ -77,21 +76,11 @@ def force_login(request, props):
     # list.
     actual_url = request.get('ACTUAL_URL', '')
     logger.debug("ACTUAL_URL: %s", actual_url)
-    end_part = actual_url.split('/')[-1]
-    logger.debug("End part: %s", end_part)
-    if end_part in PAGE_WHITE_LIST:
-        # We are at a login page so we will not force a login here as
-        # that would be double and pretty much broken.
-        logger.debug('NOT forcing login: %s is in page white list.',
-                     end_part)
-        return False
-
-    end_suffix = end_part.split('.')[-1]
-    if end_suffix in SUFFIX_WHITE_LIST:
-        logger.debug('NOT forcing login: suffix of %s is in white list.',
-                     end_part)
-        return False
-
+    for regexp in WHITELIST_REGEXPS:
+        if regexp.search(actual_url):
+            logger.debug('NOT forcing login: %s is in white list' %
+                         regexp.pattern)
+            return False
     logger.debug("Login will be forced.")
     return True
 
