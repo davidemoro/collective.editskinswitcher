@@ -294,6 +294,13 @@ Upgrading
      <element value="based on edit URL"/>
     </property>
 
+- In version 2.0 the ``PAGE_WHITE_LIST`` and ``SUFFIX_WHITE_LIST``
+  were replaced with a list of regular expressions
+  (``WHITELIST_REGEXPS``).  If you were monkey patching those config
+  settings in a package of your own, you will have to update your
+  patch.  If you do not update your patch, then either Zope will not
+  start or your patch will have no effect.
+
 
 Have fun!
 
