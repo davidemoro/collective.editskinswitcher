@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-1.7 (unreleased)
+2.0 (2011-09-28)
 ----------------
 
 - Replace the PAGE_WHITE_LIST and SUFFIX_WHITE_LIST with a list of
