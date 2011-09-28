@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 2.0 (2011-09-28)
 ----------------
 
+- Added MANIFEST.in so we can automatically include .mo files with
+  zest.pocompile.
+  [maurits]
+
 - Replace the PAGE_WHITE_LIST and SUFFIX_WHITE_LIST with a list of
   regular expressions (WHITELIST_REGEXPS). Using regexps we can also
   whitelist more complex URLs, e.g. for the password reset tool
