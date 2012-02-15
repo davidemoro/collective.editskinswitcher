@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.editskinswitcher 1.1\n"
-"POT-Creation-Date: 2010-12-29 14:02+0000\n"
+"POT-Creation-Date: 2012-02-15 14:25+0000\n"
 "PO-Revision-Date: 2010-12-29 15:03+0100\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Plone Nederlands <plone-nl@lists.plone.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Domain: editskinswitcher\n"
 "X-Is-Fallback-For: nl-be nl-nl\n"
 
-#: ./browser/view.py:111
+#: ./browser/view.py:81
 msgid "Activated navigation root."
 msgstr "Navigatieroot geactiveerd"
 
@@ -25,7 +25,7 @@ msgstr "Navigatieroot geactiveerd"
 msgid "Change skin for the current content item"
 msgstr "Verander de skin voor het huidige content item"
 
-#: ./browser/view.py:121
+#: ./browser/view.py:91
 msgid "Deactivated navigation root."
 msgstr "Navigatieroot gedeactiveerd"
 
@@ -33,7 +33,7 @@ msgstr "Navigatieroot gedeactiveerd"
 msgid "Navigation root"
 msgstr "Navigatieroot"
 
-#: ./browser/view.py:55
+#: ./browser/view.py:50
 msgid "No default skin selected anymore."
 msgstr "Geen default skin meer geselecteerd."
 
@@ -41,7 +41,7 @@ msgstr "Geen default skin meer geselecteerd."
 msgid "No longer use this folder as a navigation root."
 msgstr "Gebruik deze map niet langer als een navigatieroot"
 
-#: ./browser/view.py:50
+#: ./browser/view.py:45
 msgid "Nothing changed."
 msgstr "Niets veranderd."
 
@@ -53,11 +53,11 @@ msgstr "Selecteer de standaard skin"
 msgid "Select the skin that should be applied to this folder by default."
 msgstr "Selecteer de skin die standaard toegepast moet worden op deze map."
 
-#: ./browser/menu.py:138
+#: ./browser/menu.py:139
 msgid "Skin '${skin}' no longer exists. Selecting this again will result in using the site default."
 msgstr "Skin '${skin}' bestaat niet langer. Als je deze weer selecteert, zal dit resulteren in het gebruik van de default van de site."
 
-#: ./browser/view.py:73
+#: ./browser/view.py:54
 msgid "Skin changed."
 msgstr "Skin veranderd"
 
@@ -69,15 +69,15 @@ msgstr "Stijlen"
 msgid "Start using this folder as a navigation root."
 msgstr "Start met het gebruiken van deze map als navigatieroot."
 
-#: ./browser/menu.py:161
+#: ./browser/menu.py:162
 msgid "Use '${skin}' skin for this folder"
 msgstr "Gebruik de '${skin}' skin voor deze map"
 
-#: ./browser/menu.py:180
+#: ./browser/menu.py:181
 msgid "Use site default"
 msgstr "Gebruik de site default"
 
-#: ./browser/menu.py:136
+#: ./browser/menu.py:137
 msgid "Warning: ${skin}"
 msgstr "Waarschuwing: ${skin}"
 
