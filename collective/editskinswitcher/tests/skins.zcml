@@ -4,8 +4,8 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="collective.editskinswitcher">
 
-  <interface 
-      interface=".interfaces.IMyTheme" 
+  <interface
+      interface=".interfaces.IMyTheme"
       type="zope.publisher.interfaces.browser.IBrowserSkinType"
       name="Monty Python Skin"
       />
