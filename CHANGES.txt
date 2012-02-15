@@ -4,7 +4,10 @@ Changelog for collective.editskinswitcher
 2.1 (2012-02-15)
 ----------------
 
-- Nothing changed yet.
+- Changed the calculation for the iframe height.  With the original
+  code Firefox was behaving quircky, the height was 150px.  That is
+  too small.  With help of Mark we could fix this.
+  [mirella]
 
 
 2.0 (2011-09-28)
