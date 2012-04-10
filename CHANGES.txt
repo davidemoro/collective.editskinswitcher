@@ -4,7 +4,9 @@ Changelog for collective.editskinswitcher
 2.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- using Sunburst Theme as default theme (we are now in Plone 4 country 
+  since a while)
+  [ajung]
 
 
 2.2 (2012-02-15)
