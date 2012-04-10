@@ -19,7 +19,7 @@ SKINCONFIG = """\
     directory="collective.editskinswitcher.tests:skins/editskinswitcher_tests"
     />
 
- <skin-path name="Monty Python Skin" based-on="Plone Default">
+ <skin-path name="Monty Python Skin" based-on="Sunburst Theme">
   <layer name="editskinswitcher_tests"
      insert-after="custom"/>
  </skin-path>
@@ -57,7 +57,7 @@ TestRequest._hold = _hold
 
 def new_default_skin(portal):
     """ Register test skins folder with extra test template - zcml
-        then make new default skin based on Plone Default with test skin - xml
+        then make new default skin based on Sunburst Theme with test skin - xml
     """
     zcml.load_config('skins.zcml', collective.editskinswitcher.tests)
     importcontext = DummyImportContext(portal, False)

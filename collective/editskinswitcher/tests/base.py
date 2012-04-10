@@ -53,7 +53,7 @@ class BaseTestCase(ptc.PloneTestCase):
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
-        # Create new skin based on Plone Default and make this the
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
 
@@ -64,7 +64,7 @@ class BaseFunctionalTestCase(ptc.FunctionalTestCase):
 
     def setUp(self):
         super(BaseFunctionalTestCase, self).setUp()
-        # Create new skin based on Plone Default and make this the
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
 
