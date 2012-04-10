@@ -131,14 +131,14 @@ def set_theme_specific_layers(request, context, new_skin, current_skin):
 
 
 def switch_skin(object, event):
-    """Switch to the Plone Default skin when we are editing.
+    """Switch to the Sunburst Theme skin when we are editing.
 
     Note: when we bail out before the changeSkin call, then we show
     the normal theme, which presumably is a custom theme for this
     website.
 
     If we do the changeSkin call, this means we switch to the edit
-    skin, which normally is the Plone Default skin.
+    skin, which normally is the Sunburst Theme skin.
     """
     request = event.request
     context = get_real_context(object)

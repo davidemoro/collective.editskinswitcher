@@ -57,10 +57,10 @@ def previewChange(context, props):
 
     changeview = props.get('change_view_into_preview', False)
     sk_tool = getToolByName(context, 'portal_skins')
-    defaultpath = sk_tool.getSkinPath('Plone Default')
+    defaultpath = sk_tool.getSkinPath('Sunburst Theme')
     changed = defaultpath.find('editskinswitcher_edit_content') > -1
     if changeview != changed:
-        sk_tool.manage_skinLayers(chosen=['Plone Default'], del_skin=1)
+        sk_tool.manage_skinLayers(chosen=['Sunburst Theme'], del_skin=1)
         if changeview and not changed:
             if not getattr(sk_tool, 'editskinswitcher_edit_content', None):
                 cmfcore = sk_tool.manage_addProduct['CMFCore']
@@ -71,4 +71,4 @@ def previewChange(context, props):
             skinpath = 'editskinswitcher_edit_content,' + defaultpath
         elif not changeview and changed:
             skinpath = defaultpath.replace('editskinswitcher_edit_content,', '')
-        sk_tool.addSkinSelection('Plone Default', skinpath)
+        sk_tool.addSkinSelection('Sunburst Theme', skinpath)

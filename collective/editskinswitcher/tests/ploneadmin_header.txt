@@ -91,7 +91,7 @@ we are not testing the proxy server!
     >>> event = FakeTraversalEvent(portal, request)
     >>> switch_skin(portal, event)
     >>> portal.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 Confirm that via the browser testing the changed template in the skin
 is not changed.

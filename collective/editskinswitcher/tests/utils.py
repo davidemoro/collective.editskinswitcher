@@ -19,11 +19,22 @@ SKINCONFIG = """\
     directory="collective.editskinswitcher.tests:skins/editskinswitcher_tests"
     />
 
- <skin-path name="Monty Python Skin" based-on="Plone Default">
+ <skin-path name="Monty Python Skin" based-on="Sunburst Theme">
   <layer name="editskinswitcher_tests"
      insert-after="custom"/>
  </skin-path>
 
+</object>
+"""
+
+DUMMY_SUNBURST_SKINCONFIG = """\
+<?xml version="1.0"?>
+<!-- This file adds a dummy Sunburst Theme when on Plone 3. -->
+
+<object name="portal_skins"
+  default_skin="Sunburst Theme">
+
+ <skin-path name="Sunburst Theme" based-on="Plone Default" />
 </object>
 """
 
@@ -57,12 +68,29 @@ TestRequest._hold = _hold
 
 def new_default_skin(portal):
     """ Register test skins folder with extra test template - zcml
-        then make new default skin based on Plone Default with test skin - xml
+        then make new default skin based on Sunburst Theme with test skin - xml
     """
     zcml.load_config('skins.zcml', collective.editskinswitcher.tests)
     importcontext = DummyImportContext(portal, False)
     importcontext._files['skins.xml'] = SKINCONFIG
     importSkinsTool(importcontext)
+
+
+def dummy_sunburst_skin(portal):
+    """ Register dummy Sunburst Theme skin selection based on Plon Default.
+
+    Only needed to make the tests compatible with Plone 3, which does
+    not have the Sunburst Theme.
+    """
+    if 'Sunburst Theme' in portal.portal_skins.getSkinSelections():
+        return
+    importcontext = DummyImportContext(portal, False)
+    importcontext._files['skins.xml'] = DUMMY_SUNBURST_SKINCONFIG
+    importSkinsTool(importcontext)
+    # Also add a dummy replacement for the externalEditorEnabled.py
+    # python skin script, which is somehow missing when running the
+    # tests with Plone 3.
+    portal.externalEditorEnabled = False
 
 
 class FakeTraversalEvent(object):

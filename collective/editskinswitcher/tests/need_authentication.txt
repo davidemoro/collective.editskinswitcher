@@ -30,7 +30,7 @@ On an edit url we normally get the edit skin::
     >>> from collective.editskinswitcher.traversal import switch_skin
     >>> switch_skin(portal, event)
     >>> portal.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 In these tests, whenever we have really changed the skin, we need to
 manually switch the skin back to our default, which normally happens
@@ -95,7 +95,7 @@ for this theme is invisible:
 
     >>> browser.open(portal_url + '/getCurrentSkinName')
     >>> browser.contents
-    'Plone Default'
+    'Sunburst Theme'
     >>> browser.open(portal_url + '/@@viewlet-test')
     >>> 'We want a shrubbery!' in browser.contents
     False

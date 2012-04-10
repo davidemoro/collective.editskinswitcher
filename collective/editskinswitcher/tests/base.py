@@ -8,6 +8,7 @@ from ZPublisher import HTTPRequest
 
 import collective.editskinswitcher
 from collective.editskinswitcher.tests.utils import new_default_skin
+from collective.editskinswitcher.tests.utils import dummy_sunburst_skin
 
 logger = logging.getLogger('collective.editskinswitcher')
 
@@ -53,7 +54,9 @@ class BaseTestCase(ptc.PloneTestCase):
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
-        # Create new skin based on Plone Default and make this the
+        # Add Sunburst skin if it does not exist.
+        dummy_sunburst_skin(self.portal)
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
 
@@ -64,7 +67,9 @@ class BaseFunctionalTestCase(ptc.FunctionalTestCase):
 
     def setUp(self):
         super(BaseFunctionalTestCase, self).setUp()
-        # Create new skin based on Plone Default and make this the
+        # Add Sunburst skin if it does not exist.
+        dummy_sunburst_skin(self.portal)
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
 

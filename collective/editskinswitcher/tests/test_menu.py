@@ -126,7 +126,7 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
 
     def testSwitchDefaultSkin(self):
         response = self.publish(
-            self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
+            self.folder_path + '/@@switchDefaultSkin?skin_name=Sunburst%20Theme',
             basic=self.basic_auth)
         self.assertEqual(response.getStatus(), 302)
         self.assertEqual(self.folder.absolute_url(),
@@ -141,13 +141,13 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
         self.assertEqual(HOOK_NAME, btr[1].name)
         ns = IAnnotations(self.folder).get(ANNOTATION_KEY, None)
         self.assertNotEqual(None, ns)
-        self.assertEqual("Plone Default", ns["default-skin"])
+        self.assertEqual("Sunburst Theme", ns["default-skin"])
 
     def testAnotherMemberCannotSelectSkin(self):
         membership_tool = getToolByName(self.folder, 'portal_membership')
         membership_tool.addMember("anotherMember", "secret", ['Member'], [])
         response = self.publish(
-            self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
+            self.folder_path + '/@@switchDefaultSkin?skin_name=Sunburst%20Theme',
             basic="anotherMember:secret")
         self.assertEqual(response.getStatus(), 302)
         self.assertFalse(self.folder.absolute_url() ==
@@ -158,13 +158,13 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
 
     def testSkinSwitchedOnFakeTraversalEvent(self):
         response = self.publish(
-            self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
+            self.folder_path + '/@@switchDefaultSkin?skin_name=Sunburst%20Theme',
             basic=self.basic_auth)
         self.assertEqual(response.getStatus(), 302)
         self.assertEqual(self.folder.absolute_url(),
                          response.getHeader("Location"))
 
-        # Create new skin based on Plone Default and make this the
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
         self.assertEqual("Monty Python Skin", self.folder.getCurrentSkinName())
@@ -172,11 +172,11 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
         request = TestRequest(SERVER_URL='http://localhost')
         event = FakeTraversalEvent(self.folder, request)
         switch_skin(self.folder, event)
-        self.assertEqual("Plone Default", self.folder.getCurrentSkinName())
+        self.assertEqual("Sunburst Theme", self.folder.getCurrentSkinName())
         self.assertEqual(0, request.get("editskinswitched", 0))
 
     def testSkinSwitchedOnRealTraversalEvent(self):
-        # Create new skin based on Plone Default and make this the
+        # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
         response = self.publish(
@@ -185,7 +185,7 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
         self.assertEqual("Monty Python Skin", response.getBody())
 
         response = self.publish(
-            self.folder_path + '/@@switchDefaultSkin?skin_name=Plone%20Default',
+            self.folder_path + '/@@switchDefaultSkin?skin_name=Sunburst%20Theme',
             basic=self.basic_auth)
         self.assertEqual(response.getStatus(), 302)
         self.assertEqual(self.folder.absolute_url(),
@@ -194,7 +194,7 @@ class TestSelectSkinView(base.BaseFunctionalTestCase):
         response = self.publish(
             self.folder_path + '/getCurrentSkinName',
             basic=self.basic_auth)
-        self.assertEqual("Plone Default", response.getBody())
+        self.assertEqual("Sunburst Theme", response.getBody())
 
 
 class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
@@ -250,11 +250,11 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         browser.open(folder2_url + "/select_skin")
         control = browser.getControl(name="skin_name")
         self.assertEqual([], control.value)
-        control.value = ["Plone Default"]
+        control.value = ["Sunburst Theme"]
         browser.getControl(name="form.button.Save").click()
         browser.open(folder2_url + "/select_skin")
         control = browser.getControl(name="skin_name")
-        self.assertEqual(["Plone Default"], control.value)
+        self.assertEqual(["Sunburst Theme"], control.value)
 
         # Set a different default skin for the sub folder.
         browser.open(sub_folder_url + "/select_skin")
@@ -273,14 +273,14 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
         browser.open(folder_url + '/getCurrentSkinName')
         self.assertEqual(browser.contents, 'Monty Python Skin')
         browser.open(folder2_url + '/getCurrentSkinName')
-        self.assertEqual(browser.contents, 'Plone Default')
+        self.assertEqual(browser.contents, 'Sunburst Theme')
         browser.open(sub_folder_url + '/getCurrentSkinName')
         self.assertEqual(browser.contents, 'Monty Python Skin')
 
         # Check the effect this has when visiting these contexts.  We
         # do this with an almost empty browser view that shows a
         # viewlet that is specifically registered for the Monty Python
-        # theme and not the Plone Default theme.  Plus a viewlet that
+        # theme and not the Sunburst Theme theme.  Plus a viewlet that
         # shows which marker interfaces the request provides.
 
         # First the portal root:

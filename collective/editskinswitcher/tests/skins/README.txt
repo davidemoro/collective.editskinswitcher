@@ -38,7 +38,7 @@ Instructions on how to replace view with preview in a theme egg
 
 To use the preview function to replace view in your edit skin, add this 
 edit_content skin folder to your default theme egg and register for use 
-with the edit layer for your implementation, eg. 'Plone Default'
+with the edit layer for your implementation, eg. 'Sunburst Theme'
 
 The following steps explain how this is done:
 
@@ -68,7 +68,7 @@ The following steps explain how this is done:
     meta_type="Filesystem Directory View"
     directory="your.theme:skins/yourtheme_edit_content"/>
 
- <skin-path name="yourtheme_editskin" based-on="Plone Default">
+ <skin-path name="yourtheme_editskin" based-on="Sunburst Theme">
   <layer name="yourtheme_edit_content" insert-after="custom"/>
  </skin-path>
 
