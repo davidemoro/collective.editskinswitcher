@@ -14,7 +14,7 @@ You can specify a different edit skin in the portal properties::
     >>> portal_props = getToolByName(context, 'portal_properties')
     >>> editskin_props = portal_props.get('editskin_switcher')
     >>> editskin_props.getProperty('edit_skin')
-    'Plone Default'
+    'Sunburst Theme'
     >>> editskin_props.edit_skin = 'Holy Grail'
 
 We test this by faking traversal::

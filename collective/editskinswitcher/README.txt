@@ -40,7 +40,7 @@ Skin when visiting ``localhost`` and the Editor Skin when you go to
 Since version 1.1 you can also set a different default skin in a
 folder.  So you can set it up so that folder-1 uses a red theme,
 folder-2 a blue theme and when you edit either folder you still use
-Plone Default.  See also the `Per-folder default skin`_ section.
+Sunburst Theme.  See also the `Per-folder default skin`_ section.
 
 
 Other options
@@ -149,12 +149,12 @@ from running the tests of course), is:
 
 - Go to portal_skins in the ZMI.
 
-- Create a new skin selection based on Plone Default.  Call this
+- Create a new skin selection based on Sunburst Theme.  Call this
   "Visitor Skin".
 
 - Make Visitor Skin the default skin.
 
-- Remove the custom skin layer from Plone Default.
+- Remove the custom skin layer from Sunburst Theme.
 
 - Customize the main template or the logo or something else that
   is easy to spot.

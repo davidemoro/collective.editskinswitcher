@@ -35,13 +35,13 @@ faking traversal::
 We have smart content editors as they know they can go to 127.0.0.1
 and view the same site.  They get a different skin then, which is the
 whole purpose of this package.  Content editors should be happy with
-just the Plone Default skin::
+just the Sunburst Theme skin::
 
     >>> request = TestRequest(SERVER_URL='http://127.0.0.1')
     >>> event = FakeTraversalEvent(context, request)
     >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 In these tests we need to manually switch the skin back to our
 default, which normally happens automatically when your browser makes
@@ -58,13 +58,13 @@ Visitors on localhost still see our fabulous Monty Python Skin::
     'Monty Python Skin'
 
 Any content editors that arrive via a url beginning with 'edit' (or
-'cms' or 'manage') will get their beloved Plone Default skin again::
+'cms' or 'manage') will get their beloved Sunburst Theme skin again::
 
     >>> request = TestRequest(SERVER_URL='http://edit.domain.org')
     >>> event = FakeTraversalEvent(context, request)
     >>> switch_skin(context, event)
     >>> context.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 When we set the switch_skin_action to none so no switching is done,
 so everyone gets the default skin::

@@ -28,7 +28,7 @@ All our tests are to do with the edit skin interface so lets switch to it:
     >>> event = FakeTraversalEvent(portal, request)
     >>> switch_skin(portal, event)
     >>> portal.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 Check we are in the edit skin via the browser
 
@@ -93,7 +93,7 @@ Make sure we are still in the edit skin:
 
     >>> switch_skin(portal, event)
     >>> portal.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 Confirm via a browser test that the preview tab is no longer there:
 
@@ -112,14 +112,14 @@ Switch it on:
 Check the editskinswitcher skins have been put in the edit skin:
 
     >>> sk_tool = getToolByName(portal, 'portal_skins')
-    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_edit_content') > -1
+    >>> sk_tool.getSkinPath('Sunburst Theme').find('editskinswitcher_edit_content') > -1
     True
 
 Make sure we are still in the edit skin:
 
     >>> switch_skin(portal, event)
     >>> portal.getCurrentSkinName()
-    'Plone Default'
+    'Sunburst Theme'
 
 Check that the view now has the preview iframe:
 
@@ -130,7 +130,7 @@ Check that the view now has the preview iframe:
 Now lets turn this off again and confirm the edit skin has changed:
 
     >>> previewChange(portal,{'change_view_into_preview':False})
-    >>> sk_tool.getSkinPath('Plone Default').find('editskinswitcher_edit_content') > -1
+    >>> sk_tool.getSkinPath('Sunburst Theme').find('editskinswitcher_edit_content') > -1
     False
 
 Change back the skin to the default manually at the end of this test
