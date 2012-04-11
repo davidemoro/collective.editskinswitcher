@@ -5,7 +5,11 @@ try:
     from AccessControl.class_init import InitializeClass
     InitializeClass  # pyflakes
 except ImportError:
-    # BBB
+    # BBB Plone 4.0
+    from App.class_init import InitializeClass
+    InitializeClass  # pyflakes
+except ImportError:
+    # BBB Plone 3
     from Globals import InitializeClass
 
 
