@@ -7,7 +7,11 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.exportimport.actions import importActionProviders
 from Products.GenericSetup.tests.common import DummyImportContext
-from Products.Five import zcml
+try:
+    from Zope2.App import zcml
+    zcml  # pyflakes
+except ImportError:
+    from Products.Five import zcml
 import collective.editskinswitcher.tests
 
 
