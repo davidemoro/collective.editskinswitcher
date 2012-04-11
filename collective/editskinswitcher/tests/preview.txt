@@ -17,6 +17,7 @@ First, we must perform some setup of the test browser.
     ...     from Products.Five.testbrowser import Browser
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
+    >>> browser.handleErrors = False
     >>> from collective.editskinswitcher.tests.utils import clear_log_entries
     >>> clear_log_entries(self.portal)
 

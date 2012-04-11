@@ -115,7 +115,7 @@ def print_latest_log_entry(portal, clear=True):
 def changeSkin(context, name, request=None):
     # Our own version of changeSkin, which only changes something when
     # the skin is not yet the current skin.  This hopefully avoids
-    # some test failures.
+    # some test failures.  Well, it does not... :-/
     if context.getCurrentSkinName() == name:
         return
     if request is None:

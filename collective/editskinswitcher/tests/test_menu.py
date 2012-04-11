@@ -233,6 +233,7 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
 
         # Set the default skin for the first folder.
         browser = Browser()
+        browser.handleErrors = False
         self._login(browser)
         browser.open(folder_url + "/select_skin")
         control = browser.getControl(name="skin_name")
