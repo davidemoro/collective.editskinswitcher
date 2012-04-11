@@ -63,6 +63,7 @@ Logout for good measure and then login again:
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
+    >>> print_latest_log_entry(self.portal)
 
 We check that we get the logged-in message:
 
