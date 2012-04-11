@@ -49,7 +49,7 @@ def previewChange(context, props):
         prevtab = getattr(ptabs, 'skinpreview', None)
         if not prevtab:
             # Add both the @@preview view and the tab that calls it
-            zcml.load_config('configure.zcml',
+            zcml.load_config('testing.zcml',
                              collective.editskinswitcher)
             importcontext = DummyImportContext(context, False)
             importcontext._files['actions.xml'] = ACTIONSCONFIG
