@@ -15,11 +15,14 @@ First, we must perform some setup of the test browser.
     ...     from Products.Five.testbrowser import Browser
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
+    >>> from collective.editskinswitcher.tests.utils import clear_log_entries
+    >>> from collective.editskinswitcher.tests.utils import print_latest_log_entry
+    >>> clear_log_entries(self.portal)
 
 And we make sure we are logged out:
 
     >>> browser.open(portal_url + '/logout')
-
+    >>> print_latest_log_entry(self.portal)
 
 Skin switching is done when the switch_skin_action is 'based on
 specific domains' so lets switch on skin changing based on specific
