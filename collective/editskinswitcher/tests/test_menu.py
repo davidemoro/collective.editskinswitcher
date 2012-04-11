@@ -9,8 +9,7 @@ from collective.editskinswitcher.browser.interfaces import ISkinsMenu
 from collective.editskinswitcher.skin import (
     ANNOTATION_KEY, get_selected_default_skin, set_selected_default_skin)
 from collective.editskinswitcher.tests.utils import (
-    FakeTraversalEvent, TestRequest, new_default_skin,
-    clear_log_entries, print_latest_log_entry)
+    FakeTraversalEvent, TestRequest, new_default_skin)
 from collective.editskinswitcher.traversal import switch_skin
 from collective.editskinswitcher.permissions import SetDefaultSkin
 
@@ -207,16 +206,12 @@ class TestSelectSkinFallbackForm(base.BaseFunctionalTestCase):
     # the menu and you do not have javascript enabled
 
     def _login(self, browser, login_name=ptc.default_user):
-        clear_log_entries(self.portal)
         portal_url = self.portal.absolute_url()
         browser.open(portal_url + '/logout')
-        print_latest_log_entry(self.portal)
         browser.open(portal_url + '/login_form')
-        print_latest_log_entry(self.portal)
         browser.getControl(name='__ac_name').value = login_name
         browser.getControl(name='__ac_password').value = ptc.default_password
         browser.getControl(name='submit').click()
-        print_latest_log_entry(self.portal)
 
     def testSkinSwitchUsingFallbackForm(self):
         self.loginAsPortalOwner()

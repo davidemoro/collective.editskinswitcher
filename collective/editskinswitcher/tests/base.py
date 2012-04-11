@@ -3,10 +3,11 @@ from Products.PloneTestCase import PloneTestCase as ptc
 
 from ZPublisher import HTTPRequest
 
-from collective.editskinswitcher.tests.utils import new_default_skin
-from collective.editskinswitcher.tests.utils import dummy_sunburst_skin
-from collective.editskinswitcher.tests.layer import TestLayer
 from collective.editskinswitcher.tests.layer import PreviewTestLayer
+from collective.editskinswitcher.tests.layer import TestLayer
+from collective.editskinswitcher.tests.utils import dummy_sunburst_skin
+from collective.editskinswitcher.tests.utils import fake_externalEditorEnabled
+from collective.editskinswitcher.tests.utils import new_default_skin
 
 logger = logging.getLogger('collective.editskinswitcher')
 
@@ -47,6 +48,8 @@ class BaseTestCase(ptc.PloneTestCase):
         super(BaseTestCase, self).setUp()
         # Add Sunburst skin if it does not exist.
         dummy_sunburst_skin(self.portal)
+        # Add fake script to avoid strange problem.
+        fake_externalEditorEnabled(self.portal)
         # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
@@ -62,6 +65,8 @@ class BaseFunctionalTestCase(ptc.FunctionalTestCase):
         super(BaseFunctionalTestCase, self).setUp()
         # Add Sunburst skin if it does not exist.
         dummy_sunburst_skin(self.portal)
+        # Add fake script to avoid strange problem.
+        fake_externalEditorEnabled(self.portal)
         # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)
@@ -77,6 +82,8 @@ class PreviewFunctionalTestCase(ptc.FunctionalTestCase):
         super(PreviewFunctionalTestCase, self).setUp()
         # Add Sunburst skin if it does not exist.
         dummy_sunburst_skin(self.portal)
+        # Add fake script to avoid strange problem.
+        fake_externalEditorEnabled(self.portal)
         # Create new skin based on Sunburst Theme and make this the
         # default skin.
         new_default_skin(self.portal)

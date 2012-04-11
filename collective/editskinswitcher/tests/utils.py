@@ -84,9 +84,13 @@ def dummy_sunburst_skin(portal):
     importcontext = DummyImportContext(portal, False)
     importcontext._files['skins.xml'] = DUMMY_SUNBURST_SKINCONFIG
     importSkinsTool(importcontext)
-    # Also add a dummy replacement for the externalEditorEnabled.py
+
+
+def fake_externalEditorEnabled(portal):
+    # Add a dummy replacement for the externalEditorEnabled.py
     # python skin script, which is somehow missing when running the
-    # tests with Plone 3.
+    # tests with Plone 3.  Or Plone 4.0 for that matter, and maybe
+    # simply always.
     portal.externalEditorEnabled = False
 
 
