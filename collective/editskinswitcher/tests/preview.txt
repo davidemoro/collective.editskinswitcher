@@ -141,6 +141,7 @@ Now lets turn this off again and confirm the edit skin has changed:
 Change back the skin to the default manually at the end of this test
 in case other tests expect it:
 
-    >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
+    >>> from collective.editskinswitcher.tests.utils import changeSkin
+    >>> changeSkin(portal, 'Monty Python Skin', portal.REQUEST)
     >>> browser.open(portal_url + '/logout')
     >>> clear_log_entries(self.portal)

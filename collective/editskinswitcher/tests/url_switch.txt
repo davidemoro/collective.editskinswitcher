@@ -47,7 +47,8 @@ In these tests we need to manually switch the skin back to our
 default, which normally happens automatically when your browser makes
 a new request.
 
-    >>> context.changeSkin('Monty Python Skin', TestRequest())
+    >>> from collective.editskinswitcher.tests.utils import changeSkin
+    >>> changeSkin(context, 'Monty Python Skin')
 
 Visitors on localhost still see our fabulous Monty Python Skin::
 
@@ -69,7 +70,7 @@ Any content editors that arrive via a url beginning with 'edit' (or
 When we set the switch_skin_action to none so no switching is done,
 so everyone gets the default skin::
 
-    >>> context.changeSkin('Monty Python Skin', TestRequest())
+    >>> changeSkin(context, 'Monty Python Skin')
     >>> editskin_props.switch_skin_action = 'no URL based switching'
     >>> request = TestRequest(SERVER_URL='http://localhost')
     >>> event = FakeTraversalEvent(context, request)

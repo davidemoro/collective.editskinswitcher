@@ -110,3 +110,14 @@ def print_latest_log_entry(portal, clear=True):
     if portal.error_log.getLogEntries():
         print portal.error_log.getLogEntries()[-1]['tb_text']
         clear_log_entries(portal)
+
+
+def changeSkin(context, name, request=None):
+    # Our own version of changeSkin, which only changes something when
+    # the skin is not yet the current skin.  This hopefully avoids
+    # some test failures.
+    if context.getCurrentSkinName() == name:
+        return
+    if request is None:
+        request = TestRequest()
+    context.changeSkin(name, request)

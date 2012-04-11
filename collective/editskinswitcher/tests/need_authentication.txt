@@ -36,7 +36,8 @@ In these tests, whenever we have really changed the skin, we need to
 manually switch the skin back to our default, which normally happens
 automatically when your browser makes a new request.
 
-    >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
+    >>> from collective.editskinswitcher.tests.utils import changeSkin
+    >>> changeSkin(portal, 'Monty Python Skin', portal.REQUEST)
     >>> portal.getCurrentSkinName()
     'Monty Python Skin'
 
