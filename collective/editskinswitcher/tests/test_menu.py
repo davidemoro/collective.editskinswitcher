@@ -19,7 +19,11 @@ from ZPublisher.BeforeTraverse import queryBeforeTraverse
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
 from Products.Five.component import LocalSiteHook, HOOK_NAME
-from Products.Five.testbrowser import Browser
+try:
+    from Testing.testbrowser import Browser
+    Browser  # pyflakes
+except ImportError:
+    from Products.Five.testbrowser import Browser
 from Products.SiteAccess.AccessRule import AccessRule
 
 try:

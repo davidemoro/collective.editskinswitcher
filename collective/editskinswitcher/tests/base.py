@@ -2,7 +2,12 @@ import logging
 from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import onsetup
-from Products.Five import zcml
+
+try:
+    from Zope2.App import zcml
+    zcml  # pyflakes
+except ImportError:
+    from Products.Five import zcml
 from Products.Five import fiveconfigure
 from ZPublisher import HTTPRequest
 

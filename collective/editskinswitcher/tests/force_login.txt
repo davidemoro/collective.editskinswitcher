@@ -9,7 +9,10 @@ custom header, see ploneadmin_header.txt
 
 First, some standard setup again.
 
-    >>> from Products.Five.testbrowser import Browser
+    >>> try:
+    ...     from Testing.testbrowser import Browser
+    ... except ImportError:
+    ...     from Products.Five.testbrowser import Browser
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
     >>> browser.handleErrors = False

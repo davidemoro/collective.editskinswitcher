@@ -1,5 +1,9 @@
 from zope.publisher.browser import TestRequest as baseTestRequest
-from Products.Five import zcml
+try:
+    from Zope2.App import zcml
+    zcml  # pyflakes
+except ImportError:
+    from Products.Five import zcml
 from Products.CMFCore.exportimport.skins import importSkinsTool
 from Products.GenericSetup.tests.common import DummyImportContext
 import collective.editskinswitcher.tests

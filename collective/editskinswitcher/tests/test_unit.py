@@ -1,11 +1,11 @@
 import unittest
-from zope.testing import doctestunit
+import doctest
 from zope.component import testing
 
 
 def test_suite():
     return unittest.TestSuite([
-        doctestunit.DocTestSuite(
+        doctest.DocTestSuite(
             module='collective.editskinswitcher.utils',
             setUp=testing.setUp, tearDown=testing.tearDown),
         ])

@@ -44,7 +44,10 @@ We used to simulate authentication with fake __ac cookie but that can
 break the test browser if it authenticates in this or other tests, so
 we authenticate with the test browser instead:
 
-    >>> from Products.Five.testbrowser import Browser
+    >>> try:
+    ...     from Testing.testbrowser import Browser
+    ... except ImportError:
+    ...     from Products.Five.testbrowser import Browser
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()

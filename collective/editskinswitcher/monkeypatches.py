@@ -1,7 +1,12 @@
 ### Cleanest way to add the drop down to the property sheet ... until
 ### plone property sheets do zope vocab lookups!
 from Products.CMFPlone.PropertiesTool import SimpleItemWithProperties
-from Globals import InitializeClass
+try:
+    from AccessControl.class_init import InitializeClass
+    InitializeClass  # pyflakes
+except ImportError:
+    # BBB
+    from Globals import InitializeClass
 
 
 def editSwitchList(self):

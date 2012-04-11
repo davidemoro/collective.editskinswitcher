@@ -11,7 +11,10 @@ tab or view replacement is for the accompanying default theme egg.
 
 First, we must perform some setup of the test browser.
 
-    >>> from Products.Five.testbrowser import Browser
+    >>> try:
+    ...     from Testing.testbrowser import Browser
+    ... except ImportError:
+    ...     from Products.Five.testbrowser import Browser
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
 
