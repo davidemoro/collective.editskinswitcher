@@ -12,7 +12,7 @@ try:
     zcml  # pyflakes
 except ImportError:
     from Products.Five import zcml
-import collective.editskinswitcher.tests
+import collective.editskinswitcher
 
 
 ACTIONSCONFIG = """\
@@ -50,7 +50,7 @@ def previewChange(context, props):
         if not prevtab:
             # Add both the @@preview view and the tab that calls it
             zcml.load_config('configure.zcml',
-                             collective.editskinswitcher.tests)
+                             collective.editskinswitcher)
             importcontext = DummyImportContext(context, False)
             importcontext._files['actions.xml'] = ACTIONSCONFIG
             importActionProviders(importcontext)
@@ -74,5 +74,6 @@ def previewChange(context, props):
                        id='editskinswitcher_edit_content')
             skinpath = 'editskinswitcher_edit_content,' + defaultpath
         elif not changeview and changed:
-            skinpath = defaultpath.replace('editskinswitcher_edit_content,', '')
+            skinpath = defaultpath.replace(
+                'editskinswitcher_edit_content,', '')
         sk_tool.addSkinSelection('Sunburst Theme', skinpath)

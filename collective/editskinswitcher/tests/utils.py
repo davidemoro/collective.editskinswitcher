@@ -6,7 +6,7 @@ except ImportError:
     from Products.Five import zcml
 from Products.CMFCore.exportimport.skins import importSkinsTool
 from Products.GenericSetup.tests.common import DummyImportContext
-import collective.editskinswitcher.tests
+import collective.editskinswitcher
 
 SKINCONFIG = """\
 <?xml version="1.0"?>
@@ -20,7 +20,7 @@ SKINCONFIG = """\
 
  <object name="editskinswitcher_tests"
     meta_type="Filesystem Directory View"
-    directory="collective.editskinswitcher.tests:skins/editskinswitcher_tests"
+    directory="collective.editskinswitcher:tests/skins/editskinswitcher_tests"
     />
 
  <skin-path name="Monty Python Skin" based-on="Sunburst Theme">
@@ -74,7 +74,7 @@ def new_default_skin(portal):
     """ Register test skins folder with extra test template - zcml
         then make new default skin based on Sunburst Theme with test skin - xml
     """
-    zcml.load_config('skins.zcml', collective.editskinswitcher.tests)
+    zcml.load_config('testing-skins.zcml', collective.editskinswitcher)
     importcontext = DummyImportContext(portal, False)
     importcontext._files['skins.xml'] = SKINCONFIG
     importSkinsTool(importcontext)
