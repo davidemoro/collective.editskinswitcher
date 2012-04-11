@@ -51,11 +51,8 @@ we authenticate with the test browser instead:
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
-
-Clear out previous error log entries:
-
-    >>> for entry in self.portal.error_log.getLogEntries():
-    ...      self.portal.error_log.forgetEntry(entry['id'])
+    >>> from collective.editskinswitcher.tests.utils import clear_log_entries
+    >>> clear_log_entries(self.portal)
 
 Logout for good measure and then login again:
 
@@ -137,3 +134,4 @@ break other tests:
 
     >>> editskin_props.need_authentication = False
     >>> editskin_props.switch_skin_action = 'based on edit URL'
+    >>> clear_log_entries(self.portal)

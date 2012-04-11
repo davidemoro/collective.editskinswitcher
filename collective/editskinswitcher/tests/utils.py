@@ -102,3 +102,8 @@ class FakeTraversalEvent(object):
     def __init__(self, object, request):
         self.object = object
         self.request = request
+
+
+def clear_log_entries(portal):
+    for entry in portal.error_log.getLogEntries():
+         portal.error_log.forgetEntry(entry['id'])

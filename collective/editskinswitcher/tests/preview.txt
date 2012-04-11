@@ -17,6 +17,8 @@ First, we must perform some setup of the test browser.
     ...     from Products.Five.testbrowser import Browser
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
+    >>> from collective.editskinswitcher.tests.utils import clear_log_entries
+    >>> clear_log_entries(self.portal)
 
 And we make sure we are logged out:
 
@@ -140,3 +142,5 @@ Change back the skin to the default manually at the end of this test
 in case other tests expect it:
 
     >>> portal.changeSkin('Monty Python Skin', portal.REQUEST)
+    >>> browser.open(portal_url + '/logout')
+    >>> clear_log_entries(self.portal)
