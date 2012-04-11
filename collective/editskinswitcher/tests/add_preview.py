@@ -69,8 +69,8 @@ def previewChange(context, props):
             if not getattr(sk_tool, 'editskinswitcher_edit_content', None):
                 cmfcore = sk_tool.manage_addProduct['CMFCore']
                 addDir = cmfcore.manage_addDirectoryView
-                addDir(reg_key='collective.editskinswitcher.tests:'
-                       'skins/editskinswitcher_edit_content',
+                addDir(reg_key='collective.editskinswitcher:'
+                       'tests/skins/editskinswitcher_edit_content',
                        id='editskinswitcher_edit_content')
             skinpath = 'editskinswitcher_edit_content,' + defaultpath
         elif not changeview and changed:
