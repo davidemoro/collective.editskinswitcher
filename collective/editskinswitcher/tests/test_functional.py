@@ -31,7 +31,7 @@ def test_suite():
         ztc.ZopeDocFileSuite(
             'tests/preview.txt',
             package='collective.editskinswitcher',
-            test_class=base.BaseFunctionalTestCase),
+            test_class=base.PreviewFunctionalTestCase),
 
         ztc.ZopeDocFileSuite(
             'tests/specific_switch.txt',

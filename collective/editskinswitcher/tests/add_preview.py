@@ -7,13 +7,6 @@
 from Products.CMFCore.utils import getToolByName
 from Products.CMFCore.exportimport.actions import importActionProviders
 from Products.GenericSetup.tests.common import DummyImportContext
-try:
-    from Zope2.App import zcml
-    zcml  # pyflakes
-except ImportError:
-    from Products.Five import zcml
-import collective.editskinswitcher
-
 
 ACTIONSCONFIG = """\
 <?xml version="1.0"?>
@@ -48,9 +41,7 @@ def previewChange(context, props):
     if ptabs:
         prevtab = getattr(ptabs, 'skinpreview', None)
         if not prevtab:
-            # Add both the @@preview view and the tab that calls it
-            zcml.load_config('testing.zcml',
-                             collective.editskinswitcher)
+            # Add the tab that points to the @@preview view
             importcontext = DummyImportContext(context, False)
             importcontext._files['actions.xml'] = ACTIONSCONFIG
             importActionProviders(importcontext)

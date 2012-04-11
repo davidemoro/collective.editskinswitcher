@@ -1,19 +1,12 @@
 import logging
-from Testing import ZopeTestCase as ztc
 from Products.PloneTestCase import PloneTestCase as ptc
-from Products.PloneTestCase.layer import onsetup
 
-try:
-    from Zope2.App import zcml
-    zcml  # pyflakes
-except ImportError:
-    from Products.Five import zcml
-from Products.Five import fiveconfigure
 from ZPublisher import HTTPRequest
 
-import collective.editskinswitcher
 from collective.editskinswitcher.tests.utils import new_default_skin
 from collective.editskinswitcher.tests.utils import dummy_sunburst_skin
+from collective.editskinswitcher.tests.layer import TestLayer
+from collective.editskinswitcher.tests.layer import PreviewTestLayer
 
 logger = logging.getLogger('collective.editskinswitcher')
 
@@ -44,18 +37,11 @@ HTTPRequest.HTTPRequest.get_header = get_header
 logger.info('Patched ZPublisher.HTTPRequest.HTTPRequest.get_header for tests.')
 
 
-@onsetup
-def setup_product():
-    fiveconfigure.debug_mode = True
-    zcml.load_config('configure.zcml',
-                     collective.editskinswitcher)
-    fiveconfigure.debug_mode = False
-    ztc.installPackage('collective.editskinswitcher')
-
-
 class BaseTestCase(ptc.PloneTestCase):
     """Base class for test cases.
     """
+
+    layer = TestLayer
 
     def setUp(self):
         super(BaseTestCase, self).setUp()
@@ -70,6 +56,8 @@ class BaseFunctionalTestCase(ptc.FunctionalTestCase):
     """Base class for test cases.
     """
 
+    layer = TestLayer
+
     def setUp(self):
         super(BaseFunctionalTestCase, self).setUp()
         # Add Sunburst skin if it does not exist.
@@ -79,5 +67,19 @@ class BaseFunctionalTestCase(ptc.FunctionalTestCase):
         new_default_skin(self.portal)
 
 
-setup_product()
+class PreviewFunctionalTestCase(ptc.FunctionalTestCase):
+    """Class for functional test cases with @@preview.
+    """
+
+    layer = PreviewTestLayer
+
+    def setUp(self):
+        super(PreviewFunctionalTestCase, self).setUp()
+        # Add Sunburst skin if it does not exist.
+        dummy_sunburst_skin(self.portal)
+        # Create new skin based on Sunburst Theme and make this the
+        # default skin.
+        new_default_skin(self.portal)
+
+
 ptc.setupPloneSite(products=['collective.editskinswitcher'])

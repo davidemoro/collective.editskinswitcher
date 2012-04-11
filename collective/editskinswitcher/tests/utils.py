@@ -74,7 +74,6 @@ def new_default_skin(portal):
     """ Register test skins folder with extra test template - zcml
         then make new default skin based on Sunburst Theme with test skin - xml
     """
-    zcml.load_config('testing-skins.zcml', collective.editskinswitcher)
     importcontext = DummyImportContext(portal, False)
     importcontext._files['skins.xml'] = SKINCONFIG
     importSkinsTool(importcontext)
