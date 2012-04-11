@@ -51,10 +51,18 @@ we authenticate with the test browser instead:
     >>> from Products.PloneTestCase.setup import portal_owner, default_password
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
+
+Clear out previous error log entries:
+
+    >>> for entry in self.portal.error_log.getLogEntries():
+    ...      self.portal.error_log.forgetEntry(entry['id'])
+
+Logout for good measure and then login again:
+
     >>> browser.open(portal_url + '/logout')
-    >>> browser.open(portal_url + '/login_form')
     >>> if self.portal.error_log.getLogEntries():
     ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
     >>> browser.getControl(name='submit').click()
