@@ -1,12 +1,6 @@
 from zope.publisher.browser import TestRequest as baseTestRequest
-try:
-    from Zope2.App import zcml
-    zcml  # pyflakes
-except ImportError:
-    from Products.Five import zcml
 from Products.CMFCore.exportimport.skins import importSkinsTool
 from Products.GenericSetup.tests.common import DummyImportContext
-import collective.editskinswitcher
 
 SKINCONFIG = """\
 <?xml version="1.0"?>
@@ -105,10 +99,10 @@ class FakeTraversalEvent(object):
 
 def clear_log_entries(portal):
     for entry in portal.error_log.getLogEntries():
-         portal.error_log.forgetEntry(entry['id'])
+        portal.error_log.forgetEntry(entry['id'])
 
 
 def print_latest_log_entry(portal, clear=True):
     if portal.error_log.getLogEntries():
-        print self.portal.error_log.getLogEntries()[-1]['tb_text']
+        print portal.error_log.getLogEntries()[-1]['tb_text']
         clear_log_entries(portal)
