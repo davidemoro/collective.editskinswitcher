@@ -106,3 +106,9 @@ class FakeTraversalEvent(object):
 def clear_log_entries(portal):
     for entry in portal.error_log.getLogEntries():
          portal.error_log.forgetEntry(entry['id'])
+
+
+def print_latest_log_entry(portal, clear=True):
+    if portal.error_log.getLogEntries():
+        print self.portal.error_log.getLogEntries()[-1]['tb_text']
+        clear_log_entries(portal)

@@ -52,13 +52,13 @@ we authenticate with the test browser instead:
     >>> portal_url = portal.absolute_url()
     >>> browser = Browser()
     >>> from collective.editskinswitcher.tests.utils import clear_log_entries
+    >>> from collective.editskinswitcher.tests.utils import print_latest_log_entry
     >>> clear_log_entries(self.portal)
 
 Logout for good measure and then login again:
 
     >>> browser.open(portal_url + '/logout')
-    >>> if self.portal.error_log.getLogEntries():
-    ...     print self.portal.error_log.getLogEntries()[0]['tb_text']
+    >>> print_latest_log_entry(self.portal)
     >>> browser.open(portal_url + '/login_form')
     >>> browser.getControl(name='__ac_name').value = portal_owner
     >>> browser.getControl(name='__ac_password').value = default_password
