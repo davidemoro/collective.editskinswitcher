@@ -9,7 +9,7 @@ readmefile = open(os.path.join('collective', 'editskinswitcher', 'README.txt'))
 readme = readmefile.read().strip()
 readmefile.close()
 
-historyfile = open('CHANGES.txt')
+historyfile = open('CHANGES.rst')
 history = historyfile.read().strip()
 historyfile.close()
 
