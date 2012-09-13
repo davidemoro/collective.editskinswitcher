@@ -5,13 +5,9 @@ versionfile = open(os.path.join('collective', 'editskinswitcher', 'version.txt')
 version = versionfile.read().strip()
 versionfile.close()
 
-readmefile = open(os.path.join('collective', 'editskinswitcher', 'README.txt'))
-readme = readmefile.read().strip()
-readmefile.close()
+readme = open('README.txt').read().strip()
 
-historyfile = open('CHANGES.rst')
-history = historyfile.read().strip()
-historyfile.close()
+history = open('CHANGES.rst').read().strip()
 
 long_description = "%s\n\n\n%s" % (readme, history)
 
