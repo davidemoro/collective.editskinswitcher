@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-2.4 (unreleased)
+2.4 (2012-09-13)
 ----------------
 
 - Added dependencies for Plone 4.2 compatibility:
