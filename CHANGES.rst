@@ -4,7 +4,9 @@ Changelog for collective.editskinswitcher
 2.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Moved to github:
+  https://github.com/collective/collective.editskinswitcher
+  [maurits]
 
 
 2.3 (2012-04-11)
