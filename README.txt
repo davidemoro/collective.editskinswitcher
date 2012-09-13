@@ -1,5 +1,5 @@
 .. contents::
- 
+
 Collective edit skin switcher
 =============================
 
@@ -70,8 +70,8 @@ are available:
     example, when trying this locally you may need something like
     this: ``http://localhost:8080/Plone``
 
-  - based on admin header: If this is chosen you will need to set up your proxy 
-    server, eg. Apache, to add a 'HTTP_PLONEADMIN' header to the request. It can 
+  - based on admin header: If this is chosen you will need to set up your proxy
+    server, eg. Apache, to add a 'HTTP_PLONEADMIN' header to the request. It can
     do this based on the url for instance. An example is given in
     /tests/ploneadmin_header.txt
 
@@ -185,20 +185,20 @@ you end up in the edit skin.
 Preview
 -------
 
-The preview option allows you to see the default skin via the edit skin. 
+The preview option allows you to see the default skin via the edit skin.
 
-It does so by using an iframe which accesses the edit skin content but flips 
-it to the default skin. This allows you to easily view previous versions, 
+It does so by using an iframe which accesses the edit skin content but flips
+it to the default skin. This allows you to easily view previous versions,
 private content etc. as it will appear in the default skin if published.
 
-This is particularly useful in cases where your default skin differs 
+This is particularly useful in cases where your default skin differs
 radically from the edit skin. It allows the edit interface to maintain some
 wysiwyg functionality.
 
-Preview can either be used as a separate preview tab, or as a replacement 
+Preview can either be used as a separate preview tab, or as a replacement
 for the view tab content in the edit skin.
 
-Both are implemented within the tests folder and tested, but neither is 
+Both are implemented within the tests folder and tested, but neither is
 used by default.
 
 For the preview of editskinswitcher to be of use it requires an
@@ -212,12 +212,12 @@ tests/skins/README.txt
 
 To add it as a separate preview tab:
 
-1. Add the browser view by putting what is in tests/configure.zcml in 
+1. Add the browser view by putting what is in tests/configure.zcml in
    your theme egg configure.zcml
 
-2. Within tests/add_preview.py there is ACTIONSCONFIG 
+2. Within tests/add_preview.py there is ACTIONSCONFIG
    Add this as a profiles/default/actions.xml file.
-   Change the default visible=False property to True. 
+   Change the default visible=False property to True.
 
 
 Per-folder default skin
