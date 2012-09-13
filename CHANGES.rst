@@ -4,6 +4,10 @@ Changelog for collective.editskinswitcher
 2.4 (unreleased)
 ----------------
 
+- Added dependencies for Plone 4.2 compatibility:
+  zope.app.publication and zope.app.publisher.
+  [maurits]
+
 - Moved to github:
   https://github.com/collective/collective.editskinswitcher
   [maurits]
