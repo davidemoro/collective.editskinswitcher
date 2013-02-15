@@ -233,6 +233,12 @@ To add it as a separate preview tab:
    hand by going to portal_actions, object, and adding a preview
    action with url expression ``string:${object_url}/@@preview``.
 
+Note that it looks like currently our ``++resourece++iframe.js`` is
+not properly loaded, which in my tests unhelpfully makes the iframe
+about two centimeters high, though that probably depends on what you
+have set as the edit skin.  If you use this feature and are hit by
+this bug and maybe even know how to fix it, contact me.
+
 
 Per-folder default skin
 -----------------------
