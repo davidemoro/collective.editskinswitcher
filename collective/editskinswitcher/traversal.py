@@ -125,8 +125,7 @@ def set_theme_specific_layers(request, context, new_skin, current_skin):
         noLongerProvides(request, current_skin_iface)
     # check to see the skin has a BrowserSkinType and add it.
     skin_iface = queryUtility(IBrowserSkinType, new_skin)
-    if skin_iface is not None and \
-           not skin_iface.providedBy(request):
+    if skin_iface is not None and not skin_iface.providedBy(request):
         alsoProvides(request, skin_iface)
 
 
@@ -148,7 +147,7 @@ def switch_skin(object, event):
         # We've specified a skin and are not in the edit skin.
         portal_skins = getToolByName(context, 'portal_skins', None)
         if (portal_skins is not None and
-            skin_name not in portal_skins.getSkinSelections()):
+                skin_name not in portal_skins.getSkinSelections()):
             logger.warn("Non-existing skin %s set on %s",
                         skin_name, context.absolute_url())
         else:

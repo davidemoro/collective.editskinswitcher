@@ -8,8 +8,7 @@ try:
     # Try import that works in Zope 2.13 or higher first
     from zope.browsermenu.menu import BrowserMenu
     from zope.browsermenu.menu import BrowserSubMenuItem
-    BrowserMenu  # pyflakes
-    BrowserSubMenuItem  # pyflakes
+    BrowserMenu, BrowserSubMenuItem  # pyflakes
 except ImportError:
     # BBB for Zope 2.12 or lower
     from zope.app.publisher.browser.menu import BrowserMenu
@@ -127,7 +126,7 @@ class SkinsMenu(BrowserMenu):
         # way to unset it.
         tools = getMultiAdapter((context, request), name='plone_tools')
         if tools.membership().checkPermission(SetDefaultSkin, folder) and (
-            len(skin_selections) > 1 or current_skin):
+                len(skin_selections) > 1 or current_skin):
             if current_skin and current_skin not in skin_selections:
                 # Skin has been removed.
                 skin = current_skin
@@ -137,11 +136,11 @@ class SkinsMenu(BrowserMenu):
                     {"title": _(u"Warning: ${skin}",
                                 mapping={'skin': skin_title}),
                      "description": _(
-                            u"Skin '${skin}' no longer exists. Selecting this "
-                            u"again will result in using the site default.",
-                            mapping=dict(skin=skin_title)),
+                         u"Skin '${skin}' no longer exists. Selecting this "
+                         u"again will result in using the site default.",
+                         mapping=dict(skin=skin_title)),
                      "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
-                            url, skin),
+                         url, skin),
                      "selected": True,
                      "extra": {
                          "is_skin_option": True,
@@ -162,7 +161,7 @@ class SkinsMenu(BrowserMenu):
                      "description": _(u"Use '${skin}' skin for this folder",
                                       mapping=dict(skin=skin_title)),
                      "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
-                            url, skin),
+                         url, skin),
                      "selected": selected,
                      "extra": {
                          "is_skin_option": True,
@@ -181,7 +180,7 @@ class SkinsMenu(BrowserMenu):
                 {"title": _(u"Use site default"),
                  "description": u"",
                  "action": "%s/@@switchDefaultSkin?skin_name=%s" % (
-                        url, skin_id),
+                     url, skin_id),
                  "selected": False,
                  "extra": {
                      "is_skin_option": True,
