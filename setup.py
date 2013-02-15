@@ -5,15 +5,14 @@ history = open('CHANGES.rst').read().strip()
 long_description = "%s\n\n\n%s" % (readme, history)
 
 setup(name='collective.editskinswitcher',
-      version='2.6.dev0',
+      version='3.0.dev0',
       description="Switch to the edit skin for certain domains.""",
       long_description=long_description,
       classifiers=[
           "Framework :: Plone",
-          "Framework :: Plone :: 3.3",
-          "Framework :: Plone :: 4.0",
           "Framework :: Plone :: 4.1",
           "Framework :: Plone :: 4.2",
+          "Framework :: Plone :: 4.3",
           "Framework :: Zope2",
           "Programming Language :: Python",
           "Topic :: Software Development :: Libraries :: Python Modules",

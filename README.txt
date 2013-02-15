@@ -16,10 +16,9 @@ installed.  And the code is in the Plone github collective_.
 Compatibility
 -------------
 
-``collective.editskinswitcher`` 2.5 is compatible with Plone version
-3.3 untill and including 4.2.  For Plone 4.3 please use
-``collective.editskinswitcher`` 3.x.  That version may be compatible
-with a few more Plone versions, but check there for details.
+``collective.editskinswitcher`` 3.0 is compatible with Plone version
+4.1 until and including 4.3.  For earlier Plone versions please use
+``collective.editskinswitcher`` 2.x.
 
 
 What does it do?
@@ -46,7 +45,7 @@ Developer types probably like the fact that you also get the Visitor
 Skin when visiting ``localhost`` and the Editor Skin when you go to
 ``127.0.0.1``.
 
-Since version 1.1 you can also set a different default skin in a
+You can also set a different default skin in a
 folder.  So you can set it up so that folder-1 uses a red theme,
 folder-2 a blue theme and when you edit either folder you still use
 Sunburst Theme.  See also the `Per-folder default skin`_ section.
@@ -63,9 +62,9 @@ are available:
   Default".
 
 - ``switch_skin_action``: choose the url condition that is used for
-  switching to the edit skin.  **Note**: since version 0.9 this is a
-  multiple select: if *one* of the selected options gives a positive
-  result, then we switch to the edit skin.  Options are:
+  switching to the edit skin.  Note: this is a multiple select: if
+  *one* of the selected options gives a positive result, then we
+  switch to the edit skin.  Options are:
 
   - based on edit URL: With this you get the behaviour described above.
     This is the default.
@@ -267,48 +266,10 @@ Installation using zc.buildout
 ------------------------------
 
 For using collective.editskinswitcher with zc.buildout you have to add
-``collective.editskinswitcher`` to the ``eggs`` and ``zcml`` sections::
+``collective.editskinswitcher`` to the ``eggs`` section::
 
    eggs = collective.editskinswitcher
    ...
-   zcml = collective.editskinswitcher
-   ...
-
-Note that the zcml line is not needed on Plone 3.3 or higher.
-
-
-Configuration without using zc.buildout
----------------------------------------
-
-If you are using collective.editskinswicher without zc.buildout, you need
-to add a ZCML slug ``collective.editksinswitcher-configure.zcml`` within
-your ``etc/package-includes`` directory containing::
-
-  <include package="collective.editskinswitcher" />
-
-
-Upgrading
----------
-
-- In version 0.9 the ``switch_skin_action`` property was changed to a
-  multiple selection field.  There is an upgrade step that migrates
-  your previous setting correctly.  If you have changed this property
-  in your custom theme or policy package in a ``propertiestool.xml``
-  file, you will need to upgrade that file manually to the new setting
-  like this::
-
-    <property name="switch_skin_action"
-              type="multiple selection"
-              select_variable="editSwitchList">
-     <element value="based on edit URL"/>
-    </property>
-
-- In version 2.0 the ``PAGE_WHITE_LIST`` and ``SUFFIX_WHITE_LIST``
-  were replaced with a list of regular expressions
-  (``WHITELIST_REGEXPS``).  If you were monkey patching those config
-  settings in a package of your own, you will have to update your
-  patch.  If you do not update your patch, then either Zope will not
-  start or your patch will have no effect.
 
 
 Have fun!

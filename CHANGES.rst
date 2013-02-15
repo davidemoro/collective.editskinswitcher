@@ -1,10 +1,11 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-2.6 (unreleased)
+3.0 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Compatible with Plone 4.1, 4.2, 4.3.
+  [maurits]
 
 
 2.5 (2013-02-15)
