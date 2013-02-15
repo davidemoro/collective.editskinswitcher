@@ -1,6 +1,6 @@
 import monkeypatches
+monkeypatches  # pyflakes
 
-from collective.editskinswitcher import permissions
 from zope.i18nmessageid import MessageFactory
 SwitcherMessageFactory = MessageFactory('editskinswitcher')
 
