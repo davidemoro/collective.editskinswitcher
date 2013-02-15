@@ -1,7 +1,7 @@
 Changelog for collective.editskinswitcher
 =========================================
 
-3.0 (unreleased)
+3.0 (2013-02-16)
 ----------------
 
 - Removed zope.app dependencies.
