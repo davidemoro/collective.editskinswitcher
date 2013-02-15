@@ -220,12 +220,18 @@ tests/skins/README.txt
 
 To add it as a separate preview tab:
 
-1. Add the browser view by putting what is in tests/configure.zcml in
-   your theme egg configure.zcml
+1. Add the browser view by putting what is in testing.zcml in your
+   theme egg configure.zcml or loading that file in the part of your
+   buildout that creates the ``zope2instance``, something like::
+
+     zcml =
+         collective.editskinswitcher-testing
 
 2. Within tests/add_preview.py there is ACTIONSCONFIG
    Add this as a profiles/default/actions.xml file.
-   Change the default visible=False property to True.
+   Change the default visible=False property to True.  Or do it by
+   hand by going to portal_actions, object, and adding a preview
+   action with url expression ``string:${object_url}/@@preview``.
 
 
 Per-folder default skin
