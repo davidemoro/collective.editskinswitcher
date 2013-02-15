@@ -28,8 +28,6 @@ setup(name='collective.editskinswitcher',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          'zope.app.publication',
-          'zope.app.publisher',
       ],
       entry_points="""
       # -*- Entry points: -*-

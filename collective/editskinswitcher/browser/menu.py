@@ -3,17 +3,8 @@ from Products.CMFPlone import utils
 from plone.memoize.instance import memoize
 from zope.component import getMultiAdapter
 from zope.interface import implements
-
-try:
-    # Try import that works in Zope 2.13 or higher first
-    from zope.browsermenu.menu import BrowserMenu
-    from zope.browsermenu.menu import BrowserSubMenuItem
-    BrowserMenu, BrowserSubMenuItem  # pyflakes
-except ImportError:
-    # BBB for Zope 2.12 or lower
-    from zope.app.publisher.browser.menu import BrowserMenu
-    from zope.app.publisher.browser.menu import BrowserSubMenuItem
-
+from zope.browsermenu.menu import BrowserMenu
+from zope.browsermenu.menu import BrowserSubMenuItem
 from plone.app.layout.navigation.interfaces import INavigationRoot
 
 from collective.editskinswitcher import SwitcherMessageFactory as _

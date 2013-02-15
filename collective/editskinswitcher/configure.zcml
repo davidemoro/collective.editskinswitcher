@@ -12,7 +12,7 @@
 
   <subscriber
       for="*
-           zope.app.publication.interfaces.IBeforeTraverseEvent"
+           zope.traversing.interfaces.IBeforeTraverseEvent"
       handler=".traversal.switch_skin"
       />
 

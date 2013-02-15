@@ -19,20 +19,9 @@ from ZPublisher.BeforeTraverse import queryBeforeTraverse
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
 from Products.Five.component import LocalSiteHook, HOOK_NAME
-try:
-    from Testing.testbrowser import Browser
-    Browser  # pyflakes
-except ImportError:
-    from Products.Five.testbrowser import Browser
+from Testing.testbrowser import Browser
 from Products.SiteAccess.AccessRule import AccessRule
-
-try:
-    # Try import that works in Zope 2.13 or higher first
-    from zope.browsermenu.interfaces import IBrowserMenu
-    IBrowserMenu  # pyflakes
-except ImportError:
-    # BBB for Zope 2.12 or lower
-    from zope.app.publisher.interfaces.browser import IBrowserMenu
+from zope.browsermenu.interfaces import IBrowserMenu
 
 from collective.editskinswitcher.tests import base
 

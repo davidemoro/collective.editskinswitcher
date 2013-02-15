@@ -4,6 +4,9 @@ Changelog for collective.editskinswitcher
 3.0 (unreleased)
 ----------------
 
+- Removed zope.app dependencies.
+  [maurits]
+
 - Compatible with Plone 4.1, 4.2, 4.3.
   [maurits]
 

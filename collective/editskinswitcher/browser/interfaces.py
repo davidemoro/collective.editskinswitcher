@@ -1,16 +1,8 @@
 from plone.theme.interfaces import IDefaultPloneLayer
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
-
-try:
-    # Try import that works in Zope 2.13 or higher first
-    from zope.browsermenu.interfaces import IBrowserMenu
-    from zope.browsermenu.interfaces import IBrowserSubMenuItem
-    IBrowserMenu, IBrowserSubMenuItem  # pyflakes
-except ImportError:
-    # BBB for Zope 2.12 or lower
-    from zope.app.publisher.interfaces.browser import IBrowserMenu
-    from zope.app.publisher.interfaces.browser import IBrowserSubMenuItem
+from zope.browsermenu.interfaces import IBrowserMenu
+from zope.browsermenu.interfaces import IBrowserSubMenuItem
 
 
 class IThemeSpecific(IDefaultPloneLayer):

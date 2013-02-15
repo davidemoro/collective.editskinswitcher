@@ -5,14 +5,7 @@ from Products.CMFPlone.utils import getToolByName
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from zope.component import getUtility
 from zope.publisher.browser import BrowserView
-
-try:
-    # Try import that works in Zope 2.13 or higher first
-    from zope.browsermenu.interfaces import IBrowserMenu
-    IBrowserMenu  # pyflakes
-except ImportError:
-    # BBB for Zope 2.12 or lower
-    from zope.app.publisher.interfaces.browser import IBrowserMenu
+from zope.browsermenu.interfaces import IBrowserMenu
 
 from collective.editskinswitcher import SwitcherMessageFactory as _
 from collective.editskinswitcher.skin import (
