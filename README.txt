@@ -7,10 +7,19 @@ For a customer of `Zest Software`_ I [Maurits van Rees] created a
 package called ``collective.editskinswitcher``.  I gladly took some code
 from colleague Mark van Lent who did something similar for a different
 web site.  The package is on the Cheese Shop so it can be easy
-installed.  And the code is in the Plone collective_.
+installed.  And the code is in the Plone github collective_.
 
 .. _`Zest Software`: http://zestsoftware.nl
-.. _collective: http://svn.plone.org/svn/collective/collective.editskinswitcher/
+.. _collective: https://github.com/collective/collective.editskinswitcher
+
+
+Compatibility
+-------------
+
+``collective.editskinswitcher`` 2.5 is compatible with Plone version
+3.3 untill and including 4.2.  For Plone 4.3 please use
+``collective.editskinswitcher`` 3.x.  That version may be compatible
+with a few more Plone versions, but check there for details.
 
 
 What does it do?
