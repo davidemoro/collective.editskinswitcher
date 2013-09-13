@@ -5,7 +5,6 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="collective.editskinswitcher">
 
-  <include package="plone.browserlayer" />
   <genericsetup:registerProfile
       name="testing"
       title="Layertest"
