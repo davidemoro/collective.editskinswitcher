@@ -2,7 +2,8 @@ from collective.editskinswitcher.tests import baselayers as base
 
 class TestLayers(base.LayersTestCase):
 
-    def test_layers(self):
+    def test_layers_default_config(self):
+        """ Test with default options (switch_skin_action = based on edit URL)"""
         portal = self.portal
         from collective.editskinswitcher.tests.interfaces import ILayerTest1
         from collective.editskinswitcher.tests.interfaces import ILayerTest2
@@ -49,24 +50,6 @@ class TestLayers(base.LayersTestCase):
         self.assertFalse(ILayerTest1 in portal.REQUEST.__provides__.__iro__)
         self.assertTrue(ILayerTest2 in portal.REQUEST.__provides__.__iro__)
         self.assertEquals('layer2\n', self.portal.restrictedTraverse('@@layer_view')())
-
-        # In these tests we need to manually switch the skin back to our
-        # default, which normally happens automatically when your browser makes
-        # a new request. 
-        from collective.editskinswitcher.tests.utils import changeSkin
-        changeSkin(portal, 'Layertest 1')
-
-        # visitors on localhost still see Layertest 1
-        request = TestRequest(SERVER_URL='http://localhost')
-        portal.REQUEST = request
-        event = FakeTraversalEvent(portal, request)
-        switch_skin(portal, event)
-        self.assertEquals('Layertest 1', portal.getCurrentSkinName())
-
-        # After the switch_skin the ILayerTest1 should be active
-        self.assertTrue(ILayerTest1 in portal.REQUEST.__provides__.__iro__)
-        self.assertFalse(ILayerTest2 in portal.REQUEST.__provides__.__iro__)
-        self.assertEquals('layer1\n', self.portal.restrictedTraverse('@@layer_view')())
 
 
 def test_suite():
