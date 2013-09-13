@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layers>
+    <layer name="layertest_1"
+           interface="collective.editskinswitcher.tests.interfaces.ILayerTest1" />
+    <layer name="layertest_2"
+           interface="collective.editskinswitcher.tests.interfaces.ILayerTest2" />
+</layers>
+

@@ -1,0 +1,56 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="collective.editskinswitcher">
+
+  <include package="plone.browserlayer" />
+  <genericsetup:registerProfile
+      name="testing"
+      title="Layertest"
+      directory="tests/profiles/testing"
+      description='Layertest'
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <cmf:registerDirectory
+      name="layertest_1"
+      directory="tests/skins/layertest_1"
+      recursive="False" />
+
+  <cmf:registerDirectory
+      name="layertest_2"
+      directory="tests/skins/layertest_2"
+      recursive="False" />
+
+  <interface
+      interface=".tests.interfaces.ILayerTest1"
+      type="zope.publisher.interfaces.browser.IBrowserSkinType"
+      name="Layertest 1"
+      />
+
+  <interface
+      interface=".tests.interfaces.ILayerTest2"
+      type="zope.publisher.interfaces.browser.IBrowserSkinType"
+      name="Layertest 2"
+      />
+
+  <!-- Testing browser views and different layers -->
+  <browser:page
+      name="layer_view"
+      for="*"
+      layer=".tests.interfaces.ILayerTest1"
+      permission="zope.Public"
+      template="tests/templates/layer1.pt"
+      />
+
+  <browser:page
+      name="layer_view"
+      for="*"
+      layer=".tests.interfaces.ILayerTest2"
+      permission="zope.Public"
+      template="tests/templates/layer2.pt"
+      />
+
+</configure>

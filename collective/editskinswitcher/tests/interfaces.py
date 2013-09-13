@@ -10,7 +10,15 @@ class IMyTheme(Interface):
     """Marker interface used in the tests
     """
 
-
 class IMontyManager(IViewletManager):
     """Monty Python's Flying Viewlet Manager.
     """
+
+class ILayerTest1(Interface):
+    """A test layer interface
+    """
+
+class ILayerTest2(Interface):
+    """A test layer interface
+    """
+
