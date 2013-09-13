@@ -25,16 +25,22 @@ class TestLayers(base.LayersTestCase):
         from collective.editskinswitcher.tests.utils import FakeTraversalEvent
         from collective.editskinswitcher.traversal import switch_skin
         request = TestRequest(SERVER_URL='http://localhost')
+        portal.REQUEST = request
         event = FakeTraversalEvent(portal, request)
         switch_skin(portal, event)
         self.assertEquals('Layertest 1', portal.getCurrentSkinName())
 
+        # no change skin, so add the ILayerTest1 manually for now since
+        # Plone testing tool kits won't register layers for you
+        from zope.interface import directlyProvides
+        directlyProvides(portal.REQUEST, ILayerTest1)
         # After the switch_skin the ILayerTest1 should be active
         self.assertTrue(ILayerTest1 in portal.REQUEST.__provides__.__iro__)
         self.assertFalse(ILayerTest2 in portal.REQUEST.__provides__.__iro__)
         self.assertEquals('layer1\n', self.portal.restrictedTraverse('@@layer_view')())
 
         request = TestRequest(SERVER_URL='http://127.0.0.1')
+        portal.REQUEST = request
         event = FakeTraversalEvent(portal, request)
         switch_skin(portal, event)
         self.assertEquals('Layertest 2', portal.getCurrentSkinName())
@@ -52,6 +58,7 @@ class TestLayers(base.LayersTestCase):
 
         # visitors on localhost still see Layertest 1
         request = TestRequest(SERVER_URL='http://localhost')
+        portal.REQUEST = request
         event = FakeTraversalEvent(portal, request)
         switch_skin(portal, event)
         self.assertEquals('Layertest 1', portal.getCurrentSkinName())
