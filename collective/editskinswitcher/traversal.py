@@ -44,7 +44,8 @@ def specific_domain(request, props):
     specific_domains = props.getProperty('specific_domains', ())
     if specific_domains != ():
         thisurl = request.getURL()
-        if thisurl in specific_domains:
+        domain = '/'.join(thisurl.split('/')[:3])
+        if domain in specific_domains or thisurl in specific_domains:
             logger.debug("This url is in a specific domain.")
             return True
     logger.debug("This url is NOT in a specific domain.")
